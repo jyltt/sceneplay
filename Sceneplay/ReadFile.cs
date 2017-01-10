@@ -10,17 +10,17 @@ namespace Sceneplay
 {
     class ReadFile
     {
-        Dictionary<int, List<Dictionary<int, string>>> m_hurdle2Obj = new Dictionary<int, List<Dictionary<int, string>>>();
-        Dictionary<int, List<int>> m_hurdle2Trigger = new Dictionary<int,List<int>>();
-        Dictionary<int, List<int>> m_hurdle2play = new Dictionary<int,List<int>>();
+        public Dictionary<int, List<Dictionary<int, string>>> m_hurdle2Obj = new Dictionary<int, List<Dictionary<int, string>>>();
+        public Dictionary<int, List<int>> m_hurdle2Trigger = new Dictionary<int,List<int>>();
+        public Dictionary<int, List<int>> m_hurdle2play = new Dictionary<int,List<int>>();
 
-        Dictionary<int, List<int>> m_play2pos = new Dictionary<int, List<int>>();
-        Dictionary<int, List<int>> m_play2actor = new Dictionary<int, List<int>>();
-        Dictionary<int, List<string>> m_play2Icon = new Dictionary<int, List<string>>();
-        Dictionary<int, List<int>> m_play2audio = new Dictionary<int, List<int>>();
-        Dictionary<int, List<string>> m_play2Des = new Dictionary<int, List<string>>();
-        Dictionary<int, List<List<bool>>> m_play2switch = new Dictionary<int, List<List<bool>>>();
-        Dictionary<int, List<Dictionary<string,object>>> m_play2act = new Dictionary<int,List<Dictionary<string,object>>>();
+        public Dictionary<int, List<int>> m_play2pos = new Dictionary<int, List<int>>();
+        public Dictionary<int, List<int>> m_play2actor = new Dictionary<int, List<int>>();
+        public Dictionary<int, List<string>> m_play2Icon = new Dictionary<int, List<string>>();
+        public Dictionary<int, List<int>> m_play2audio = new Dictionary<int, List<int>>();
+        public Dictionary<int, List<string>> m_play2Des = new Dictionary<int, List<string>>();
+        public Dictionary<int, List<List<bool>>> m_play2switch = new Dictionary<int, List<List<bool>>>();
+        public Dictionary<int, List<Dictionary<string,object>>> m_play2act = new Dictionary<int,List<Dictionary<string,object>>>();
         public ReadFile()
         {
             string path = "";
@@ -92,34 +92,27 @@ namespace Sceneplay
             }
         }
 
-        private Dictionary<string,Dictionary<string,List<string>>> ReadContentFunc(int sceneplayId, string str, int index)
+        private Dictionary<string,Dictionary<string,string>> ReadContentFunc(int sceneplayId, string str, int index)
         {
-            var func = new Dictionary<string, Dictionary<string, List<string>>>();
+            var func = new Dictionary<string, Dictionary<string, string>>();
             var list = str.Split(';');
-            var funcName = list[1];
-            var paramList = new Dictionary<string, List<string>>();
+            var funcName = list[0];
+            var paramList = new Dictionary<string, string>();
             int paramIndex = 2;
-            for(var i=1;i>list.Length;i++)
+            for(var i=1;i<list.Length;i++)
             {
                 var param = list[i];
                 var match = Regex.Match(param, @"([\w]+) *= *([\w ]+)");
                 if (match.Groups.Count > 1)
                 {
                     var paramType = match.Groups[1].ToString();
-                    paramList[paramType] = new List<string>();
-                    var matches = Regex.Matches(match.Groups[2].ToString(), @" *([\w^, ]+) *,");
-                    foreach(Match m in matches)
-                    {
-                        paramList[paramType].Add(m.Value);
-                    }
+                    var paramStr = match.Groups[2].ToString();
+                    paramList[paramType] = paramStr;
                 }
                 else
                 {
-                    match = Regex.Match(param, @" *([\w^ ]+) *");
-                    if (match.Groups.Count > 1)
-                    {
-                        paramList[paramIndex.ToString()] = 
-                    }
+                    paramList[paramIndex.ToString()] = param;
+                    ++paramIndex;
                 }
             }
             func[funcName] = paramList;

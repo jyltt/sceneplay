@@ -14,56 +14,22 @@ namespace Sceneplay
     public partial class Form1 : Form
     {
         // 配置文件信息
-        Dictionary<int, List<int>> m_FileInfo = new Dictionary<int, List<int>>(); // hurdleid sceneplayid
-        Dictionary<int, List<string>> m_SceneplayInfo = new Dictionary<int, List<string>>(); // sceneplayid funcname
-        Dictionary<string, Dictionary<string, string>> m_FuncInfo = new Dictionary<string, Dictionary<string, string>>();//sceneplayid+funcname+index list<type, value>
+        //Dictionary<int, List<int>> m_FileInfo = new Dictionary<int, List<int>>(); // hurdleid sceneplayid
+        //Dictionary<int, List<string>> m_SceneplayInfo = new Dictionary<int, List<string>>(); // sceneplayid funcname
+        //Dictionary<string, Dictionary<string, string>> m_FuncInfo = new Dictionary<string, Dictionary<string, string>>();//sceneplayid+funcname+index list<type, value>
         // 相应函数信息
         Dictionary<string, List<string>> m_FuncCfg = new Dictionary<string, List<string>>();// funcname paramList
 
         // 
         TreeNode m_curNode;
+        ReadFile m_FileInfo = new ReadFile();
 
         public Form1()
         {
             InitializeComponent();
-            new ReadFile();
             ReadFuncListFile();
-            ReadCfgFile();
             CreateTree();
-        }
-
-        private void ReadCfgFile()
-        {
-            var list = new List<int>();
-            list.Add(1);
-            list.Add(2);
-            list.Add(3);
-            m_FileInfo.Add(1000, list);
-            var list2 = new List<string>();
-            list2.Add("play");
-            list2.Add("play");
-            var list3 = new List<string>();
-            list3.Add("play");
-            list3.Add("play");
-            m_SceneplayInfo.Add(1, list2);
-            m_SceneplayInfo.Add(2, list3);
-
-            var dic = new Dictionary<string, string>();
-            dic.Add("param1", "0");
-            dic.Add("param2", "1");
-            m_FuncInfo.Add("1play1", dic);
-            var dic1 = new Dictionary<string, string>();
-            dic1.Add("param1", "2");
-            dic1.Add("param2", "3");
-            m_FuncInfo.Add("1play2", dic1);
-            var dic2 = new Dictionary<string, string>();
-            dic2.Add("param1", "4");
-            dic2.Add("param2", "5");
-            m_FuncInfo.Add("2play1", dic2);
-            var dic3 = new Dictionary<string, string>();
-            dic3.Add("param1", "6");
-            dic3.Add("param2", "7");
-            m_FuncInfo.Add("2play2", dic3);
+            CreateFuncList();
         }
 
         private void ReadFuncListFile()
@@ -71,26 +37,20 @@ namespace Sceneplay
             var list = new List<string>();
             list.Add("param1");
             list.Add("param2");
-            m_FuncCfg.Add("play",list);
+            m_FuncCfg.Add("play", list);
             var list1 = new List<string>();
             list1.Add("p1");
             list1.Add("p2");
-            m_FuncCfg.Add("play2",list1);
+            m_FuncCfg.Add("play2", list1);
         }
 
         private void CreateFuncList()
         {
-            ClearFuncList();
+            funcList.Items.Add("chat");
             foreach(var dic in m_FuncCfg)
             {
                 funcList.Items.Add(dic.Key.ToString());
             }
-        }
-
-        private void ClearFuncList()
-        {
-            funcList.Items.Clear();
-            ClearParamTypeList();
         }
 
         private void ClearParamTypeList()
@@ -100,21 +60,28 @@ namespace Sceneplay
 
         private void CreateTree()
         {
-            foreach(var dic in m_FileInfo)
+            foreach (var dic in m_FileInfo.m_hurdle2play)
             {
                 TreeNode nodeHurdle = new TreeNode(dic.Key.ToString());
                 foreach(var sceneplay_id in dic.Value)
                 {
                     TreeNode nodeSceneplay = new TreeNode(sceneplay_id.ToString());
-                    if (m_SceneplayInfo.ContainsKey(sceneplay_id))
+                    if (m_FileInfo.m_play2act.ContainsKey(sceneplay_id))
                     {
-                        foreach (var func in m_SceneplayInfo[sceneplay_id])
+                        foreach (var func in m_FileInfo.m_play2act[sceneplay_id])
                         {
-                            TreeNode nodeFuncName = new TreeNode(func);
-                            nodeSceneplay.Nodes.Add(nodeFuncName);
+                            if (func.ContainsKey("func"))
+                            {
+                                var obj = (Dictionary<string,Dictionary<string,string>>)func["func"];
+                                foreach (var info in obj)
+                                {
+                                    TreeNode nodeFuncName = new TreeNode(info.Key.ToString());
+                                    nodeSceneplay.Nodes.Add(nodeFuncName);
+                                }
+                            }
                         }
                     }
-                    nodeSceneplay.Nodes.Add(new TreeNode("+"));
+                    //nodeSceneplay.Nodes.Add(new TreeNode("+"));
                     nodeHurdle.Nodes.Add(nodeSceneplay);
                 }
                 //nodeHurdle.Nodes.Add(new TreeNode("+"));
@@ -143,7 +110,7 @@ namespace Sceneplay
 
         private void SetParam(string funcName, string p)
         {
-            param.Text = m_FuncInfo[funcName][p];
+            //param.Text = m_FileInfo.[funcName][p];
         }
 
         private void SelectFunc(int hurdleId, int sceneplayId, string funcName, int index)
@@ -153,7 +120,7 @@ namespace Sceneplay
             CreateParamTypeList(sceneplayId, funcName, index);
         }
 
-        ///////////////////////////////////////////////////////////////
+        //////////////////////////回调函数/////////////////////////////////////
         private void btnSave_Click(object sender, EventArgs e)
         {
         }
@@ -167,10 +134,9 @@ namespace Sceneplay
             string[] nodeParent = fullPath.Split('.');
             if (nodeParent.Length == 3)
             {
-                paramType.Visible = true;
-                param.Visible = true;
-                funcList.Visible = true;
-                CreateFuncList();
+                panel1.Visible = true;
+                panel2.Visible = false;
+                panel3.Visible = false;
                 int hurdleId = System.Int32.Parse(nodeParent[0]);
                 int sceneplayId = System.Int32.Parse(nodeParent[1]);
                 string funcName = nodeParent[2];
@@ -178,17 +144,15 @@ namespace Sceneplay
             }
             else if(nodeParent.Length == 2)
             {
-                paramType.Visible = false;
-                param.Visible = false;
-                funcList.Visible = false;
-                ClearFuncList();
+                panel1.Visible = false;
+                panel2.Visible = true;
+                panel3.Visible = true;
             }
             else if(nodeParent.Length == 1)
             {
-                paramType.Visible = false;
-                param.Visible = false;
-                funcList.Visible = false;
-                ClearFuncList();
+                panel1.Visible = false;
+                panel2.Visible = false;
+                panel3.Visible = true;
             }
         }
 
