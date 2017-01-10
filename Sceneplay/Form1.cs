@@ -26,6 +26,7 @@ namespace Sceneplay
         public Form1()
         {
             InitializeComponent();
+            new ReadFile();
             ReadFuncListFile();
             ReadCfgFile();
             CreateTree();
@@ -166,14 +167,27 @@ namespace Sceneplay
             string[] nodeParent = fullPath.Split('.');
             if (nodeParent.Length == 3)
             {
+                paramType.Visible = true;
+                param.Visible = true;
+                funcList.Visible = true;
                 CreateFuncList();
                 int hurdleId = System.Int32.Parse(nodeParent[0]);
                 int sceneplayId = System.Int32.Parse(nodeParent[1]);
                 string funcName = nodeParent[2];
                 SelectFunc(hurdleId, sceneplayId, funcName, index);
             }
-            else
+            else if(nodeParent.Length == 2)
             {
+                paramType.Visible = false;
+                param.Visible = false;
+                funcList.Visible = false;
+                ClearFuncList();
+            }
+            else if(nodeParent.Length == 1)
+            {
+                paramType.Visible = false;
+                param.Visible = false;
+                funcList.Visible = false;
                 ClearFuncList();
             }
         }
