@@ -21,11 +21,56 @@ namespace Sceneplay
         public Dictionary<int, List<string>> m_play2Des = new Dictionary<int, List<string>>();
         public Dictionary<int, List<List<bool>>> m_play2switch = new Dictionary<int, List<List<bool>>>();
         public Dictionary<int, List<Dictionary<string,object>>> m_play2act = new Dictionary<int,List<Dictionary<string,object>>>();
+
+        public Dictionary<string, Dictionary<string, string>> m_func2param = new Dictionary<string, Dictionary<string, string>>();
+        public Dictionary<string, string> m_func2des = new Dictionary<string, string>();
         public ReadFile()
         {
             string path = "";
             ReadConfigFile(path + "screenplay_config.txt");
             ReadContentFile(path + "screenplay_content.txt");
+            ReadFuncCfgFile(path + "func_info.txt");
+        }
+
+        private void ReadFuncCfgFile(string path)
+        {
+            StreamReader sr = new StreamReader(path, Encoding.Default);
+            String line;
+            string funcName="";
+            while ((line = sr.ReadLine()) != null)
+            {
+                do
+                {
+                    var func = Regex.Match(line, @"function (?:TriggerFunc\.)*([\w^( ]+)");
+                    if (func.Groups.Count > 1)
+                    {
+                        funcName = func.Groups[1].ToString();
+                        m_func2param[funcName] = new Dictionary<string, string>();
+                        m_func2des[funcName] = "";
+                        break;
+                    }
+                    var param = Regex.Match(line, @"([a-zA-Z0-9_]+) +([\w ]+)");
+                    if (param.Groups.Count > 1)
+                    {
+                        var paramType = param.Groups[1].ToString();
+                        var paramDes = param.Groups[2].ToString();
+                        if (m_func2param.ContainsKey(funcName))
+                            m_func2param[funcName][paramType] = paramDes;
+                        break;
+                    }
+                    var des = Regex.Match(line, @"^(.+)$");
+                    if (des.Groups.Count > 1)
+                    {
+                        if (m_func2des.ContainsKey(funcName))
+                        {
+                            m_func2des[funcName] += des.Groups[1].ToString();
+                            m_func2des[funcName] += "\n";
+                        }
+                        break;
+                    }
+                }
+                while (false) ;
+            }
         }
 
         private void ReadContentFile(string path)
@@ -92,9 +137,8 @@ namespace Sceneplay
             }
         }
 
-        private Dictionary<string,Dictionary<string,string>> ReadContentFunc(int sceneplayId, string str, int index)
+        private KeyValuePair<string,Dictionary<string,string>> ReadContentFunc(int sceneplayId, string str, int index)
         {
-            var func = new Dictionary<string, Dictionary<string, string>>();
             var list = str.Split(';');
             var funcName = list[0];
             var paramList = new Dictionary<string, string>();
@@ -115,8 +159,7 @@ namespace Sceneplay
                     ++paramIndex;
                 }
             }
-            func[funcName] = paramList;
-            return func;
+            return new KeyValuePair<string, Dictionary<string, string>>(funcName,paramList);
         }
 
         private void ReadConfigFile(string path)

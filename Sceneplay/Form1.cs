@@ -13,41 +13,23 @@ namespace Sceneplay
 {
     public partial class Form1 : Form
     {
-        // 配置文件信息
-        //Dictionary<int, List<int>> m_FileInfo = new Dictionary<int, List<int>>(); // hurdleid sceneplayid
-        //Dictionary<int, List<string>> m_SceneplayInfo = new Dictionary<int, List<string>>(); // sceneplayid funcname
-        //Dictionary<string, Dictionary<string, string>> m_FuncInfo = new Dictionary<string, Dictionary<string, string>>();//sceneplayid+funcname+index list<type, value>
-        // 相应函数信息
-        Dictionary<string, List<string>> m_FuncCfg = new Dictionary<string, List<string>>();// funcname paramList
-
-        // 
         TreeNode m_curNode;
         ReadFile m_FileInfo = new ReadFile();
+        int m_curHurdleId = -1;
+        int m_curSceneplayId = -1;
+        string m_curFuncName = "";
 
         public Form1()
         {
             InitializeComponent();
-            ReadFuncListFile();
             CreateTree();
             CreateFuncList();
-        }
-
-        private void ReadFuncListFile()
-        {
-            var list = new List<string>();
-            list.Add("param1");
-            list.Add("param2");
-            m_FuncCfg.Add("play", list);
-            var list1 = new List<string>();
-            list1.Add("p1");
-            list1.Add("p2");
-            m_FuncCfg.Add("play2", list1);
         }
 
         private void CreateFuncList()
         {
             funcList.Items.Add("chat");
-            foreach(var dic in m_FuncCfg)
+            foreach(var dic in m_FileInfo.m_func2param)
             {
                 funcList.Items.Add(dic.Key.ToString());
             }
@@ -72,12 +54,9 @@ namespace Sceneplay
                         {
                             if (func.ContainsKey("func"))
                             {
-                                var obj = (Dictionary<string,Dictionary<string,string>>)func["func"];
-                                foreach (var info in obj)
-                                {
-                                    TreeNode nodeFuncName = new TreeNode(info.Key.ToString());
-                                    nodeSceneplay.Nodes.Add(nodeFuncName);
-                                }
+                                var obj = (KeyValuePair<string,Dictionary<string,string>>)func["func"];
+                                TreeNode nodeFuncName = new TreeNode(obj.Key.ToString());
+                                nodeSceneplay.Nodes.Add(nodeFuncName);
                             }
                         }
                     }
@@ -90,16 +69,17 @@ namespace Sceneplay
             //SceneTree.Nodes.Add(new TreeNode("+"));
         }
 
-        private void CreateParamTypeList(int sceneplayId, string funcName, int index)
+        private void CreateParamTypeList(int hurdleId, int sceneplayId, string funcName, int index)
         {
             ClearParamTypeList();
-            if (!m_FuncCfg.ContainsKey(funcName))
+            if (!m_FileInfo.m_func2param.ContainsKey(funcName))
                 return;
-            foreach (var type in m_FuncCfg[funcName])
+            foreach (var type in m_FileInfo.m_func2param[funcName])
             {
                 ComboBoxItem item = new ComboBoxItem();
-                item.Text = type;
+                item.Text = type.Key.ToString();
                 var value = new List<string>();
+                value.Add(hurdleId.ToString());
                 value.Add(sceneplayId.ToString());
                 value.Add(funcName);
                 value.Add((index+1).ToString());
@@ -117,7 +97,7 @@ namespace Sceneplay
         {
             int id = funcList.Items.IndexOf(funcName);
             funcList.SelectedIndex = id;
-            CreateParamTypeList(sceneplayId, funcName, index);
+            CreateParamTypeList(hurdleId, sceneplayId, funcName, index);
         }
 
         //////////////////////////回调函数/////////////////////////////////////
@@ -128,7 +108,6 @@ namespace Sceneplay
         private void SceneTreeClickItem(object sender, TreeViewEventArgs e)
         {
             m_curNode = e.Node;
-            var index = e.Node.Index;
             string nodeName = e.Node.Text;
             string fullPath = e.Node.FullPath;
             string[] nodeParent = fullPath.Split('.');
@@ -137,19 +116,25 @@ namespace Sceneplay
                 panel1.Visible = true;
                 panel2.Visible = false;
                 panel3.Visible = false;
-                int hurdleId = System.Int32.Parse(nodeParent[0]);
-                int sceneplayId = System.Int32.Parse(nodeParent[1]);
-                string funcName = nodeParent[2];
-                SelectFunc(hurdleId, sceneplayId, funcName, index);
+                m_curHurdleId = System.Int32.Parse(nodeParent[0]);
+                m_curSceneplayId = System.Int32.Parse(nodeParent[1]);
+                m_curFuncName = nodeParent[2];
+                SelectFunc(m_curHurdleId, m_curSceneplayId, m_curFuncName, m_curNode.Index);
             }
             else if(nodeParent.Length == 2)
             {
+                m_curHurdleId = System.Int32.Parse(nodeParent[0]);
+                m_curSceneplayId = System.Int32.Parse(nodeParent[1]);
+                m_curFuncName = "";
                 panel1.Visible = false;
                 panel2.Visible = true;
                 panel3.Visible = true;
             }
             else if(nodeParent.Length == 1)
             {
+                m_curHurdleId = System.Int32.Parse(nodeParent[0]);
+                m_curSceneplayId = -1;
+                m_curFuncName = "";
                 panel1.Visible = false;
                 panel2.Visible = false;
                 panel3.Visible = true;
@@ -169,6 +154,12 @@ namespace Sceneplay
             var funcName = funcInfo[1];
             var funcIndex = funcInfo[2];
             SetParam(sceneplayId+funcName + funcIndex, item.Text);
+        }
+
+        private void funcList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string nodeName = funcList.SelectedItem.ToString();
+            CreateParamTypeList(m_curHurdleId, m_curSceneplayId, nodeName, m_curNode.Index);
         }
     }
 }

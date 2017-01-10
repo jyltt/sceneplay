@@ -1,0 +1,11 @@
+﻿function TriggerFunc.BeginAnim
+开场动画
+lookat 是否看向角色
+2 时间
+3 缓动类型
+
+function BossShow
+boss boss的id
+anim_id 动作id
+
+function TriggerFunc.PlayBossShowUI

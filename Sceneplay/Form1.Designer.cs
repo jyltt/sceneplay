@@ -57,9 +57,9 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -177,6 +177,7 @@
             this.funcList.Name = "funcList";
             this.funcList.Size = new System.Drawing.Size(121, 20);
             this.funcList.TabIndex = 1;
+            this.funcList.SelectedIndexChanged += new System.EventHandler(this.funcList_SelectedIndexChanged);
             // 
             // param
             // 
@@ -371,13 +372,6 @@
             this.panel2.Size = new System.Drawing.Size(134, 190);
             this.panel2.TabIndex = 7;
             // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(5, 21);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(119, 21);
-            this.textBox4.TabIndex = 23;
-            // 
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(5, 164);
@@ -394,6 +388,13 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(120, 124);
             this.listBox1.TabIndex = 6;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(5, 21);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(119, 21);
+            this.textBox4.TabIndex = 23;
             // 
             // button1
             // 
