@@ -10,7 +10,7 @@ namespace Sceneplay
 {
     class ReadFile
     {
-        public Dictionary<int, List<Dictionary<int, string>>> m_hurdle2Obj = new Dictionary<int, List<Dictionary<int, string>>>();
+        public Dictionary<int, List<List<string>>> m_hurdle2Obj = new Dictionary<int, List<List<string>>>();
         public Dictionary<int, List<int>> m_hurdle2Trigger = new Dictionary<int,List<int>>();
         public Dictionary<int, List<int>> m_hurdle2play = new Dictionary<int,List<int>>();
 
@@ -20,7 +20,7 @@ namespace Sceneplay
         public Dictionary<int, List<int>> m_play2audio = new Dictionary<int, List<int>>();
         public Dictionary<int, List<string>> m_play2Des = new Dictionary<int, List<string>>();
         public Dictionary<int, List<List<bool>>> m_play2switch = new Dictionary<int, List<List<bool>>>();
-        public Dictionary<int, List<Dictionary<string,object>>> m_play2act = new Dictionary<int,List<Dictionary<string,object>>>();
+        public Dictionary<int, List<KeyValuePair<string,object>>> m_play2act = new Dictionary<int,List<KeyValuePair<string,object>>>();
 
         public Dictionary<string, Dictionary<string, string>> m_func2param = new Dictionary<string, Dictionary<string, string>>();
         public Dictionary<string, string> m_func2des = new Dictionary<string, string>();
@@ -71,6 +71,10 @@ namespace Sceneplay
                 }
                 while (false) ;
             }
+            sr.Close();
+            m_func2param["chat"] = new Dictionary<string, string>();
+            m_func2param["chat"]["gs_screenplay"] = "对话内容";
+            m_func2des["chat"] = "对话内容";
         }
 
         private void ReadContentFile(string path)
@@ -98,8 +102,7 @@ namespace Sceneplay
                 }
 
                 if (!m_play2act.ContainsKey(id))
-                    m_play2act[id] = new List<Dictionary<string, object>>();
-                var act = new Dictionary<string, object>();
+                    m_play2act[id] = new List<KeyValuePair<string, object>>();
                 var type = str[3];
                 object obj = null;
                 if (type == "func")
@@ -110,7 +113,7 @@ namespace Sceneplay
                 {
                     obj = str[4];
                 }
-                act[type] = obj;
+                var act = new KeyValuePair<string, object>(type, obj);
                 m_play2act[id].Add(act);
 
                 if (!m_play2Icon.ContainsKey(id))
@@ -135,6 +138,7 @@ namespace Sceneplay
                     m_play2Des[id] = new List<string>();
                 m_play2Des[id].Add(str[12]);
             }
+            sr.Close();
         }
 
         private KeyValuePair<string,Dictionary<string,string>> ReadContentFunc(int sceneplayId, string str, int index)
@@ -174,7 +178,7 @@ namespace Sceneplay
                 string[] str = line.Split('\t');
                 var id = System.Int32.Parse(str[0]);
                 if (!m_hurdle2Obj.ContainsKey(id))
-                    m_hurdle2Obj[id] = new List<Dictionary<int,string>>();
+                    m_hurdle2Obj[id] = new List<List<string>>();
                 m_hurdle2Obj[id].Add(ReadSceneObj(str[1]));
                 if (!m_hurdle2Trigger.ContainsKey(id))
                     m_hurdle2Trigger[id] = new List<int>();
@@ -183,11 +187,12 @@ namespace Sceneplay
                     m_hurdle2play[id] = new List<int>();
                 m_hurdle2play[id].Add(System.Int32.Parse(str[3]));
             }
+            sr.Close();
         }
 
-        public Dictionary<int, string> ReadSceneObj(string str)
+        public List<string> ReadSceneObj(string str)
         {
-            var list = new Dictionary<int,string>();
+            var list = new List<string>();
             string[] p = str.Split(';');
             foreach(var s in p)
             {
@@ -196,7 +201,7 @@ namespace Sceneplay
                 {
                     var id = System.Int32.Parse(match.Groups[1].ToString());
                     var name = match.Groups[2].ToString();
-                    list.Add(id, name);
+                    list.Add(name);
                 }
 
             }

@@ -44,25 +44,24 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelet = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.pos3 = new System.Windows.Forms.RadioButton();
+            this.pos2 = new System.Windows.Forms.RadioButton();
+            this.pos1 = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.headIconPath = new System.Windows.Forms.TextBox();
+            this.audioId = new System.Windows.Forms.TextBox();
+            this.actor = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.labTriggerID = new System.Windows.Forms.TextBox();
+            this.actorList = new System.Windows.Forms.ListBox();
+            this.labNodeName = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.remarks = new System.Windows.Forms.RichTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.switchList = new System.Windows.Forms.CheckedListBox();
+            this.btnActorAdd = new System.Windows.Forms.Button();
+            this.labActorAdd = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
@@ -165,7 +164,7 @@
             this.SceneTree.Location = new System.Drawing.Point(0, 0);
             this.SceneTree.Name = "SceneTree";
             this.SceneTree.PathSeparator = ".";
-            this.SceneTree.Size = new System.Drawing.Size(146, 457);
+            this.SceneTree.Size = new System.Drawing.Size(146, 417);
             this.SceneTree.TabIndex = 0;
             this.SceneTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SceneTreeClickItem);
             // 
@@ -201,7 +200,7 @@
             // btnSave
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnSave.Location = new System.Drawing.Point(352, 456);
+            this.btnSave.Location = new System.Drawing.Point(12, 423);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(54, 23);
             this.btnSave.TabIndex = 5;
@@ -212,9 +211,9 @@
             // btnDelet
             // 
             this.btnDelet.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnDelet.Location = new System.Drawing.Point(98, 463);
+            this.btnDelet.Location = new System.Drawing.Point(102, 423);
             this.btnDelet.Name = "btnDelet";
-            this.btnDelet.Size = new System.Drawing.Size(23, 23);
+            this.btnDelet.Size = new System.Drawing.Size(19, 23);
             this.btnDelet.TabIndex = 5;
             this.btnDelet.Text = "-";
             this.btnDelet.UseVisualStyleBackColor = true;
@@ -222,9 +221,10 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.radioButton3);
-            this.panel1.Controls.Add(this.radioButton2);
-            this.panel1.Controls.Add(this.radioButton1);
+            this.panel1.Controls.Add(this.switchList);
+            this.panel1.Controls.Add(this.pos3);
+            this.panel1.Controls.Add(this.pos2);
+            this.panel1.Controls.Add(this.pos1);
             this.panel1.Controls.Add(label7);
             this.panel1.Controls.Add(label6);
             this.panel1.Controls.Add(label5);
@@ -232,53 +232,49 @@
             this.panel1.Controls.Add(label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(label1);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.comboBox2);
-            this.panel1.Controls.Add(this.checkBox4);
+            this.panel1.Controls.Add(this.headIconPath);
+            this.panel1.Controls.Add(this.audioId);
+            this.panel1.Controls.Add(this.actor);
             this.panel1.Controls.Add(this.funcList);
-            this.panel1.Controls.Add(this.checkBox3);
-            this.panel1.Controls.Add(this.checkBox2);
             this.panel1.Controls.Add(this.paramType);
-            this.panel1.Controls.Add(this.checkBox1);
             this.panel1.Controls.Add(this.param);
             this.panel1.Location = new System.Drawing.Point(152, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(254, 433);
             this.panel1.TabIndex = 6;
             // 
-            // radioButton3
+            // pos3
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(131, 68);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(47, 16);
-            this.radioButton3.TabIndex = 18;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "右边";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.pos3.AutoSize = true;
+            this.pos3.Location = new System.Drawing.Point(131, 68);
+            this.pos3.Name = "pos3";
+            this.pos3.Size = new System.Drawing.Size(47, 16);
+            this.pos3.TabIndex = 18;
+            this.pos3.TabStop = true;
+            this.pos3.Text = "右边";
+            this.pos3.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // pos2
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(131, 46);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(47, 16);
-            this.radioButton2.TabIndex = 17;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "左边";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.pos2.AutoSize = true;
+            this.pos2.Location = new System.Drawing.Point(131, 46);
+            this.pos2.Name = "pos2";
+            this.pos2.Size = new System.Drawing.Size(47, 16);
+            this.pos2.TabIndex = 17;
+            this.pos2.TabStop = true;
+            this.pos2.Text = "左边";
+            this.pos2.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // pos1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(131, 24);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 16);
-            this.radioButton1.TabIndex = 16;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "中间";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.pos1.AutoSize = true;
+            this.pos1.Location = new System.Drawing.Point(131, 24);
+            this.pos1.Name = "pos1";
+            this.pos1.Size = new System.Drawing.Size(47, 16);
+            this.pos1.TabIndex = 16;
+            this.pos1.TabStop = true;
+            this.pos1.Text = "中间";
+            this.pos1.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -298,139 +294,132 @@
             this.label2.TabIndex = 10;
             this.label2.Text = "语音id";
             // 
-            // textBox2
+            // headIconPath
             // 
-            this.textBox2.Location = new System.Drawing.Point(3, 408);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(247, 21);
-            this.textBox2.TabIndex = 8;
+            this.headIconPath.Location = new System.Drawing.Point(3, 408);
+            this.headIconPath.Name = "headIconPath";
+            this.headIconPath.Size = new System.Drawing.Size(247, 21);
+            this.headIconPath.TabIndex = 8;
             // 
-            // textBox1
+            // audioId
             // 
-            this.textBox1.Location = new System.Drawing.Point(5, 63);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(119, 21);
-            this.textBox1.TabIndex = 7;
+            this.audioId.Location = new System.Drawing.Point(5, 63);
+            this.audioId.Name = "audioId";
+            this.audioId.Size = new System.Drawing.Size(119, 21);
+            this.audioId.TabIndex = 7;
             // 
-            // comboBox2
+            // actor
             // 
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(5, 20);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 20);
-            this.comboBox2.TabIndex = 6;
-            // 
-            // checkBox4
-            // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(5, 370);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(96, 16);
-            this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "是否开启暂停";
-            this.checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // checkBox3
-            // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(5, 348);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(96, 16);
-            this.checkBox3.TabIndex = 2;
-            this.checkBox3.Text = "是否开启黑幕";
-            this.checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // checkBox2
-            // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(5, 326);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(96, 16);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "是否显示跳过";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(5, 304);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(96, 16);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "是否自动播放";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.actor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.actor.FormattingEnabled = true;
+            this.actor.Location = new System.Drawing.Point(5, 20);
+            this.actor.Name = "actor";
+            this.actor.Size = new System.Drawing.Size(121, 20);
+            this.actor.TabIndex = 6;
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.textBox3);
+            this.panel2.Controls.Add(this.labActorAdd);
+            this.panel2.Controls.Add(this.btnActorAdd);
+            this.panel2.Controls.Add(this.labTriggerID);
             this.panel2.Controls.Add(label9);
             this.panel2.Controls.Add(label8);
-            this.panel2.Controls.Add(this.listBox1);
+            this.panel2.Controls.Add(this.actorList);
             this.panel2.Location = new System.Drawing.Point(412, 69);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(134, 190);
             this.panel2.TabIndex = 7;
             // 
-            // textBox3
+            // labTriggerID
             // 
-            this.textBox3.Location = new System.Drawing.Point(5, 164);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(119, 21);
-            this.textBox3.TabIndex = 21;
+            this.labTriggerID.Location = new System.Drawing.Point(5, 164);
+            this.labTriggerID.Name = "labTriggerID";
+            this.labTriggerID.Size = new System.Drawing.Size(119, 21);
+            this.labTriggerID.TabIndex = 21;
             // 
-            // listBox1
+            // actorList
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(5, 20);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 124);
-            this.listBox1.TabIndex = 6;
+            this.actorList.FormattingEnabled = true;
+            this.actorList.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.actorList.ItemHeight = 12;
+            this.actorList.Location = new System.Drawing.Point(5, 20);
+            this.actorList.Name = "actorList";
+            this.actorList.Size = new System.Drawing.Size(120, 100);
+            this.actorList.TabIndex = 6;
             // 
-            // textBox4
+            // labNodeName
             // 
-            this.textBox4.Location = new System.Drawing.Point(5, 21);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(119, 21);
-            this.textBox4.TabIndex = 23;
+            this.labNodeName.Location = new System.Drawing.Point(5, 21);
+            this.labNodeName.Name = "labNodeName";
+            this.labNodeName.Size = new System.Drawing.Size(119, 21);
+            this.labNodeName.TabIndex = 23;
             // 
             // button1
             // 
             this.button1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button1.Location = new System.Drawing.Point(127, 463);
+            this.button1.Location = new System.Drawing.Point(127, 422);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(19, 23);
             this.button1.TabIndex = 8;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // richTextBox1
+            // remarks
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(412, 277);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(134, 168);
-            this.richTextBox1.TabIndex = 23;
-            this.richTextBox1.Text = "";
-            this.richTextBox1.WordWrap = false;
+            this.remarks.Location = new System.Drawing.Point(412, 277);
+            this.remarks.Name = "remarks";
+            this.remarks.Size = new System.Drawing.Size(134, 168);
+            this.remarks.TabIndex = 23;
+            this.remarks.Text = "";
+            this.remarks.WordWrap = false;
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.textBox4);
+            this.panel3.Controls.Add(this.labNodeName);
             this.panel3.Controls.Add(label11);
             this.panel3.Location = new System.Drawing.Point(412, 12);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(134, 51);
             this.panel3.TabIndex = 24;
             // 
+            // switchList
+            // 
+            this.switchList.FormattingEnabled = true;
+            this.switchList.Items.AddRange(new object[] {
+            "是否自动播放",
+            "是否显示跳过",
+            "是否开启黑幕",
+            "是否开启暂停",
+            "是否mmo剧情"});
+            this.switchList.Location = new System.Drawing.Point(5, 282);
+            this.switchList.Name = "switchList";
+            this.switchList.Size = new System.Drawing.Size(120, 84);
+            this.switchList.TabIndex = 20;
+            // 
+            // btnActorAdd
+            // 
+            this.btnActorAdd.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnActorAdd.Location = new System.Drawing.Point(105, 123);
+            this.btnActorAdd.Name = "btnActorAdd";
+            this.btnActorAdd.Size = new System.Drawing.Size(19, 23);
+            this.btnActorAdd.TabIndex = 22;
+            this.btnActorAdd.Text = "+";
+            this.btnActorAdd.UseVisualStyleBackColor = true;
+            // 
+            // labActorAdd
+            // 
+            this.labActorAdd.Location = new System.Drawing.Point(6, 124);
+            this.labActorAdd.Name = "labActorAdd";
+            this.labActorAdd.Size = new System.Drawing.Size(93, 21);
+            this.labActorAdd.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 491);
+            this.ClientSize = new System.Drawing.Size(553, 452);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.remarks);
             this.Controls.Add(label10);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.panel2);
@@ -438,6 +427,7 @@
             this.Controls.Add(this.btnDelet);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.SceneTree);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
@@ -460,25 +450,24 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDelet;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton pos3;
+        private System.Windows.Forms.RadioButton pos2;
+        private System.Windows.Forms.RadioButton pos1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.TextBox headIconPath;
+        private System.Windows.Forms.TextBox audioId;
+        private System.Windows.Forms.ComboBox actor;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox actorList;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox labTriggerID;
+        private System.Windows.Forms.RichTextBox remarks;
+        private System.Windows.Forms.TextBox labNodeName;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.CheckedListBox switchList;
+        private System.Windows.Forms.TextBox labActorAdd;
+        private System.Windows.Forms.Button btnActorAdd;
     }
 }
 
