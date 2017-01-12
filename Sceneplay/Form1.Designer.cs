@@ -44,6 +44,7 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDelet = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.switchList = new System.Windows.Forms.CheckedListBox();
             this.pos3 = new System.Windows.Forms.RadioButton();
             this.pos2 = new System.Windows.Forms.RadioButton();
             this.pos1 = new System.Windows.Forms.RadioButton();
@@ -53,15 +54,14 @@
             this.audioId = new System.Windows.Forms.TextBox();
             this.actor = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.labActorAdd = new System.Windows.Forms.TextBox();
+            this.btnActorAdd = new System.Windows.Forms.Button();
             this.labTriggerID = new System.Windows.Forms.TextBox();
             this.actorList = new System.Windows.Forms.ListBox();
             this.labNodeName = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.remarks = new System.Windows.Forms.RichTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.switchList = new System.Windows.Forms.CheckedListBox();
-            this.btnActorAdd = new System.Windows.Forms.Button();
-            this.labActorAdd = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
@@ -206,7 +206,7 @@
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "保存";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnDelet_Click);
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDelet
             // 
@@ -217,7 +217,7 @@
             this.btnDelet.TabIndex = 5;
             this.btnDelet.Text = "-";
             this.btnDelet.UseVisualStyleBackColor = true;
-            this.btnDelet.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnDelet.Click += new System.EventHandler(this.btnDelet_Click);
             // 
             // panel1
             // 
@@ -242,6 +242,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(254, 433);
             this.panel1.TabIndex = 6;
+            // 
+            // switchList
+            // 
+            this.switchList.FormattingEnabled = true;
+            this.switchList.Items.AddRange(new object[] {
+            "是否自动播放",
+            "是否显示跳过",
+            "是否开启黑幕",
+            "是否开启暂停",
+            "是否mmo剧情"});
+            this.switchList.Location = new System.Drawing.Point(5, 282);
+            this.switchList.Name = "switchList";
+            this.switchList.Size = new System.Drawing.Size(120, 84);
+            this.switchList.TabIndex = 20;
             // 
             // pos3
             // 
@@ -330,6 +344,23 @@
             this.panel2.Size = new System.Drawing.Size(134, 190);
             this.panel2.TabIndex = 7;
             // 
+            // labActorAdd
+            // 
+            this.labActorAdd.Location = new System.Drawing.Point(6, 124);
+            this.labActorAdd.Name = "labActorAdd";
+            this.labActorAdd.Size = new System.Drawing.Size(93, 21);
+            this.labActorAdd.TabIndex = 23;
+            // 
+            // btnActorAdd
+            // 
+            this.btnActorAdd.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnActorAdd.Location = new System.Drawing.Point(105, 123);
+            this.btnActorAdd.Name = "btnActorAdd";
+            this.btnActorAdd.Size = new System.Drawing.Size(19, 23);
+            this.btnActorAdd.TabIndex = 22;
+            this.btnActorAdd.Text = "+";
+            this.btnActorAdd.UseVisualStyleBackColor = true;
+            // 
             // labTriggerID
             // 
             this.labTriggerID.Location = new System.Drawing.Point(5, 164);
@@ -353,6 +384,7 @@
             this.labNodeName.Name = "labNodeName";
             this.labNodeName.Size = new System.Drawing.Size(119, 21);
             this.labNodeName.TabIndex = 23;
+            this.labNodeName.Leave += new System.EventHandler(this.labNodeName_Leave);
             // 
             // button1
             // 
@@ -381,37 +413,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(134, 51);
             this.panel3.TabIndex = 24;
-            // 
-            // switchList
-            // 
-            this.switchList.FormattingEnabled = true;
-            this.switchList.Items.AddRange(new object[] {
-            "是否自动播放",
-            "是否显示跳过",
-            "是否开启黑幕",
-            "是否开启暂停",
-            "是否mmo剧情"});
-            this.switchList.Location = new System.Drawing.Point(5, 282);
-            this.switchList.Name = "switchList";
-            this.switchList.Size = new System.Drawing.Size(120, 84);
-            this.switchList.TabIndex = 20;
-            // 
-            // btnActorAdd
-            // 
-            this.btnActorAdd.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnActorAdd.Location = new System.Drawing.Point(105, 123);
-            this.btnActorAdd.Name = "btnActorAdd";
-            this.btnActorAdd.Size = new System.Drawing.Size(19, 23);
-            this.btnActorAdd.TabIndex = 22;
-            this.btnActorAdd.Text = "+";
-            this.btnActorAdd.UseVisualStyleBackColor = true;
-            // 
-            // labActorAdd
-            // 
-            this.labActorAdd.Location = new System.Drawing.Point(6, 124);
-            this.labActorAdd.Name = "labActorAdd";
-            this.labActorAdd.Size = new System.Drawing.Size(93, 21);
-            this.labActorAdd.TabIndex = 23;
             // 
             // Form1
             // 
