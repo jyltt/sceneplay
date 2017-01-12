@@ -240,6 +240,8 @@ namespace Sceneplay
         //////////////////////////回调函数/////////////////////////////////////
         private void btnSave_Click(object sender, EventArgs e)
         {
+            m_FileInfo.WriteConfigFile(m_FileInfo.GetPath() + "a.txt");
+            m_FileInfo.WriteContentFile(m_FileInfo.GetPath() + "b.txt");
         }
 
         private void SceneTreeClickItem(object sender, TreeViewEventArgs e)

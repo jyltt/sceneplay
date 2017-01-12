@@ -13,6 +13,7 @@ namespace Sceneplay
         public Dictionary<int, List<List<string>>> m_hurdle2Obj = new Dictionary<int, List<List<string>>>();
         public Dictionary<int, List<int>> m_hurdle2Trigger = new Dictionary<int,List<int>>();
         public Dictionary<int, List<int>> m_hurdle2play = new Dictionary<int,List<int>>();
+        public Dictionary<int, List<string>> m_hurdle2des = new Dictionary<int, List<string>>();
 
         public Dictionary<int, List<int>> m_play2pos = new Dictionary<int, List<int>>();
         public Dictionary<int, List<int>> m_play2actor = new Dictionary<int, List<int>>();
@@ -27,13 +28,14 @@ namespace Sceneplay
 
         public ReadFile()
         {
-            string path = "";
-            ReadConfigFile(path + "screenplay_config.txt");
-            ReadContentFile(path + "screenplay_content.txt");
-            ReadFuncCfgFile(path + "func_info.txt");
+            ReadConfigFile(GetPath() + "screenplay_config.txt");
+            ReadContentFile(GetPath() + "screenplay_content.txt");
+            ReadFuncCfgFile(GetPath() + "func_info.txt");
+        }
 
-            WriteConfigFile(path + "a.txt");
-            WriteContentFile(path + "b.txt");
+        public string GetPath()
+        {
+            return "";
         }
 
         private void ReadFuncCfgFile(string path)
@@ -104,6 +106,10 @@ namespace Sceneplay
                     var index = System.Int32.Parse(match.Groups[1].ToString());
                     m_play2actor[id].Add(index);
                 }
+                else 
+                {
+                    m_play2actor[id].Add(0);
+                }
 
                 if (!m_play2act.ContainsKey(id))
                     m_play2act[id] = new List<KeyValuePair<string, object>>();
@@ -165,6 +171,9 @@ namespace Sceneplay
                 if (!m_hurdle2play.ContainsKey(id))
                     m_hurdle2play[id] = new List<int>();
                 m_hurdle2play[id].Add(System.Int32.Parse(str[3]));
+                if (!m_hurdle2des.ContainsKey(id))
+                    m_hurdle2des[id] = new List<string>();
+                m_hurdle2des[id].Add(str[4]);
             }
             sr.Close();
         }
@@ -178,15 +187,17 @@ namespace Sceneplay
             for(var i=1;i<list.Length;i++)
             {
                 var param = list[i];
-                var match = Regex.Match(param, @"([\w]+) *= *([\w ]+)");
+                var match = Regex.Match(param, @"([\w]+) *= *(.+)");
                 if (match.Groups.Count > 1)
                 {
                     var paramType = match.Groups[1].ToString();
                     var paramStr = match.Groups[2].ToString();
-                    paramList[paramType] = paramStr;
+                    paramList[paramType] = paramStr.Replace(',','\n');
                 }
                 else
                 {
+                    if (param == "")
+                        continue;
                     paramList[paramIndex.ToString()] = param;
                     ++paramIndex;
                 }
@@ -218,6 +229,23 @@ namespace Sceneplay
             sw.WriteLine("o\ts\tn\tn\tb");
             sw.WriteLine("关卡id\t登场对象\t剧情触发器\t剧情编号\t备注");
             sw.WriteLine("hurdleid\tscene_obj\ttriggerid\tplayid\tb");
+            foreach (var hurdle_id in m_hurdle2play.Keys)
+            {
+                for (int i = 0; i < m_hurdle2play[hurdle_id].Count; ++i)
+                {
+                    var linePlayid = m_hurdle2play[hurdle_id][i];
+                    var lineTriggerid = m_hurdle2Trigger[hurdle_id][i];
+                    var ObjList = m_hurdle2Obj[hurdle_id][i];
+                    var lineDes = m_hurdle2des[hurdle_id][i];
+                    var lineObj = "";
+                    for (int j = 0; j < ObjList.Count; ++j)
+                    {
+                        lineObj += string.Format("aside_{0}=1,{1};",j+1,ObjList[j]);
+                    }
+                    string line = string.Format("{0}\t{1}\t{2}\t{3}\t{4}",hurdle_id,lineObj,lineTriggerid,linePlayid,lineDes);
+                    sw.WriteLine(line);
+                }
+            }
             sw.Close();
         }
 
@@ -227,7 +255,58 @@ namespace Sceneplay
             sw.WriteLine("o\tn\ts\ts\tn\ts\tn\tn\tn\tn\tn\tn\ts");
             sw.WriteLine("剧情id：60021000～60050999\t人物位置(0中间 1左边 2右边）\t剧情操作对象\t操作类型\t操作内容\t角色头像路径\t语音id\t是否自动播放下一句剧情（非自动则点击播放下一句）\t是否显示跳过（0无跳过，1有跳过）\t是否开启黑幕\t是否开启暂停（0暂停，1开启）\t是否mmo剧情（0关卡，1mmo）\t备注");
             sw.WriteLine("playid\tactor_pos\tactor\tactiontype\taction\ticon_path\taudio_id\tis_auto\tis_skip\tis_black\tis_pause\tis_mmo\tdes");
+            foreach (var playid_id in m_play2pos.Keys)
+            {
+                for (int i = 0; i < m_play2pos[playid_id].Count; ++i)
+                {
+                    var linePos = m_play2pos[playid_id][i];
+                    var lineActor = m_play2actor[playid_id][i];
+                    var lineIcon = m_play2Icon[playid_id][i];
+                    var lineAudio = m_play2audio[playid_id][i];
+                    var lineDes = m_play2Des[playid_id][i];
+                    var listSwitch = m_play2switch[playid_id][i];
+                    var act = m_play2act[playid_id][i];
+                    var str = string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}", 
+                        playid_id, linePos, actor2string(lineActor), act.Key, func2string(act), lineIcon, lineAudio, bool2int(listSwitch[0]), bool2int(listSwitch[1]), bool2int(listSwitch[2]), bool2int(listSwitch[3]), bool2int(listSwitch[4]), lineDes);
+                    sw.WriteLine(str);
+                }
+            }
             sw.Close();
+        }
+
+        private string actor2string(int id)
+        {
+            return id == 0 ? "0" : string.Format("aside_{0}", id);
+        }
+
+        private string func2string(KeyValuePair<string,object> act)
+        { 
+            if (act.Key == "func")
+            {
+                var info = (KeyValuePair<string, Dictionary<string, string>>)act.Value;
+                var funcName = info.Key;
+                var paramList = info.Value;
+                var str = string.Format("{0};",funcName);
+                foreach(var param in paramList.Keys)
+                {
+                    var value = paramList[param];
+                    str = string.Format("{0}{1}={2};", str, param, value.Replace('\n',','));
+                }
+                return str;
+            }
+            else if (act.Key == "talk")
+            {
+                return (string)act.Value;
+            }
+            else
+            {
+                return "0";
+            }
+        }
+
+        private int bool2int(bool b)
+        {
+            return b ? 1 : 0;
         }
     }
 }
