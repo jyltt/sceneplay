@@ -142,27 +142,26 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(this.remarks);
-            groupBox2.Location = new System.Drawing.Point(437, 265);
+            groupBox2.Location = new System.Drawing.Point(186, 440);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new System.Drawing.Size(140, 214);
+            groupBox2.Size = new System.Drawing.Size(425, 39);
             groupBox2.TabIndex = 25;
             groupBox2.TabStop = false;
             groupBox2.Text = "备注";
             // 
             // remarks
             // 
-            this.remarks.Location = new System.Drawing.Point(6, 20);
+            this.remarks.Location = new System.Drawing.Point(5, 11);
             this.remarks.Name = "remarks";
-            this.remarks.Size = new System.Drawing.Size(129, 186);
+            this.remarks.Size = new System.Drawing.Size(413, 25);
             this.remarks.TabIndex = 23;
             this.remarks.Text = "";
-            this.remarks.WordWrap = false;
             this.remarks.TextChanged += new System.EventHandler(this.remarks_TextChanged);
             // 
             // groupBox3
             // 
             groupBox3.Controls.Add(this.headIconPath);
-            groupBox3.Location = new System.Drawing.Point(9, 423);
+            groupBox3.Location = new System.Drawing.Point(9, 388);
             groupBox3.Name = "groupBox3";
             groupBox3.Size = new System.Drawing.Size(265, 46);
             groupBox3.TabIndex = 22;
@@ -182,7 +181,7 @@
             groupBox4.Controls.Add(this.param);
             groupBox4.Location = new System.Drawing.Point(146, 92);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new System.Drawing.Size(128, 325);
+            groupBox4.Size = new System.Drawing.Size(128, 290);
             groupBox4.TabIndex = 23;
             groupBox4.TabStop = false;
             groupBox4.Text = "参数值";
@@ -191,7 +190,7 @@
             // 
             this.param.Location = new System.Drawing.Point(4, 20);
             this.param.Name = "param";
-            this.param.Size = new System.Drawing.Size(120, 297);
+            this.param.Size = new System.Drawing.Size(120, 262);
             this.param.TabIndex = 3;
             this.param.Text = "";
             this.param.WordWrap = false;
@@ -296,7 +295,7 @@
             // groupBox11
             // 
             groupBox11.Controls.Add(this.labTriggerID);
-            groupBox11.Location = new System.Drawing.Point(3, 154);
+            groupBox11.Location = new System.Drawing.Point(4, 334);
             groupBox11.Name = "groupBox11";
             groupBox11.Size = new System.Drawing.Size(131, 46);
             groupBox11.TabIndex = 25;
@@ -318,7 +317,7 @@
             this.SceneTree.Location = new System.Drawing.Point(0, 0);
             this.SceneTree.Name = "SceneTree";
             this.SceneTree.PathSeparator = ".";
-            this.SceneTree.Size = new System.Drawing.Size(146, 450);
+            this.SceneTree.Size = new System.Drawing.Size(180, 450);
             this.SceneTree.TabIndex = 0;
             this.SceneTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SceneTreeClickItem);
             // 
@@ -354,9 +353,9 @@
             this.panel1.Controls.Add(groupBox3);
             this.panel1.Controls.Add(groupBox1);
             this.panel1.Controls.Add(this.switchList);
-            this.panel1.Location = new System.Drawing.Point(151, 2);
+            this.panel1.Location = new System.Drawing.Point(186, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 477);
+            this.panel1.Size = new System.Drawing.Size(280, 438);
             this.panel1.TabIndex = 6;
             // 
             // switchList
@@ -379,9 +378,9 @@
             // 
             this.panel2.Controls.Add(groupBox11);
             this.panel2.Controls.Add(this.groupBox10);
-            this.panel2.Location = new System.Drawing.Point(437, 56);
+            this.panel2.Location = new System.Drawing.Point(471, 56);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(140, 203);
+            this.panel2.Size = new System.Drawing.Size(140, 384);
             this.panel2.TabIndex = 7;
             // 
             // groupBox10
@@ -391,7 +390,7 @@
             this.groupBox10.Controls.Add(this.labActorAdd);
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(131, 150);
+            this.groupBox10.Size = new System.Drawing.Size(131, 325);
             this.groupBox10.TabIndex = 24;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "登场对象";
@@ -403,14 +402,14 @@
             this.actorList.ItemHeight = 12;
             this.actorList.Location = new System.Drawing.Point(6, 17);
             this.actorList.Name = "actorList";
-            this.actorList.Size = new System.Drawing.Size(120, 100);
+            this.actorList.Size = new System.Drawing.Size(120, 268);
             this.actorList.TabIndex = 6;
             this.actorList.SelectedIndexChanged += new System.EventHandler(this.actorList_SelectedIndexChanged);
             // 
             // btnActorAdd
             // 
             this.btnActorAdd.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnActorAdd.Location = new System.Drawing.Point(107, 120);
+            this.btnActorAdd.Location = new System.Drawing.Point(107, 296);
             this.btnActorAdd.Name = "btnActorAdd";
             this.btnActorAdd.Size = new System.Drawing.Size(19, 23);
             this.btnActorAdd.TabIndex = 22;
@@ -420,7 +419,7 @@
             // 
             // labActorAdd
             // 
-            this.labActorAdd.Location = new System.Drawing.Point(6, 122);
+            this.labActorAdd.Location = new System.Drawing.Point(6, 296);
             this.labActorAdd.Name = "labActorAdd";
             this.labActorAdd.Size = new System.Drawing.Size(93, 21);
             this.labActorAdd.TabIndex = 23;
@@ -439,8 +438,9 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.groupFuncRemarks);
             this.panel3.Controls.Add(groupBox9);
-            this.panel3.Location = new System.Drawing.Point(437, 2);
+            this.panel3.Location = new System.Drawing.Point(471, 2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(140, 51);
             this.panel3.TabIndex = 24;
@@ -448,9 +448,9 @@
             // groupFuncRemarks
             // 
             this.groupFuncRemarks.Controls.Add(this.labFuncRemarks);
-            this.groupFuncRemarks.Location = new System.Drawing.Point(437, 5);
+            this.groupFuncRemarks.Location = new System.Drawing.Point(1, 0);
             this.groupFuncRemarks.Name = "groupFuncRemarks";
-            this.groupFuncRemarks.Size = new System.Drawing.Size(140, 257);
+            this.groupFuncRemarks.Size = new System.Drawing.Size(140, 438);
             this.groupFuncRemarks.TabIndex = 25;
             this.groupFuncRemarks.TabStop = false;
             this.groupFuncRemarks.Text = "函数备注";
@@ -460,7 +460,7 @@
             this.labFuncRemarks.Location = new System.Drawing.Point(6, 20);
             this.labFuncRemarks.Name = "labFuncRemarks";
             this.labFuncRemarks.ReadOnly = true;
-            this.labFuncRemarks.Size = new System.Drawing.Size(129, 227);
+            this.labFuncRemarks.Size = new System.Drawing.Size(129, 412);
             this.labFuncRemarks.TabIndex = 23;
             this.labFuncRemarks.Text = "";
             this.labFuncRemarks.WordWrap = false;
@@ -469,8 +469,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(578, 479);
-            this.Controls.Add(this.groupFuncRemarks);
+            this.ClientSize = new System.Drawing.Size(614, 479);
             this.Controls.Add(groupBox2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btnAddNode);
@@ -479,8 +478,10 @@
             this.Controls.Add(this.btnDeletNode);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.SceneTree);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "Form1";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "剧情编辑器-无名";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

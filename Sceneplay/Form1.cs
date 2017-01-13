@@ -324,9 +324,12 @@ namespace Sceneplay
             }
             else
             {
-                var oldFuncInfo = (KeyValue<string, Dictionary<string, string>>)obj.Value;
-                if (oldFuncInfo.Key == m_curFuncName)
-                    return;
+                if (obj.Key == "func")
+                {
+                    var oldFuncInfo = (KeyValue<string, Dictionary<string, string>>)obj.Value;
+                    if (oldFuncInfo.Key == m_curFuncName)
+                        return;
+                }
             }
             if (m_curFuncName == "talk")
             {
