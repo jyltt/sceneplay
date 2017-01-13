@@ -225,7 +225,7 @@ namespace Sceneplay
 
         public void WriteConfigFile(string path)
         {
-            StreamWriter sw = new StreamWriter(path);
+            StreamWriter sw = new StreamWriter(path,false,Encoding.UTF8);
             sw.WriteLine("o\ts\tn\tn\tb");
             sw.WriteLine("关卡id\t登场对象\t剧情触发器\t剧情编号\t备注");
             sw.WriteLine("hurdleid\tscene_obj\ttriggerid\tplayid\tb");
@@ -253,7 +253,7 @@ namespace Sceneplay
 
         public void WriteContentFile(string path)
         {
-            StreamWriter sw = new StreamWriter(path);
+            StreamWriter sw = new StreamWriter(path,false,Encoding.UTF8);
             sw.WriteLine("o\tn\ts\ts\tn\ts\tn\tn\tn\tn\tn\tn\ts");
             sw.WriteLine("剧情id：60021000～60050999\t人物位置(0中间 1左边 2右边）\t剧情操作对象\t操作类型\t操作内容\t角色头像路径\t语音id\t是否自动播放下一句剧情（非自动则点击播放下一句）\t是否显示跳过（0无跳过，1有跳过）\t是否开启黑幕\t是否开启暂停（0暂停，1开启）\t是否mmo剧情（0关卡，1mmo）\t备注");
             sw.WriteLine("playid\tactor_pos\tactor\tactiontype\taction\ticon_path\taudio_id\tis_auto\tis_skip\tis_black\tis_pause\tis_mmo\tdes");
