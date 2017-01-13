@@ -28,7 +28,7 @@ namespace Sceneplay
 
         private void CreateFuncList()
         {
-            funcList.Items.Add("chat");
+            funcList.Items.Add("talk");
             foreach(var dic in m_FileInfo.m_func2param)
             {
                 funcList.Items.Add(dic.Key.ToString());
@@ -49,7 +49,7 @@ namespace Sceneplay
                 foreach(var sceneplay_id in dic.Value)
                 {
                     TreeNode nodeSceneplay = new TreeNode(sceneplay_id.ToString());
-                    CreateSceneplay(nodeSceneplay, sceneplay_id);
+                    CreateSceneplayTree(nodeSceneplay, sceneplay_id);
                     nodeHurdle.Nodes.Add(nodeSceneplay);
                 }
                 RootNode.Nodes.Add(nodeHurdle);
@@ -57,7 +57,7 @@ namespace Sceneplay
             SceneTree.Nodes.Add(RootNode);
         }
 
-        private void CreateSceneplay(TreeNode node, int sceneplay_id)
+        private void CreateSceneplayTree(TreeNode node, int sceneplay_id)
         {
             if (m_FileInfo.m_play2act.ContainsKey(sceneplay_id))
             {
@@ -65,13 +65,13 @@ namespace Sceneplay
                 {
                     if (func.Key == "func")
                     {
-                        var obj = (KeyValuePair<string, Dictionary<string, string>>)func.Value;
+                        var obj = (KeyValue<string, Dictionary<string, string>>)func.Value;
                         TreeNode nodeFuncName = new TreeNode(obj.Key.ToString());
                         node.Nodes.Add(nodeFuncName);
                     }
                     else if (func.Key == "talk")
                     {
-                        node.Nodes.Add(new TreeNode("chat"));
+                        node.Nodes.Add(new TreeNode("talk"));
                     }
                 }
             }
@@ -101,7 +101,7 @@ namespace Sceneplay
             var funcList = act[m_curTreeNode.Index];
             if (funcList.Key == "func")
             {
-                var func = (KeyValuePair<string,Dictionary<string,string>>)funcList.Value;
+                var func = (KeyValue<string,Dictionary<string,string>>)funcList.Value;
                 var paramList = func.Value;
                 if (paramList.ContainsKey(p))
                     param.Text = paramList[p];
@@ -251,16 +251,16 @@ namespace Sceneplay
         //////////////////////////回调函数/////////////////////////////////////
         private void btnSave_Click(object sender, EventArgs e)
         {
-            m_FileInfo.WriteConfigFile(m_FileInfo.GetPath() + "a.txt");
-            m_FileInfo.WriteContentFile(m_FileInfo.GetPath() + "b.txt");
+            m_FileInfo.WriteConfigFile(m_FileInfo.GetPath() + "screenplay_config.txt");
+            m_FileInfo.WriteContentFile(m_FileInfo.GetPath() + "screenplay_content.txt");
         }
 
         private void SceneTreeClickItem(object sender, TreeViewEventArgs e)
         {
-            m_curTreeNode = e.Node;
-            string nodeName = e.Node.Text;
+            m_curTreeNode = SceneTree.SelectedNode;
+            string nodeName = SceneTree.SelectedNode.Text;
             labNodeName.Text = nodeName;
-            string fullPath = e.Node.FullPath;
+            string fullPath = SceneTree.SelectedNode.FullPath;
             string[] nodeParent = fullPath.Split('.');
             if (nodeParent.Length == 4)
             {
@@ -305,11 +305,6 @@ namespace Sceneplay
             }
         }
 
-        private void btnDelet_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void paramType_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetParam(paramType.SelectedItem.ToString());
@@ -320,7 +315,39 @@ namespace Sceneplay
             if (funcList.SelectedItem == null)
                 return;
             m_curFuncName = funcList.SelectedItem.ToString();
+            m_curTreeNode.Text = m_curFuncName;
             CreateParamTypeList();
+            var obj = m_FileInfo.m_play2act[m_curSceneplayId][m_curTreeNode.Index];
+            if (obj.Key == m_curFuncName)
+            {
+                return;
+            }
+            else
+            {
+                var oldFuncInfo = (KeyValue<string, Dictionary<string, string>>)obj.Value;
+                if (oldFuncInfo.Key == m_curFuncName)
+                    return;
+            }
+            if (m_curFuncName == "talk")
+            {
+                obj.Value = "gs_screenplay.";
+                obj.Key = m_curFuncName;
+            }
+            else
+            {
+                var funcCfg = m_FileInfo.m_func2param[m_curFuncName];
+                obj.Key = "func";
+                var funcInfo = new KeyValue<string, Dictionary<string, string>>();
+                funcInfo.Key = m_curFuncName;
+                var paramList = new Dictionary<string,string>();
+                foreach (var paramType in funcCfg.Keys)
+                {
+                    paramList[paramType] = "0";
+                }
+                funcInfo.Value = paramList;
+                obj.Value = funcInfo;
+            }
+            m_FileInfo.m_play2act[m_curSceneplayId][m_curTreeNode.Index] = obj;
         }
 
         private void labNodeName_Leave(object sender, EventArgs e)
@@ -330,7 +357,7 @@ namespace Sceneplay
             bool result = Int32.TryParse(newName, out id); // return bool value hint y/n
             if (!result)
             {
-                MessageBox.Show("节点名字必须为数字");
+                MessageBox.Show("节点名字必须为数字(＞﹏＜)");
                 return;
             }
 
@@ -349,7 +376,7 @@ namespace Sceneplay
                         || m_FileInfo.m_hurdle2play.ContainsKey(id) 
                         || m_FileInfo.m_hurdle2Obj.ContainsKey(id))
                     {
-                        MessageBox.Show("该关卡id已存在");
+                        MessageBox.Show("该关卡id已存在\\('o'/)");
                         return;
                     }
                     m_FileInfo.m_hurdle2des.Remove(m_curHurdleId);
@@ -386,7 +413,7 @@ namespace Sceneplay
                         if (ret == DialogResult.No)
                             return;
                         m_curTreeNode.Nodes.Clear();
-                        CreateSceneplay(m_curTreeNode, id);
+                        CreateSceneplayTree(m_curTreeNode, id);
                     }
                     else
                     { 
@@ -449,7 +476,7 @@ namespace Sceneplay
                 }
                 else
                 {
-                    MessageBox.Show("该角色已经添加");
+                    MessageBox.Show("该角色已经添加╮(╯▽╰')╭");
                 }
             }
         }
@@ -530,5 +557,150 @@ namespace Sceneplay
                 return;
             m_FileInfo.m_play2switch[m_curSceneplayId][m_curTreeNode.Index][i] = switchList.GetItemChecked(i);
         }
+
+        private void param_TextChanged(object sender, EventArgs e)
+        {
+            if (paramType.SelectedItem == null)
+                return;
+            var obj = m_FileInfo.m_play2act[m_curSceneplayId][m_curTreeNode.Index];
+            if(obj.Key == "func")
+            {
+                var funcInfo = (KeyValue<string, Dictionary<string, string>>)obj.Value;
+                var paramList = funcInfo.Value;
+                var paramName = paramType.SelectedItem.ToString();
+                if (paramList.ContainsKey(paramName))
+                {
+                    paramList[paramName] = param.Text;
+                }
+            }
+            else if (obj.Key == "talk")
+            {
+                obj.Value = param.Text;
+            }
+        }
+
+        private void btnAddNode_Click(object sender, EventArgs e)
+        {
+            var nodeList = m_curTreeNode.FullPath.Split('.');
+            switch (nodeList.Length)
+            { 
+                case 1:
+                    var name = 1;
+                    m_FileInfo.m_hurdle2des[name] = new List<string>();
+                    m_FileInfo.m_hurdle2Trigger[name] = new List<int>();
+                    m_FileInfo.m_hurdle2play[name] = new List<int>();
+                    m_FileInfo.m_hurdle2Obj[name] = new List<List<string>>();
+                    m_curTreeNode.Nodes.Add(name.ToString());
+                    break;
+                case 2:
+                    var playsceneid = 1;
+                    m_FileInfo.m_hurdle2des[m_curHurdleId].Add("0");
+                    m_FileInfo.m_hurdle2Trigger[m_curHurdleId].Add(0);
+                    m_FileInfo.m_hurdle2play[m_curHurdleId].Add(playsceneid);
+                    m_FileInfo.m_hurdle2Obj[m_curHurdleId].Add(new List<string>());
+
+                    m_FileInfo.m_play2act[playsceneid] = new List<KeyValue<string,object>>();
+                    m_FileInfo.m_play2actor[playsceneid] = new List<int>();
+                    m_FileInfo.m_play2audio[playsceneid] = new List<int>();
+                    m_FileInfo.m_play2Des[playsceneid] = new List<string>();
+                    m_FileInfo.m_play2Icon[playsceneid] = new List<string>();
+                    m_FileInfo.m_play2pos[playsceneid] = new List<int>();
+                    m_FileInfo.m_play2switch[playsceneid] = new List<List<bool>>();
+                    m_curTreeNode.Nodes.Add(playsceneid.ToString());
+                    break;
+                case 3:
+                    var funcName = "talk";
+                    m_FileInfo.m_play2act[m_curSceneplayId].Add(new KeyValue<string,object>(funcName,""));
+                    m_FileInfo.m_play2actor[m_curSceneplayId].Add(0);
+                    m_FileInfo.m_play2audio[m_curSceneplayId].Add(0);
+                    m_FileInfo.m_play2Des[m_curSceneplayId].Add("0");
+                    m_FileInfo.m_play2Icon[m_curSceneplayId].Add("0");
+                    m_FileInfo.m_play2pos[m_curSceneplayId].Add(0);
+                    var switchlist = new List<bool>();
+                    switchlist.Add(false);
+                    switchlist.Add(false);
+                    switchlist.Add(false);
+                    switchlist.Add(false);
+                    switchlist.Add(false);
+                    m_FileInfo.m_play2switch[m_curSceneplayId].Add(switchlist);
+                    m_curTreeNode.Nodes.Add(funcName);
+                    break;
+                default:
+                    MessageBox.Show("该节点不能创建子节点(─.─|||)");
+                    break;
+            }
+        }
+        private void btnDelet_Click(object sender, EventArgs e)
+        {
+            var nodeList = m_curTreeNode.FullPath.Split('.');
+            switch (nodeList.Length)
+            { 
+                case 2:
+                    var nodeName = m_curTreeNode.Text;
+                    int hurdle_id;
+                    bool result = Int32.TryParse(nodeName, out hurdle_id); // return bool value hint y/n
+                    if (!result)
+                        return;
+                    m_FileInfo.m_hurdle2des.Remove(hurdle_id);
+                    m_FileInfo.m_hurdle2Obj.Remove(hurdle_id);
+                    m_FileInfo.m_hurdle2play.Remove(hurdle_id);
+                    m_FileInfo.m_hurdle2Trigger.Remove(hurdle_id);
+                    break;
+                case 3:
+                    nodeName = m_curTreeNode.Text;
+                    int sceneplay_id;
+                    result = Int32.TryParse(nodeName, out sceneplay_id); // return bool value hint y/n
+                    if (!result)
+                        return;
+                    m_FileInfo.m_play2switch.Remove(sceneplay_id);
+                    m_FileInfo.m_play2pos.Remove(sceneplay_id);
+                    m_FileInfo.m_play2Icon.Remove(sceneplay_id);
+                    m_FileInfo.m_play2Des.Remove(sceneplay_id);
+                    m_FileInfo.m_play2audio.Remove(sceneplay_id);
+                    m_FileInfo.m_play2actor.Remove(sceneplay_id);
+                    m_FileInfo.m_play2act.Remove(sceneplay_id);
+
+                    bool flg = false;
+                    foreach (var hurdle in m_FileInfo.m_hurdle2play)
+                    {
+                        foreach (var id in hurdle.Value)
+                        {
+                            if (id == sceneplay_id)
+                            {
+                                hurdle.Value.Remove(id);
+                                flg = true;
+                                break;
+                            }
+                        }
+                        if (flg)
+                            break;
+                    }
+                    break;
+                case 4:
+                    var funcName = m_curTreeNode.Text;
+                    var list = m_FileInfo.m_play2act[m_curSceneplayId];
+                    for (int i = 0; i < list.Count; ++i)
+                    {
+                        if (i == m_curTreeNode.Index)
+                        {
+                            m_FileInfo.m_play2act[m_curSceneplayId].Remove(list[i]);
+                            m_FileInfo.m_play2actor[m_curSceneplayId].Remove(m_FileInfo.m_play2actor[m_curSceneplayId][i]);
+                            m_FileInfo.m_play2audio[m_curSceneplayId].Remove(m_FileInfo.m_play2audio[m_curSceneplayId][i]);
+                            m_FileInfo.m_play2Des[m_curSceneplayId].Remove(m_FileInfo.m_play2Des[m_curSceneplayId][i]);
+                            m_FileInfo.m_play2Icon[m_curSceneplayId].Remove(m_FileInfo.m_play2Icon[m_curSceneplayId][i]);
+                            m_FileInfo.m_play2pos[m_curSceneplayId].Remove(m_FileInfo.m_play2pos[m_curSceneplayId][i]);
+                            m_FileInfo.m_play2switch[m_curSceneplayId].Remove(m_FileInfo.m_play2switch[m_curSceneplayId][i]);
+                        }
+                    }
+                    break;
+            }
+            m_curTreeNode.Remove();
+            m_curTreeNode = null;
+            groupFuncRemarks.Visible = false;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+        }
+
     }
 }

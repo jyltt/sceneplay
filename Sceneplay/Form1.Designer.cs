@@ -52,7 +52,7 @@
             this.labTriggerID = new System.Windows.Forms.TextBox();
             this.SceneTree = new System.Windows.Forms.TreeView();
             this.btnSave = new System.Windows.Forms.Button();
-            this.btnDelet = new System.Windows.Forms.Button();
+            this.btnDeletNode = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.switchList = new System.Windows.Forms.CheckedListBox();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -60,7 +60,7 @@
             this.actorList = new System.Windows.Forms.ListBox();
             this.btnActorAdd = new System.Windows.Forms.Button();
             this.labActorAdd = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnAddNode = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupFuncRemarks = new System.Windows.Forms.GroupBox();
             this.labFuncRemarks = new System.Windows.Forms.RichTextBox();
@@ -195,6 +195,7 @@
             this.param.TabIndex = 3;
             this.param.Text = "";
             this.param.WordWrap = false;
+            this.param.TextChanged += new System.EventHandler(this.param_TextChanged);
             // 
             // groupBox5
             // 
@@ -332,16 +333,16 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnDelet
+            // btnDeletNode
             // 
-            this.btnDelet.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnDelet.Location = new System.Drawing.Point(101, 456);
-            this.btnDelet.Name = "btnDelet";
-            this.btnDelet.Size = new System.Drawing.Size(19, 23);
-            this.btnDelet.TabIndex = 5;
-            this.btnDelet.Text = "-";
-            this.btnDelet.UseVisualStyleBackColor = true;
-            this.btnDelet.Click += new System.EventHandler(this.btnDelet_Click);
+            this.btnDeletNode.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnDeletNode.Location = new System.Drawing.Point(101, 456);
+            this.btnDeletNode.Name = "btnDeletNode";
+            this.btnDeletNode.Size = new System.Drawing.Size(19, 23);
+            this.btnDeletNode.TabIndex = 5;
+            this.btnDeletNode.Text = "-";
+            this.btnDeletNode.UseVisualStyleBackColor = true;
+            this.btnDeletNode.Click += new System.EventHandler(this.btnDelet_Click);
             // 
             // panel1
             // 
@@ -425,15 +426,16 @@
             this.labActorAdd.TabIndex = 23;
             this.labActorAdd.TextChanged += new System.EventHandler(this.labActorAdd_TextChanged);
             // 
-            // button1
+            // btnAddNode
             // 
-            this.button1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button1.Location = new System.Drawing.Point(127, 456);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(19, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "+";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnAddNode.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnAddNode.Location = new System.Drawing.Point(127, 456);
+            this.btnAddNode.Name = "btnAddNode";
+            this.btnAddNode.Size = new System.Drawing.Size(19, 23);
+            this.btnAddNode.TabIndex = 8;
+            this.btnAddNode.Text = "+";
+            this.btnAddNode.UseVisualStyleBackColor = true;
+            this.btnAddNode.Click += new System.EventHandler(this.btnAddNode_Click);
             // 
             // panel3
             // 
@@ -471,15 +473,15 @@
             this.Controls.Add(this.groupFuncRemarks);
             this.Controls.Add(groupBox2);
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnAddNode);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.btnDelet);
+            this.Controls.Add(this.btnDeletNode);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.SceneTree);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "剧情编辑器-无名";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -512,7 +514,7 @@
         private System.Windows.Forms.RichTextBox param;
         private System.Windows.Forms.ListBox paramType;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Button btnDelet;
+        private System.Windows.Forms.Button btnDeletNode;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton pos3;
         private System.Windows.Forms.RadioButton pos2;
@@ -522,7 +524,7 @@
         private System.Windows.Forms.ComboBox actor;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ListBox actorList;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnAddNode;
         private System.Windows.Forms.TextBox labTriggerID;
         private System.Windows.Forms.RichTextBox remarks;
         private System.Windows.Forms.TextBox labNodeName;

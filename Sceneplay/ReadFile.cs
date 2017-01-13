@@ -21,7 +21,7 @@ namespace Sceneplay
         public Dictionary<int, List<int>> m_play2audio = new Dictionary<int, List<int>>();
         public Dictionary<int, List<string>> m_play2Des = new Dictionary<int, List<string>>();
         public Dictionary<int, List<List<bool>>> m_play2switch = new Dictionary<int, List<List<bool>>>();
-        public Dictionary<int, List<KeyValuePair<string,object>>> m_play2act = new Dictionary<int,List<KeyValuePair<string,object>>>();
+        public Dictionary<int, List<KeyValue<string,object>>> m_play2act = new Dictionary<int,List<KeyValue<string,object>>>();
 
         public Dictionary<string, Dictionary<string, string>> m_func2param = new Dictionary<string, Dictionary<string, string>>();
         public Dictionary<string, string> m_func2des = new Dictionary<string, string>();
@@ -30,12 +30,12 @@ namespace Sceneplay
         {
             ReadConfigFile(GetPath() + "screenplay_config.txt");
             ReadContentFile(GetPath() + "screenplay_content.txt");
-            ReadFuncCfgFile(GetPath() + "func_info.txt");
+            ReadFuncCfgFile("func_info.txt");
         }
 
         public string GetPath()
         {
-            return "";
+            return "config/hurdle/hurdle_screenplay/";
         }
 
         private void ReadFuncCfgFile(string path)
@@ -78,9 +78,9 @@ namespace Sceneplay
                 while (false) ;
             }
             sr.Close();
-            m_func2param["chat"] = new Dictionary<string, string>();
-            m_func2param["chat"]["gs_screenplay"] = "对话内容";
-            m_func2des["chat"] = "对话内容";
+            m_func2param["talk"] = new Dictionary<string, string>();
+            m_func2param["talk"]["gs_screenplay"] = "对话内容";
+            m_func2des["talk"] = "对话内容";
         }
 
         private void ReadContentFile(string path)
@@ -112,7 +112,7 @@ namespace Sceneplay
                 }
 
                 if (!m_play2act.ContainsKey(id))
-                    m_play2act[id] = new List<KeyValuePair<string, object>>();
+                    m_play2act[id] = new List<KeyValue<string, object>>();
                 var type = str[3];
                 object obj = null;
                 if (type == "func")
@@ -123,7 +123,7 @@ namespace Sceneplay
                 {
                     obj = str[4];
                 }
-                var act = new KeyValuePair<string, object>(type, obj);
+                var act = new KeyValue<string, object>(type, obj);
                 m_play2act[id].Add(act);
 
                 if (!m_play2Icon.ContainsKey(id))
@@ -178,7 +178,7 @@ namespace Sceneplay
             sr.Close();
         }
 
-        private KeyValuePair<string,Dictionary<string,string>> ReadContentFunc(int sceneplayId, string str, int index)
+        private KeyValue<string,Dictionary<string,string>> ReadContentFunc(int sceneplayId, string str, int index)
         {
             var list = str.Split(';');
             var funcName = list[0];
@@ -202,7 +202,7 @@ namespace Sceneplay
                     ++paramIndex;
                 }
             }
-            return new KeyValuePair<string, Dictionary<string, string>>(funcName,paramList);
+            return new KeyValue<string, Dictionary<string, string>>(funcName,paramList);
         }
 
         private List<string> ReadSceneObj(string str)
@@ -242,6 +242,8 @@ namespace Sceneplay
                     {
                         lineObj += string.Format("aside_{0}=1,{1};",j+1,ObjList[j]);
                     }
+                    if (lineObj == "")
+                        lineObj = "aside_1=1, ;";
                     string line = string.Format("{0}\t{1}\t{2}\t{3}\t{4}",hurdle_id,lineObj,lineTriggerid,linePlayid,lineDes);
                     sw.WriteLine(line);
                 }
@@ -279,11 +281,11 @@ namespace Sceneplay
             return id == 0 ? "0" : string.Format("aside_{0}", id);
         }
 
-        private string func2string(KeyValuePair<string,object> act)
+        private string func2string(KeyValue<string,object> act)
         { 
             if (act.Key == "func")
             {
-                var info = (KeyValuePair<string, Dictionary<string, string>>)act.Value;
+                var info = (KeyValue<string, Dictionary<string, string>>)act.Value;
                 var funcName = info.Key;
                 var paramList = info.Value;
                 var str = string.Format("{0};",funcName);
