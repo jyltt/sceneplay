@@ -152,10 +152,12 @@
             // remarks
             // 
             this.remarks.Location = new System.Drawing.Point(5, 11);
+            this.remarks.Multiline = false;
             this.remarks.Name = "remarks";
             this.remarks.Size = new System.Drawing.Size(413, 25);
             this.remarks.TabIndex = 23;
             this.remarks.Text = "";
+            this.remarks.WordWrap = false;
             this.remarks.TextChanged += new System.EventHandler(this.remarks_TextChanged);
             // 
             // groupBox3
@@ -312,13 +314,16 @@
             // 
             // SceneTree
             // 
+            this.SceneTree.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.SceneTree.HideSelection = false;
             this.SceneTree.ItemHeight = 14;
-            this.SceneTree.LineColor = System.Drawing.Color.Bisque;
+            this.SceneTree.LineColor = System.Drawing.Color.Aqua;
             this.SceneTree.Location = new System.Drawing.Point(0, 0);
             this.SceneTree.Name = "SceneTree";
             this.SceneTree.PathSeparator = ".";
             this.SceneTree.Size = new System.Drawing.Size(180, 450);
             this.SceneTree.TabIndex = 0;
+            this.SceneTree.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.SceneTree_DrawNode);
             this.SceneTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SceneTreeClickItem);
             // 
             // btnSave
@@ -438,7 +443,6 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.groupFuncRemarks);
             this.panel3.Controls.Add(groupBox9);
             this.panel3.Location = new System.Drawing.Point(471, 2);
             this.panel3.Name = "panel3";
@@ -448,7 +452,7 @@
             // groupFuncRemarks
             // 
             this.groupFuncRemarks.Controls.Add(this.labFuncRemarks);
-            this.groupFuncRemarks.Location = new System.Drawing.Point(1, 0);
+            this.groupFuncRemarks.Location = new System.Drawing.Point(471, 2);
             this.groupFuncRemarks.Name = "groupFuncRemarks";
             this.groupFuncRemarks.Size = new System.Drawing.Size(140, 438);
             this.groupFuncRemarks.TabIndex = 25;
@@ -470,6 +474,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 479);
+            this.Controls.Add(this.groupFuncRemarks);
             this.Controls.Add(groupBox2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btnAddNode);

@@ -22,16 +22,16 @@ namespace Sceneplay
         public Form1()
         {
             InitializeComponent();
+            SceneTree.DrawNode += new DrawTreeNodeEventHandler(SceneTree_DrawNode);
             CreateTree();
             CreateFuncList();
         }
 
         private void CreateFuncList()
         {
-            funcList.Items.Add("talk");
-            foreach(var dic in m_FileInfo.m_func2param)
+            foreach(var dic in m_FileInfo.m_funcList)
             {
-                funcList.Items.Add(dic.Key.ToString());
+                funcList.Items.Add(dic.ToString());
             }
         }
 
@@ -206,7 +206,10 @@ namespace Sceneplay
                 var actorList = m_FileInfo.m_play2actor[m_curSceneplayId];
                 if (actorList.Count > m_curTreeNode.Index)
                 { 
-                    actor.SelectedIndex = actorList[m_curTreeNode.Index]-1;
+                    if (actor.Items.Count > actorList[m_curTreeNode.Index]-1)
+                        actor.SelectedIndex = actorList[m_curTreeNode.Index]-1;
+                    else
+                        MessageBox.Show("你把登场角色列表里的角色删了，我找不到之前的角色了ψ(╰_╯)");
                 }
             }
 
@@ -307,6 +310,8 @@ namespace Sceneplay
 
         private void paramType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (paramType.SelectedItem == null)
+                return;
             SetParam(paramType.SelectedItem.ToString());
         }
 
@@ -370,40 +375,15 @@ namespace Sceneplay
                 case 2:
                     if (id == m_curHurdleId)
                         return;
-                    var oldDes = m_FileInfo.m_hurdle2des[m_curHurdleId];
-                    var oldTrigger = m_FileInfo.m_hurdle2Trigger[m_curHurdleId];
-                    var oldPlay = m_FileInfo.m_hurdle2play[m_curHurdleId];
-                    var oldObj = m_FileInfo.m_hurdle2Obj[m_curHurdleId];
-                    if (m_FileInfo.m_hurdle2des.ContainsKey(id) 
-                        || m_FileInfo.m_hurdle2Trigger.ContainsKey(id) 
-                        || m_FileInfo.m_hurdle2play.ContainsKey(id) 
-                        || m_FileInfo.m_hurdle2Obj.ContainsKey(id))
+                    if (m_FileInfo.ChangeHurdleid(m_curHurdleId, id))
                     {
-                        MessageBox.Show("该关卡id已存在\\('o'/)");
-                        return;
+                        m_curHurdleId = id;
+                        m_curTreeNode.Text = newName;
                     }
-                    m_FileInfo.m_hurdle2des.Remove(m_curHurdleId);
-                    m_FileInfo.m_hurdle2Obj.Remove(m_curHurdleId);
-                    m_FileInfo.m_hurdle2play.Remove(m_curHurdleId);
-                    m_FileInfo.m_hurdle2Trigger.Remove(m_curHurdleId);
-                    m_FileInfo.m_hurdle2des[id] = oldDes;
-                    m_FileInfo.m_hurdle2Obj[id] = oldObj;
-                    m_FileInfo.m_hurdle2play[id] = oldPlay;
-                    m_FileInfo.m_hurdle2Trigger[id] = oldTrigger;
-                    m_curHurdleId = id;
-                    m_curTreeNode.Text = newName;
                     break;
                 case 3:
                     if (id == m_curSceneplayId)
                         return;
-                    var oldAct = m_FileInfo.m_play2act[m_curSceneplayId];
-                    var oldActor = m_FileInfo.m_play2actor[m_curSceneplayId];
-                    var oldAudio = m_FileInfo.m_play2audio[m_curSceneplayId];
-                    var oldDes1 = m_FileInfo.m_play2Des[m_curSceneplayId];
-                    var oldIcon = m_FileInfo.m_play2Icon[m_curSceneplayId];
-                    var oldPos = m_FileInfo.m_play2pos[m_curSceneplayId];
-                    var oldSwitch = m_FileInfo.m_play2switch[m_curSceneplayId];
-
                     if (m_FileInfo.m_play2act.ContainsKey(id)
                     || m_FileInfo.m_play2actor.ContainsKey(id)
                     || m_FileInfo.m_play2audio.ContainsKey(id)
@@ -412,31 +392,28 @@ namespace Sceneplay
                     || m_FileInfo.m_play2pos.ContainsKey(id)
                     || m_FileInfo.m_play2switch.ContainsKey(id))
                     {
-                        var ret = MessageBox.Show("id已存在", "是否重置节点", MessageBoxButtons.YesNo);
+                        var ret = MessageBox.Show("是否重置节点?●﹏●", "id已存在", MessageBoxButtons.YesNo);
                         if (ret == DialogResult.No)
                             return;
                         m_curTreeNode.Nodes.Clear();
                         CreateSceneplayTree(m_curTreeNode, id);
                     }
                     else
-                    { 
-                        m_FileInfo.m_play2act[id] = oldAct;
-                        m_FileInfo.m_play2actor[id] = oldActor;
-                        m_FileInfo.m_play2audio[id] = oldAudio;
-                        m_FileInfo.m_play2Des[id] = oldDes1;
-                        m_FileInfo.m_play2Icon[id] = oldIcon;
-                        m_FileInfo.m_play2pos[id] = oldPos;
-                        m_FileInfo.m_play2switch[id] = oldSwitch;
+                    {
+                        if (m_FileInfo.m_play2flg[m_curSceneplayId] >= 2)
+                        {
+                            var ret = MessageBox.Show("是否复制，若要复制，请保存后重启~>_<~","该id被多个地方引用了",MessageBoxButtons.YesNo);
+                            switch (ret)
+                            { 
+                                case DialogResult.Yes:
+                                    break;
+                                case DialogResult.No:
+                                    return;
+                            }
+                        }
+                        m_FileInfo.ChangePlayid1(m_curSceneplayId, id);
                     }
-                    m_FileInfo.m_play2act.Remove(m_curSceneplayId);
-                    m_FileInfo.m_play2actor.Remove(m_curSceneplayId);
-                    m_FileInfo.m_play2audio.Remove(m_curSceneplayId);
-                    m_FileInfo.m_play2Des.Remove(m_curSceneplayId);
-                    m_FileInfo.m_play2Icon.Remove(m_curSceneplayId);
-                    m_FileInfo.m_play2pos.Remove(m_curSceneplayId);
-                    m_FileInfo.m_play2switch.Remove(m_curSceneplayId);
-
-                    m_FileInfo.m_hurdle2play[m_curHurdleId][m_curTreeNode.Index] = id;
+                    m_FileInfo.ChangePlayid2(m_curSceneplayId, m_curHurdleId, m_curTreeNode.Index, id);
 
                     m_curSceneplayId = id;
                     m_curTreeNode.Text = newName;
@@ -491,7 +468,7 @@ namespace Sceneplay
             bool result = Int32.TryParse(newName, out id); // return bool value hint y/n
             if (!result)
             {
-                MessageBox.Show("触发器id必须为数字");
+                MessageBox.Show("触发器id必须为数字(￣︶￣)↗");
                 labTriggerID.Text = m_FileInfo.m_hurdle2Trigger[m_curHurdleId][m_curTreeNode.Index].ToString();
                 return;
             }
@@ -500,6 +477,8 @@ namespace Sceneplay
 
         private void remarks_TextChanged(object sender, EventArgs e)
         {
+            if (paramType.SelectedItem != null)
+                return;
             if(m_curFuncName !="")
             {
                 m_FileInfo.m_play2Des[m_curSceneplayId][m_curTreeNode.Index] = remarks.Text;
@@ -526,7 +505,7 @@ namespace Sceneplay
             bool result = Int32.TryParse(newId, out id); // return bool value hint y/n
             if (!result)
             {
-                MessageBox.Show("audio id必须为数字");
+                MessageBox.Show("audio id什么时候可以用非数字了？？！！<(‵^′)>");
                 audioId.Text = m_FileInfo.m_play2audio[m_curSceneplayId][m_curTreeNode.Index].ToString();
                 return;
             }
@@ -589,43 +568,17 @@ namespace Sceneplay
             { 
                 case 1:
                     var name = 1;
-                    m_FileInfo.m_hurdle2des[name] = new List<string>();
-                    m_FileInfo.m_hurdle2Trigger[name] = new List<int>();
-                    m_FileInfo.m_hurdle2play[name] = new List<int>();
-                    m_FileInfo.m_hurdle2Obj[name] = new List<List<string>>();
+                    m_FileInfo.CreateHurdle(name);
                     m_curTreeNode.Nodes.Add(name.ToString());
                     break;
                 case 2:
                     var playsceneid = 1;
-                    m_FileInfo.m_hurdle2des[m_curHurdleId].Add("0");
-                    m_FileInfo.m_hurdle2Trigger[m_curHurdleId].Add(0);
-                    m_FileInfo.m_hurdle2play[m_curHurdleId].Add(playsceneid);
-                    m_FileInfo.m_hurdle2Obj[m_curHurdleId].Add(new List<string>());
-
-                    m_FileInfo.m_play2act[playsceneid] = new List<KeyValue<string,object>>();
-                    m_FileInfo.m_play2actor[playsceneid] = new List<int>();
-                    m_FileInfo.m_play2audio[playsceneid] = new List<int>();
-                    m_FileInfo.m_play2Des[playsceneid] = new List<string>();
-                    m_FileInfo.m_play2Icon[playsceneid] = new List<string>();
-                    m_FileInfo.m_play2pos[playsceneid] = new List<int>();
-                    m_FileInfo.m_play2switch[playsceneid] = new List<List<bool>>();
+                    m_FileInfo.CreatePlayid(m_curHurdleId, playsceneid);
                     m_curTreeNode.Nodes.Add(playsceneid.ToString());
                     break;
                 case 3:
                     var funcName = "talk";
-                    m_FileInfo.m_play2act[m_curSceneplayId].Add(new KeyValue<string,object>(funcName,""));
-                    m_FileInfo.m_play2actor[m_curSceneplayId].Add(0);
-                    m_FileInfo.m_play2audio[m_curSceneplayId].Add(0);
-                    m_FileInfo.m_play2Des[m_curSceneplayId].Add("0");
-                    m_FileInfo.m_play2Icon[m_curSceneplayId].Add("0");
-                    m_FileInfo.m_play2pos[m_curSceneplayId].Add(0);
-                    var switchlist = new List<bool>();
-                    switchlist.Add(false);
-                    switchlist.Add(false);
-                    switchlist.Add(false);
-                    switchlist.Add(false);
-                    switchlist.Add(false);
-                    m_FileInfo.m_play2switch[m_curSceneplayId].Add(switchlist);
+                    m_FileInfo.CreateFunc(m_curSceneplayId, funcName);
                     m_curTreeNode.Nodes.Add(funcName);
                     break;
                 default:
@@ -644,10 +597,7 @@ namespace Sceneplay
                     bool result = Int32.TryParse(nodeName, out hurdle_id); // return bool value hint y/n
                     if (!result)
                         return;
-                    m_FileInfo.m_hurdle2des.Remove(hurdle_id);
-                    m_FileInfo.m_hurdle2Obj.Remove(hurdle_id);
-                    m_FileInfo.m_hurdle2play.Remove(hurdle_id);
-                    m_FileInfo.m_hurdle2Trigger.Remove(hurdle_id);
+                    m_FileInfo.DeleteHurdle(hurdle_id);
                     break;
                 case 3:
                     nodeName = m_curTreeNode.Text;
@@ -655,46 +605,21 @@ namespace Sceneplay
                     result = Int32.TryParse(nodeName, out sceneplay_id); // return bool value hint y/n
                     if (!result)
                         return;
-                    m_FileInfo.m_play2switch.Remove(sceneplay_id);
-                    m_FileInfo.m_play2pos.Remove(sceneplay_id);
-                    m_FileInfo.m_play2Icon.Remove(sceneplay_id);
-                    m_FileInfo.m_play2Des.Remove(sceneplay_id);
-                    m_FileInfo.m_play2audio.Remove(sceneplay_id);
-                    m_FileInfo.m_play2actor.Remove(sceneplay_id);
-                    m_FileInfo.m_play2act.Remove(sceneplay_id);
-
-                    bool flg = false;
-                    foreach (var hurdle in m_FileInfo.m_hurdle2play)
-                    {
-                        foreach (var id in hurdle.Value)
-                        {
-                            if (id == sceneplay_id)
-                            {
-                                hurdle.Value.Remove(id);
-                                flg = true;
-                                break;
-                            }
-                        }
-                        if (flg)
-                            break;
-                    }
+                    m_FileInfo.RemovePlayid(sceneplay_id, m_curHurdleId, m_curTreeNode.Index);
                     break;
                 case 4:
-                    var funcName = m_curTreeNode.Text;
                     var list = m_FileInfo.m_play2act[m_curSceneplayId];
                     for (int i = 0; i < list.Count; ++i)
                     {
                         if (i == m_curTreeNode.Index)
                         {
-                            m_FileInfo.m_play2act[m_curSceneplayId].Remove(list[i]);
-                            m_FileInfo.m_play2actor[m_curSceneplayId].Remove(m_FileInfo.m_play2actor[m_curSceneplayId][i]);
-                            m_FileInfo.m_play2audio[m_curSceneplayId].Remove(m_FileInfo.m_play2audio[m_curSceneplayId][i]);
-                            m_FileInfo.m_play2Des[m_curSceneplayId].Remove(m_FileInfo.m_play2Des[m_curSceneplayId][i]);
-                            m_FileInfo.m_play2Icon[m_curSceneplayId].Remove(m_FileInfo.m_play2Icon[m_curSceneplayId][i]);
-                            m_FileInfo.m_play2pos[m_curSceneplayId].Remove(m_FileInfo.m_play2pos[m_curSceneplayId][i]);
-                            m_FileInfo.m_play2switch[m_curSceneplayId].Remove(m_FileInfo.m_play2switch[m_curSceneplayId][i]);
+                            m_FileInfo.DeleteFunc(m_curSceneplayId, i);
+                            break;
                         }
                     }
+                    break;
+                default:
+                    MessageBox.Show("别乱删结点啊喂！！(╯‵□′)╯︵┴─┴");
                     break;
             }
             m_curTreeNode.Remove();
@@ -703,6 +628,11 @@ namespace Sceneplay
             panel1.Visible = false;
             panel2.Visible = false;
             panel3.Visible = false;
+        }
+
+        private void SceneTree_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            e.DrawDefault = true;
         }
 
     }
