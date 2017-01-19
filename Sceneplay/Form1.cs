@@ -43,13 +43,13 @@ namespace Sceneplay
         private void CreateTree()
         {
             var RootNode = new TreeNode("root");
-            foreach (var dic in m_FileInfo.m_hurdle2play)
+            foreach (var dic in m_FileInfo.m_hurdle)
             {
                 TreeNode nodeHurdle = new TreeNode(dic.Key.ToString());
-                foreach(var sceneplay_id in dic.Value)
+                foreach(var hurdle in dic.Value)
                 {
-                    TreeNode nodeSceneplay = new TreeNode(sceneplay_id.ToString());
-                    CreateSceneplayTree(nodeSceneplay, sceneplay_id);
+                    TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
+                    CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
                     nodeHurdle.Nodes.Add(nodeSceneplay);
                 }
                 RootNode.Nodes.Add(nodeHurdle);
@@ -59,17 +59,17 @@ namespace Sceneplay
 
         private void CreateSceneplayTree(TreeNode node, int sceneplay_id)
         {
-            if (m_FileInfo.m_play2act.ContainsKey(sceneplay_id))
+            if (m_FileInfo.m_play.ContainsKey(sceneplay_id))
             {
-                foreach (var func in m_FileInfo.m_play2act[sceneplay_id])
+                foreach (var func in m_FileInfo.m_play[sceneplay_id])
                 {
-                    if (func.Key == "func")
+                    if (func.ActType == "func")
                     {
-                        var obj = (KeyValue<string, Dictionary<string, string>>)func.Value;
-                        TreeNode nodeFuncName = new TreeNode(obj.Key.ToString());
+                        var obj = func.ActInfo;
+                        TreeNode nodeFuncName = new TreeNode(obj.Name.ToString());
                         node.Nodes.Add(nodeFuncName);
                     }
-                    else if (func.Key == "talk")
+                    else if (func.ActType == "talk")
                     {
                         node.Nodes.Add(new TreeNode("talk"));
                     }
@@ -93,24 +93,23 @@ namespace Sceneplay
 
         private void SetParam(string p)
         {
-            if (!m_FileInfo.m_play2act.ContainsKey(m_curSceneplayId))
+            if (!m_FileInfo.m_play.ContainsKey(m_curSceneplayId))
                 return;
-            var act = m_FileInfo.m_play2act[m_curSceneplayId];
+            var act = m_FileInfo.m_play[m_curSceneplayId];
             if (act.Count <= m_curTreeNode.Index)
                 return;
             var funcList = act[m_curTreeNode.Index];
-            if (funcList.Key == "func")
+            if (funcList.ActType == "func")
             {
-                var func = (KeyValue<string,Dictionary<string,string>>)funcList.Value;
-                var paramList = func.Value;
-                if (paramList.ContainsKey(p))
-                    param.Text = paramList[p];
+                var func = funcList.ActInfo;
+                if (func.GetParamValue(p) != null)
+                    param.Text = func.GetParamValue(p);
                 else
                     param.Text = "";
             }
-            else if (funcList.Key == "talk")
+            else if (funcList.ActType == "talk")
             {
-                var func = funcList.Value;
+                var func = funcList.ActTalk;
                 param.Text = func.ToString();
             }
             else
@@ -130,26 +129,16 @@ namespace Sceneplay
             funcList.SelectedIndex = id;
             CreateParamTypeList();
 
-            if (m_FileInfo.m_play2audio.ContainsKey(m_curSceneplayId))
-                if (m_FileInfo.m_play2audio[m_curSceneplayId].Count > m_curTreeNode.Index)
-                    audioId.Text = m_FileInfo.m_play2audio[m_curSceneplayId][m_curTreeNode.Index].ToString();
-                else
-                    audioId.Text = "0";
-            else
-                audioId.Text = "0";
-
-            if (m_FileInfo.m_play2Icon.ContainsKey(m_curSceneplayId))
-                if (m_FileInfo.m_play2Icon[m_curSceneplayId].Count > m_curTreeNode.Index)
-                    headIconPath.Text = m_FileInfo.m_play2Icon[m_curSceneplayId][m_curTreeNode.Index].ToString();
-                else
-                    headIconPath.Text = "";
-            else
-                headIconPath.Text = "";
-
-            if (m_FileInfo.m_play2pos.ContainsKey(m_curSceneplayId))
+            actor.Items.Clear();
+            if (m_FileInfo.m_play.ContainsKey(m_curSceneplayId))
             {
-                if (m_FileInfo.m_play2pos[m_curSceneplayId].Count > m_curTreeNode.Index)
-                    switch (m_FileInfo.m_play2pos[m_curSceneplayId][m_curTreeNode.Index])
+                var sceneplay = m_FileInfo.m_play[m_curSceneplayId];
+                if (sceneplay.Count > m_curTreeNode.Index)
+                {
+                    var sceneplayInfo = sceneplay[m_curTreeNode.Index];
+                    audioId.Text = sceneplayInfo.Audio.ToString();
+                    headIconPath.Text = sceneplayInfo.IconPath.ToString();
+                    switch (sceneplayInfo.Pos)
                     {
                         case 0:
                             pos1.Checked = true;
@@ -172,54 +161,50 @@ namespace Sceneplay
                             pos3.Checked = false;
                             break;
                     }
+                    for (int i = 0; i < 5; i++)
+                    {
+                        switchList.SetSelected(i, sceneplayInfo.GetSwitch(i));
+                    }
+                    var hurdleInfo = m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Parent.Index];
+                    for (int i = 0; i < hurdleInfo.ObjList.Count; i++)
+                    {
+                        actor.Items.Add(hurdleInfo.ObjList[i]);
+                    }
+                    if (actor.Items.Count > sceneplayInfo.ActorID-1)
+                        actor.SelectedIndex = sceneplayInfo.ActorID-1;
+                    else
+                        MessageBox.Show("你把登场角色列表里的角色删了，我找不到之前的角色了ψ(╰_╯)");
+                    remarks.Text = sceneplayInfo.Describe;
+                }
                 else
                 {
+                    audioId.Text = "0";
+                    headIconPath.Text = "";
                     pos1.Checked = false;
                     pos2.Checked = false;
                     pos3.Checked = false;
-                }
-            }
-            
-            var flg = m_FileInfo.m_play2switch.ContainsKey(m_curSceneplayId);
-            for(int i=0;i<5;i++)
-            {
-                if (flg && m_FileInfo.m_play2switch[m_curSceneplayId].Count > m_curTreeNode.Index)
-                    switchList.SetSelected(i, m_FileInfo.m_play2switch[m_curSceneplayId][m_curTreeNode.Index][i]);
-                else
-                    switchList.SetSelected(i, false);
-            }
-
-            actor.Items.Clear();
-            if (m_FileInfo.m_hurdle2Obj.ContainsKey(m_curHurdleId))
-            {
-                if (m_FileInfo.m_hurdle2Obj[m_curHurdleId].Count > m_curTreeNode.Parent.Index)
-                { 
-                    var sceneplay = m_FileInfo.m_hurdle2Obj[m_curHurdleId][m_curTreeNode.Parent.Index];
-                    for (int i = 0; i < sceneplay.Count; i++)
+                    for (int i = 0; i < 5; i++)
                     {
-                        actor.Items.Add(sceneplay[i]);
+                        switchList.SetSelected(i, false);
                     }
+                    remarks.Text = "";
                 }
             }
-            if(m_FileInfo.m_play2actor.ContainsKey(m_curSceneplayId))
-            {
-                var actorList = m_FileInfo.m_play2actor[m_curSceneplayId];
-                if (actorList.Count > m_curTreeNode.Index)
-                { 
-                    if (actor.Items.Count > actorList[m_curTreeNode.Index]-1)
-                        actor.SelectedIndex = actorList[m_curTreeNode.Index]-1;
-                    else
-                        MessageBox.Show("你把登场角色列表里的角色删了，我找不到之前的角色了ψ(╰_╯)");
+            else
+            { 
+                audioId.Text = "0";
+                headIconPath.Text = "";
+                pos1.Checked = false;
+                pos2.Checked = false;
+                pos3.Checked = false;
+                for (int i = 0; i < 5; i++)
+                {
+                    switchList.SetSelected(i, false);
                 }
+                remarks.Text = "";
             }
 
             param.Text = "";
-            if(m_FileInfo.m_play2Des.ContainsKey(m_curSceneplayId))
-            {
-                var desList = m_FileInfo.m_play2Des[m_curSceneplayId];
-                if(desList.Count > m_curTreeNode.Index)
-                    remarks.Text = desList[m_curTreeNode.Index];
-            }
             labFuncRemarks.Text = "";
             if (!m_FileInfo.m_func2des.ContainsKey(m_curFuncName))
                 return;
@@ -229,26 +214,22 @@ namespace Sceneplay
         private void SelectSceneplay()
         {
             actorList.Items.Clear();
-            if (m_FileInfo.m_hurdle2Obj.ContainsKey(m_curHurdleId))
+            if (m_FileInfo.m_hurdle.ContainsKey(m_curHurdleId))
             {
-                if (m_FileInfo.m_hurdle2Obj[m_curHurdleId].Count > m_curTreeNode.Index)
+                if (m_FileInfo.m_hurdle[m_curHurdleId].Count > m_curTreeNode.Index)
                 { 
-                    var sceneplay = m_FileInfo.m_hurdle2Obj[m_curHurdleId][m_curTreeNode.Index];
+                    var sceneplay = m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Index].ObjList;
                     for (int i = 0; i < sceneplay.Count; i++)
                     {
                         actorList.Items.Add(sceneplay[i]);
                     }
+                    var TriggerList = m_FileInfo.m_hurdle[m_curHurdleId];
+                    if (TriggerList.Count > m_curTreeNode.Index)
+                        labTriggerID.Text = TriggerList[m_curTreeNode.Index].TriggerID.ToString();
+                    remarks.Text = m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Index].Describe;
                 }
             }
 
-            if(m_FileInfo.m_hurdle2Trigger.ContainsKey(m_curHurdleId))
-            {
-                var TriggerList = m_FileInfo.m_hurdle2Trigger[m_curHurdleId];
-                if (TriggerList.Count > m_curTreeNode.Index)
-                    labTriggerID.Text = TriggerList[m_curTreeNode.Index].ToString();
-            }
-
-            remarks.Text = m_FileInfo.m_hurdle2des[m_curHurdleId][m_curTreeNode.Index];
         }
 
         //////////////////////////回调函数/////////////////////////////////////
@@ -322,40 +303,31 @@ namespace Sceneplay
             m_curFuncName = funcList.SelectedItem.ToString();
             m_curTreeNode.Text = m_curFuncName;
             CreateParamTypeList();
-            var obj = m_FileInfo.m_play2act[m_curSceneplayId][m_curTreeNode.Index];
-            if (obj.Key == m_curFuncName)
+            var sceneplay = m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index];
+            if (sceneplay.ActType == "func")
             {
-                return;
+                var Info = sceneplay.ActInfo;
+                if (Info.Name == m_curFuncName)
+                    return;
             }
-            else
+            else if (sceneplay.ActType == "talk")
             {
-                if (obj.Key == "func")
-                {
-                    var oldFuncInfo = (KeyValue<string, Dictionary<string, string>>)obj.Value;
-                    if (oldFuncInfo.Key == m_curFuncName)
-                        return;
-                }
+                if (sceneplay.ActType == m_curFuncName)
+                    return;
             }
             if (m_curFuncName == "talk")
             {
-                obj.Value = "gs_screenplay.";
-                obj.Key = m_curFuncName;
+                sceneplay.ActTalk = "gs_screenplay.";
+                sceneplay.ActType = m_curFuncName;
             }
             else
             {
                 var funcCfg = m_FileInfo.m_func2param[m_curFuncName];
-                obj.Key = "func";
-                var funcInfo = new KeyValue<string, Dictionary<string, string>>();
-                funcInfo.Key = m_curFuncName;
-                var paramList = new Dictionary<string,string>();
-                foreach (var paramType in funcCfg.Keys)
-                {
-                    paramList[paramType] = "0";
-                }
-                funcInfo.Value = paramList;
-                obj.Value = funcInfo;
+                sceneplay.ActType = "func";
+                var funcInfo = new FuncInfo(m_curFuncName, funcCfg);
+                sceneplay.ActInfo = funcInfo;
             }
-            m_FileInfo.m_play2act[m_curSceneplayId][m_curTreeNode.Index] = obj;
+            //m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index] = sceneplay;
         }
 
         private void labNodeName_Leave(object sender, EventArgs e)
@@ -384,13 +356,7 @@ namespace Sceneplay
                 case 3:
                     if (id == m_curSceneplayId)
                         return;
-                    if (m_FileInfo.m_play2act.ContainsKey(id)
-                    || m_FileInfo.m_play2actor.ContainsKey(id)
-                    || m_FileInfo.m_play2audio.ContainsKey(id)
-                    || m_FileInfo.m_play2Des.ContainsKey(id)
-                    || m_FileInfo.m_play2Icon.ContainsKey(id)
-                    || m_FileInfo.m_play2pos.ContainsKey(id)
-                    || m_FileInfo.m_play2switch.ContainsKey(id))
+                    if (m_FileInfo.m_play.ContainsKey(id))
                     {
                         var ret = MessageBox.Show("是否重置节点?●﹏●", "id已存在", MessageBoxButtons.YesNo);
                         if (ret == DialogResult.No)
@@ -435,7 +401,7 @@ namespace Sceneplay
 
         private void btnActorAdd_Click(object sender, EventArgs e)
         {
-            var objList = m_FileInfo.m_hurdle2Obj[m_curHurdleId][m_curTreeNode.Index];
+            var objList = m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Index].ObjList;
             if(btnActorAdd.Text == "-")
             {
                 if (actorList.SelectedItem == null)
@@ -469,10 +435,10 @@ namespace Sceneplay
             if (!result)
             {
                 MessageBox.Show("触发器id必须为数字(￣︶￣)↗");
-                labTriggerID.Text = m_FileInfo.m_hurdle2Trigger[m_curHurdleId][m_curTreeNode.Index].ToString();
+                labTriggerID.Text = m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Index].TriggerID.ToString();
                 return;
             }
-            m_FileInfo.m_hurdle2Trigger[m_curHurdleId][m_curTreeNode.Index] = id;
+            m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Index].TriggerID = id;
         }
 
         private void remarks_TextChanged(object sender, EventArgs e)
@@ -481,11 +447,11 @@ namespace Sceneplay
                 return;
             if(m_curFuncName !="")
             {
-                m_FileInfo.m_play2Des[m_curSceneplayId][m_curTreeNode.Index] = remarks.Text;
+                m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].Describe = remarks.Text;
             }
             else if(m_curSceneplayId != -1)
             {
-                m_FileInfo.m_hurdle2des[m_curHurdleId][m_curTreeNode.Index] = remarks.Text;
+                m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Index].Describe = remarks.Text;
             }
         }
 
@@ -493,7 +459,7 @@ namespace Sceneplay
         {
             if (m_curFuncName == "")
                 return;
-            m_FileInfo.m_play2Icon[m_curSceneplayId][m_curTreeNode.Index] = headIconPath.Text;
+            m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].IconPath = headIconPath.Text;
         }
 
         private void audioId_TextChanged(object sender, EventArgs e)
@@ -506,20 +472,20 @@ namespace Sceneplay
             if (!result)
             {
                 MessageBox.Show("audio id什么时候可以用非数字了？？！！<(‵^′)>");
-                audioId.Text = m_FileInfo.m_play2audio[m_curSceneplayId][m_curTreeNode.Index].ToString();
+                audioId.Text = m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].Audio.ToString();
                 return;
             }
-            m_FileInfo.m_play2audio[m_curSceneplayId][m_curTreeNode.Index] = id;
+            m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].Audio = id;
         }
 
         private void pos_CheckedChanged(object sender, EventArgs e)
         {
             if (pos1.Checked)
-                m_FileInfo.m_play2pos[m_curSceneplayId][m_curTreeNode.Index] = 0;
+                m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].Pos = 0;
             if (pos2.Checked)
-                m_FileInfo.m_play2pos[m_curSceneplayId][m_curTreeNode.Index] = 1;
+                m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].Pos = 1;
             if (pos3.Checked)
-                m_FileInfo.m_play2pos[m_curSceneplayId][m_curTreeNode.Index] = 2;
+                m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].Pos = 2;
         }
 
         private void actor_SelectedIndexChanged(object sender, EventArgs e)
@@ -527,9 +493,9 @@ namespace Sceneplay
             if (actor.SelectedItem == null)
                 return;
             var name = actor.SelectedItem.ToString();
-            var actorList = m_FileInfo.m_hurdle2Obj[m_curHurdleId][m_curTreeNode.Parent.Index];
+            var actorList = m_FileInfo.m_hurdle[m_curHurdleId][m_curTreeNode.Parent.Index].ObjList;
             var index = actorList.IndexOf(name);
-            m_FileInfo.m_play2actor[m_curSceneplayId][m_curTreeNode.Index] = index+1;
+            m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].ActorID = index+1;
         }
 
         private void switchList_SelectedIndexChanged(object sender, EventArgs e)
@@ -537,27 +503,23 @@ namespace Sceneplay
             var i = switchList.SelectedIndex;
             if (i < 0)
                 return;
-            m_FileInfo.m_play2switch[m_curSceneplayId][m_curTreeNode.Index][i] = switchList.GetItemChecked(i);
+            m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index].SetSwitch(i, switchList.GetItemChecked(i));
         }
 
         private void param_TextChanged(object sender, EventArgs e)
         {
             if (paramType.SelectedItem == null)
                 return;
-            var obj = m_FileInfo.m_play2act[m_curSceneplayId][m_curTreeNode.Index];
-            if(obj.Key == "func")
+            var obj = m_FileInfo.m_play[m_curSceneplayId][m_curTreeNode.Index];
+            if(obj.ActType == "func")
             {
-                var funcInfo = (KeyValue<string, Dictionary<string, string>>)obj.Value;
-                var paramList = funcInfo.Value;
+                var funcInfo = obj.ActInfo;
                 var paramName = paramType.SelectedItem.ToString();
-                if (paramList.ContainsKey(paramName))
-                {
-                    paramList[paramName] = param.Text;
-                }
+                funcInfo.ChangeParam(paramName, param.Text);
             }
-            else if (obj.Key == "talk")
+            else if (obj.ActType == "talk")
             {
-                obj.Value = param.Text;
+                obj.ActTalk = param.Text;
             }
         }
 
@@ -608,7 +570,7 @@ namespace Sceneplay
                     m_FileInfo.RemovePlayid(sceneplay_id, m_curHurdleId, m_curTreeNode.Index);
                     break;
                 case 4:
-                    var list = m_FileInfo.m_play2act[m_curSceneplayId];
+                    var list = m_FileInfo.m_play[m_curSceneplayId];
                     for (int i = 0; i < list.Count; ++i)
                     {
                         if (i == m_curTreeNode.Index)
