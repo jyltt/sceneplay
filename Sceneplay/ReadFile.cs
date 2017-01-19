@@ -325,6 +325,7 @@ namespace Sceneplay
             {
                 RemovePlayid(playid_list[i].SceneplayID, id, i);
             }
+            m_hurdle.Remove(id);
         }
     }
 }
