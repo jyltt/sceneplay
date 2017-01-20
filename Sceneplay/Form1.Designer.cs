@@ -64,6 +64,8 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupFuncRemarks = new System.Windows.Forms.GroupBox();
             this.labFuncRemarks = new System.Windows.Forms.RichTextBox();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.labReference = new System.Windows.Forms.RichTextBox();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
             groupBox3 = new System.Windows.Forms.GroupBox();
@@ -89,6 +91,7 @@
             this.groupBox10.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupFuncRemarks.SuspendLayout();
+            this.groupBox12.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -469,11 +472,31 @@
             this.labFuncRemarks.Text = "";
             this.labFuncRemarks.WordWrap = false;
             // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.labReference);
+            this.groupBox12.Location = new System.Drawing.Point(617, 2);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(104, 470);
+            this.groupBox12.TabIndex = 26;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "引用列表";
+            // 
+            // labReference
+            // 
+            this.labReference.Location = new System.Drawing.Point(6, 20);
+            this.labReference.Name = "labReference";
+            this.labReference.ReadOnly = true;
+            this.labReference.Size = new System.Drawing.Size(92, 445);
+            this.labReference.TabIndex = 0;
+            this.labReference.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(614, 479);
+            this.ClientSize = new System.Drawing.Size(718, 479);
+            this.Controls.Add(this.groupBox12);
             this.Controls.Add(this.groupFuncRemarks);
             this.Controls.Add(groupBox2);
             this.Controls.Add(this.panel3);
@@ -509,6 +532,7 @@
             this.groupBox10.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.groupFuncRemarks.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -541,6 +565,8 @@
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.GroupBox groupFuncRemarks;
         private System.Windows.Forms.RichTextBox labFuncRemarks;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.RichTextBox labReference;
     }
 }
 

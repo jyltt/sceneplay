@@ -255,6 +255,7 @@ namespace Sceneplay
                 m_curHurdleId = System.Int32.Parse(nodeParent[1]);
                 m_curSceneplayId = System.Int32.Parse(nodeParent[2]);
                 m_curFuncName = nodeParent[3];
+                labReference.Text = m_FileInfo.GetReferenceListStr(m_curSceneplayId);
                 SelectFunc();
             }
             else if(nodeParent.Length == 3)
@@ -267,6 +268,7 @@ namespace Sceneplay
                 panel2.Visible = true;
                 panel3.Visible = true;
                 SelectSceneplay();
+                labReference.Text = m_FileInfo.GetReferenceListStr(m_curSceneplayId);
             }
             else if (nodeParent.Length == 2)
             {
@@ -277,6 +279,7 @@ namespace Sceneplay
                 panel1.Visible = false;
                 panel2.Visible = false;
                 panel3.Visible = true;
+                labReference.Text = "";
                 remarks.Text = "";
             }
             else
@@ -286,6 +289,7 @@ namespace Sceneplay
                 panel2.Visible = false;
                 panel3.Visible = false;
                 remarks.Text = "";
+                labReference.Text = "";
             }
         }
 
@@ -368,7 +372,7 @@ namespace Sceneplay
                     {
                         if (m_FileInfo.m_play2flg[m_curSceneplayId] >= 2)
                         {
-                            var ret = MessageBox.Show("是否复制，若要复制，请保存后重启~>_<~","该id被多个地方引用了",MessageBoxButtons.YesNo);
+                            var ret = MessageBox.Show("是否复制~>_<~","该id被多个地方引用了",MessageBoxButtons.YesNo);
                             switch (ret)
                             { 
                                 case DialogResult.Yes:
@@ -382,6 +386,7 @@ namespace Sceneplay
                     m_FileInfo.ChangePlayid2(m_curSceneplayId, m_curHurdleId, m_curTreeNode.Index, id);
 
                     m_curSceneplayId = id;
+                    labReference.Text = m_FileInfo.GetReferenceListStr(m_curSceneplayId);
                     m_curTreeNode.Text = newName;
                     break;
                 default:

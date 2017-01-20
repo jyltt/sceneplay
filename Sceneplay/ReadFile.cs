@@ -279,13 +279,24 @@ namespace Sceneplay
         public void ChangePlayid1(int old_id, int new_id)
         {
             var oldAct = m_play[old_id];
-            m_play[new_id] = oldAct;
+            if(m_play2flg[old_id] >= 2)
+            {
+                if (m_play.ContainsKey(new_id))
+                    m_play[new_id].Clear();
+                else
+                    m_play[new_id] = new List<SceneplayInfo>();
+                for (int i = 0; i < oldAct.Count; ++i)
+                {
+                    m_play[new_id].Add(new SceneplayInfo(oldAct[i], new_id, i));
+                }
+            }
+            else
+                m_play[new_id] = oldAct;
         }
 
         public void ChangePlayid2(int old_id, int hurdle_id, int id, int new_id)
         { 
-            // TODO:
-            m_hurdle[hurdle_id][id].TriggerID = new_id;
+            m_hurdle[hurdle_id][id].SceneplayID = new_id;
 
             if (!m_play2flg.ContainsKey(new_id))
                 m_play2flg[new_id] = 0;
@@ -326,6 +337,27 @@ namespace Sceneplay
                 RemovePlayid(playid_list[i].SceneplayID, id, i);
             }
             m_hurdle.Remove(id);
+        }
+
+        public string GetReferenceListStr(int sceneplay_id)
+        {
+            string str = "";
+            var dic = new Dictionary<int, int>();
+            foreach (var hurdleList in m_hurdle)
+            {
+                foreach (var hurdleInfo in hurdleList.Value)
+                {
+                    if (hurdleInfo.SceneplayID == sceneplay_id)
+                    {
+                        dic[hurdleInfo.HurdleID] = 1;
+                    }
+                }
+            }
+            foreach (var hurdle_id in dic)
+            {
+                str += hurdle_id.Key.ToString()+"\n";
+            }
+            return str;
         }
     }
 }

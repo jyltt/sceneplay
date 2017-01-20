@@ -40,7 +40,8 @@ namespace Sceneplay
             m_IconPath = si.m_IconPath;
             m_Describe = si.m_Describe;
             m_ActType = si.m_ActType;
-            m_ActInfo = new FuncInfo(si.m_ActInfo);
+            if(m_ActType == "func")
+                m_ActInfo = new FuncInfo(si.m_ActInfo);
             for (int i = 0; i < si.m_Switch.Count; ++i)
             {
                 m_Switch.Add(si.m_Switch[i]);
