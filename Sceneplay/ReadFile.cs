@@ -49,13 +49,11 @@ namespace Sceneplay
                         if (func.Groups.Count > 1)
                         {
                             funcName = func.Groups[1].ToString();
-                            //m_func2param[funcName] = new Dictionary<string, string>();
-                            //m_func2des[funcName] = "";
                             m_funcList.Add(funcName);
                             m_funcCfgList[funcName] = new FuncCfgInfo(funcName);
                             break;
                         }
-                        var param = Regex.Match(line, @"([a-zA-Z0-9_]+)=([\w,./]+) +([\w ]+)");
+                        var param = Regex.Match(line, @"([a-zA-Z0-9_]+)=([\S]+) +([\S]+)");
                         if (param.Groups.Count > 1)
                         {
                             var paramType = param.Groups[1].ToString();
@@ -65,7 +63,7 @@ namespace Sceneplay
                                 m_funcCfgList[funcName].AddParam(new ParamInfo(paramType, paramDes, paramDefValue));
                             break;
                         }
-                        var param2 = Regex.Match(line, @"([a-zA-Z0-9_]+) +([\w ]+)");
+                        var param2 = Regex.Match(line, @"([a-zA-Z0-9_]+) +([\S]+)");
                         if (param2.Groups.Count > 1)
                         {
                             var paramType = param2.Groups[1].ToString();

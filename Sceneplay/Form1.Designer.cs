@@ -68,6 +68,7 @@
             this.labReference = new System.Windows.Forms.RichTextBox();
             this.btnDownNode = new System.Windows.Forms.Button();
             this.btnUpNode = new System.Windows.Forms.Button();
+            this.btnRefresh = new System.Windows.Forms.Button();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
             groupBox3 = new System.Windows.Forms.GroupBox();
@@ -334,9 +335,9 @@
             // btnSave
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnSave.Location = new System.Drawing.Point(0, 456);
+            this.btnSave.Location = new System.Drawing.Point(617, 449);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(54, 23);
+            this.btnSave.Size = new System.Drawing.Size(98, 23);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "保存";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -479,7 +480,7 @@
             this.groupBox12.Controls.Add(this.labReference);
             this.groupBox12.Location = new System.Drawing.Point(617, 2);
             this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(104, 470);
+            this.groupBox12.Size = new System.Drawing.Size(104, 438);
             this.groupBox12.TabIndex = 26;
             this.groupBox12.TabStop = false;
             this.groupBox12.Text = "引用列表";
@@ -489,7 +490,7 @@
             this.labReference.Location = new System.Drawing.Point(6, 20);
             this.labReference.Name = "labReference";
             this.labReference.ReadOnly = true;
-            this.labReference.Size = new System.Drawing.Size(92, 445);
+            this.labReference.Size = new System.Drawing.Size(92, 412);
             this.labReference.TabIndex = 0;
             this.labReference.Text = "";
             // 
@@ -515,11 +516,22 @@
             this.btnUpNode.UseVisualStyleBackColor = true;
             this.btnUpNode.Click += new System.EventHandler(this.btnUpNode_Click);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(4, 456);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 29;
+            this.btnRefresh.Text = "重新加载";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 479);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnUpNode);
             this.Controls.Add(this.btnDownNode);
             this.Controls.Add(this.groupBox12);
@@ -595,6 +607,7 @@
         private System.Windows.Forms.RichTextBox labReference;
         private System.Windows.Forms.Button btnDownNode;
         private System.Windows.Forms.Button btnUpNode;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 

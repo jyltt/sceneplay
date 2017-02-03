@@ -17,11 +17,14 @@ namespace Sceneplay
         int m_curHurdleId = -1;
         int m_curSceneplayId = -1;
         string m_curFuncName = "";
+        TreeNode m_RootNode;
 
         public Form1()
         {
             InitializeComponent();
             SceneTree.DrawNode += new DrawTreeNodeEventHandler(SceneTree_DrawNode);
+            m_RootNode = new TreeNode("root");
+            SceneTree.Nodes.Add(m_RootNode);
             CreateTree();
             CreateFuncList();
         }
@@ -41,14 +44,12 @@ namespace Sceneplay
 
         private void CreateTree()
         {
-            var RootNode = new TreeNode("root");
             foreach (var dic in m_FileInfo.m_hurdle)
             {
                 TreeNode nodeHurdle = new TreeNode(dic.Key.ToString());
                 CreateHurdleTree(nodeHurdle, dic.Key);
-                RootNode.Nodes.Add(nodeHurdle);
+                m_RootNode.Nodes.Add(nodeHurdle);
             }
-            SceneTree.Nodes.Add(RootNode);
         }
 
         private void CreateHurdleTree(TreeNode node, int hurdle_id)
@@ -733,6 +734,27 @@ namespace Sceneplay
                                 SceneTree.SelectedNode = node;
                         }
                     }
+                    break;
+            }
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            var ret = MessageBox.Show("是否重新加载所有配置？√(─皿─)√\n未保存内容将被丢弃！！", "重新加载", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            switch (ret)
+            { 
+                case DialogResult.Yes:
+                    m_FileInfo = new ReadFile();
+                    m_RootNode.Nodes.Clear();
+                    funcList.Items.Clear();
+                    CreateTree();
+                    CreateFuncList();
+                    groupFuncRemarks.Visible = false;
+                    panel1.Visible = false;
+                    panel2.Visible = false;
+                    panel3.Visible = false;
+                    remarks.Text = "";
+                    labReference.Text = "";
                     break;
             }
         }
