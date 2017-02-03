@@ -77,7 +77,8 @@ namespace Sceneplay
                 foreach(var param in info.GetParamType())
                 {
                     var value = info.GetParamValue(param);
-                    str = string.Format("{0}{1}={2};", str, param, value.Replace('\n',','));
+                    if (value != null && value != "")
+                        str = string.Format("{0}{1}={2};", str, param, value.Replace('\n', ','));
                 }
                 return str;
             }

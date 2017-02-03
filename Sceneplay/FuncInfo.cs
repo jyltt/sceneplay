@@ -35,12 +35,12 @@ namespace Sceneplay
                 }
             }
         }
-        public FuncInfo(string name, Dictionary<string, string> paramList)
+        public FuncInfo(string name, FuncCfgInfo paramList)
         {
             m_Name = name;
-            foreach (var param in paramList)
+            foreach (var param in paramList.GetParamList())
             {
-                m_ParamList[param.Key] = param.Value;
+                m_ParamList[param] = paramList.GetParamInfo(param).DefValue;
             }
         }
         public FuncInfo(FuncInfo fi)

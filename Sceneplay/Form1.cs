@@ -85,15 +85,13 @@ namespace Sceneplay
         private void CreateParamTypeList()
         {
             ClearParamTypeList();
-            if (!m_FileInfo.m_func2param.ContainsKey(m_curFuncName))
+            if (!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;
-            foreach (var type in m_FileInfo.m_func2param[m_curFuncName])
+            foreach (var type in m_FileInfo.m_funcCfgList[m_curFuncName].GetParamList())
             {
-                paramType.Items.Add(type.Key.ToString());
+                paramType.Items.Add(type.ToString());
             }
-            if (!m_FileInfo.m_func2des.ContainsKey(m_curFuncName))
-                return;
-            labFuncRemarks.Text = m_FileInfo.m_func2des[m_curFuncName];
+            labFuncRemarks.Text = m_FileInfo.m_funcCfgList[m_curFuncName].Describe;
         }
 
         private void SetParam(string p)
@@ -121,12 +119,12 @@ namespace Sceneplay
             else
                 param.Text = "";
             remarks.Text = "";
-            if(!m_FileInfo.m_func2des.ContainsKey(m_curFuncName))
+            if(!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;
-            var funcDesList = m_FileInfo.m_func2param[m_curFuncName];
-            if (!funcDesList.ContainsKey(p))
+            var funcDes = m_FileInfo.m_funcCfgList[m_curFuncName].GetParamInfo(p);
+            if (funcDes == null)
                 return;
-            remarks.Text = funcDesList[p];
+            remarks.Text = funcDes.Describe;
         }
 
         private void SelectFunc()
@@ -213,9 +211,9 @@ namespace Sceneplay
 
             param.Text = "";
             labFuncRemarks.Text = "";
-            if (!m_FileInfo.m_func2des.ContainsKey(m_curFuncName))
+            if (!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;
-            labFuncRemarks.Text = m_FileInfo.m_func2des[m_curFuncName];
+            labFuncRemarks.Text = m_FileInfo.m_funcCfgList[m_curFuncName].Describe;
         }
 
         private void SelectSceneplay()
@@ -334,7 +332,7 @@ namespace Sceneplay
             }
             else
             {
-                var funcCfg = m_FileInfo.m_func2param[m_curFuncName];
+                var funcCfg = m_FileInfo.m_funcCfgList[m_curFuncName];
                 sceneplay.ActType = "func";
                 var funcInfo = new FuncInfo(m_curFuncName, funcCfg);
                 sceneplay.ActInfo = funcInfo;

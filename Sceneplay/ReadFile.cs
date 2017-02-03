@@ -15,8 +15,9 @@ namespace Sceneplay
 
         public Dictionary<int, List<SceneplayInfo>> m_play = new Dictionary<int, List<SceneplayInfo>>();
 
-        public Dictionary<string, Dictionary<string, string>> m_func2param = new Dictionary<string, Dictionary<string, string>>();
-        public Dictionary<string, string> m_func2des = new Dictionary<string, string>();
+        //public Dictionary<string, Dictionary<string, string>> m_func2param = new Dictionary<string, Dictionary<string, string>>();
+        //public Dictionary<string, string> m_func2des = new Dictionary<string, string>();
+        public Dictionary<string, FuncCfgInfo> m_funcCfgList = new Dictionary<string, FuncCfgInfo>();
 
         public Dictionary<int, int> m_play2flg = new Dictionary<int, int>();
         public List<string> m_funcList = new List<string>();
@@ -48,27 +49,38 @@ namespace Sceneplay
                         if (func.Groups.Count > 1)
                         {
                             funcName = func.Groups[1].ToString();
-                            m_func2param[funcName] = new Dictionary<string, string>();
-                            m_func2des[funcName] = "";
+                            //m_func2param[funcName] = new Dictionary<string, string>();
+                            //m_func2des[funcName] = "";
                             m_funcList.Add(funcName);
+                            m_funcCfgList[funcName] = new FuncCfgInfo(funcName);
                             break;
                         }
-                        var param = Regex.Match(line, @"([a-zA-Z0-9_]+) +([\w ]+)");
+                        var param = Regex.Match(line, @"([a-zA-Z0-9_]+)=([\w,./]+) +([\w ]+)");
                         if (param.Groups.Count > 1)
                         {
                             var paramType = param.Groups[1].ToString();
-                            var paramDes = param.Groups[2].ToString();
-                            if (m_func2param.ContainsKey(funcName))
-                                m_func2param[funcName][paramType] = paramDes;
+                            var paramDefValue = param.Groups[2].ToString();
+                            var paramDes = param.Groups[3].ToString();
+                            if (m_funcCfgList.ContainsKey(funcName))
+                                m_funcCfgList[funcName].AddParam(new ParamInfo(paramType, paramDes, paramDefValue));
+                            break;
+                        }
+                        var param2 = Regex.Match(line, @"([a-zA-Z0-9_]+) +([\w ]+)");
+                        if (param2.Groups.Count > 1)
+                        {
+                            var paramType = param2.Groups[1].ToString();
+                            var paramDes = param2.Groups[2].ToString();
+                            if (m_funcCfgList.ContainsKey(funcName))
+                                m_funcCfgList[funcName].AddParam(new ParamInfo(paramType, paramDes));
                             break;
                         }
                         var des = Regex.Match(line, @"^(.+)$");
                         if (des.Groups.Count > 1)
                         {
-                            if (m_func2des.ContainsKey(funcName))
+                            if (m_funcCfgList.ContainsKey(funcName))
                             {
-                                m_func2des[funcName] += des.Groups[1].ToString();
-                                m_func2des[funcName] += "\n";
+                                m_funcCfgList[funcName].Describe += des.Groups[1].ToString();
+                                m_funcCfgList[funcName].Describe += "\n";
                             }
                             break;
                         }
@@ -76,9 +88,9 @@ namespace Sceneplay
                     while (false);
                 }
                 sr.Close();
-                m_func2param["talk"] = new Dictionary<string, string>();
-                m_func2param["talk"]["gs_screenplay"] = "对话内容";
-                m_func2des["talk"] = "对话内容";
+                m_funcCfgList["talk"] = new FuncCfgInfo("talk");
+                m_funcCfgList["talk"].AddParam(new ParamInfo("gs_screenplay","对话内容"));
+                m_funcCfgList["talk"].Describe = "对话内容";
                 m_funcList.Add("talk");
                 m_funcList.Sort();
             }
