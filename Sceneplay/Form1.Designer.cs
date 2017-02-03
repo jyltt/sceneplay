@@ -66,6 +66,8 @@
             this.labFuncRemarks = new System.Windows.Forms.RichTextBox();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.labReference = new System.Windows.Forms.RichTextBox();
+            this.btnDownNode = new System.Windows.Forms.Button();
+            this.btnUpNode = new System.Windows.Forms.Button();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
             groupBox3 = new System.Windows.Forms.GroupBox();
@@ -343,7 +345,7 @@
             // btnDeletNode
             // 
             this.btnDeletNode.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnDeletNode.Location = new System.Drawing.Point(101, 456);
+            this.btnDeletNode.Location = new System.Drawing.Point(135, 456);
             this.btnDeletNode.Name = "btnDeletNode";
             this.btnDeletNode.Size = new System.Drawing.Size(19, 23);
             this.btnDeletNode.TabIndex = 5;
@@ -436,7 +438,7 @@
             // btnAddNode
             // 
             this.btnAddNode.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnAddNode.Location = new System.Drawing.Point(127, 456);
+            this.btnAddNode.Location = new System.Drawing.Point(161, 456);
             this.btnAddNode.Name = "btnAddNode";
             this.btnAddNode.Size = new System.Drawing.Size(19, 23);
             this.btnAddNode.TabIndex = 8;
@@ -491,11 +493,35 @@
             this.labReference.TabIndex = 0;
             this.labReference.Text = "";
             // 
+            // btnDownNode
+            // 
+            this.btnDownNode.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnDownNode.Location = new System.Drawing.Point(110, 456);
+            this.btnDownNode.Name = "btnDownNode";
+            this.btnDownNode.Size = new System.Drawing.Size(19, 23);
+            this.btnDownNode.TabIndex = 27;
+            this.btnDownNode.Text = "↓";
+            this.btnDownNode.UseVisualStyleBackColor = true;
+            this.btnDownNode.Click += new System.EventHandler(this.btnDownNode_Click);
+            // 
+            // btnUpNode
+            // 
+            this.btnUpNode.Cursor = System.Windows.Forms.Cursors.Default;
+            this.btnUpNode.Location = new System.Drawing.Point(85, 456);
+            this.btnUpNode.Name = "btnUpNode";
+            this.btnUpNode.Size = new System.Drawing.Size(19, 23);
+            this.btnUpNode.TabIndex = 28;
+            this.btnUpNode.Text = "↑";
+            this.btnUpNode.UseVisualStyleBackColor = true;
+            this.btnUpNode.Click += new System.EventHandler(this.btnUpNode_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 479);
+            this.Controls.Add(this.btnUpNode);
+            this.Controls.Add(this.btnDownNode);
             this.Controls.Add(this.groupBox12);
             this.Controls.Add(this.groupFuncRemarks);
             this.Controls.Add(groupBox2);
@@ -567,6 +593,8 @@
         private System.Windows.Forms.RichTextBox labFuncRemarks;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.RichTextBox labReference;
+        private System.Windows.Forms.Button btnDownNode;
+        private System.Windows.Forms.Button btnUpNode;
     }
 }
 
