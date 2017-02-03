@@ -13,7 +13,7 @@ namespace Sceneplay
         int m_Index;
         int m_SwitchNum = 5;
         int m_Pos = 0;
-        int m_ActorID = 0;
+        int m_ActorID = 1;
         int m_Audio = 0;
         string m_IconPath = "0";
         string m_Describe = "0";

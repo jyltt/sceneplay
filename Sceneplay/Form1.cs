@@ -45,15 +45,21 @@ namespace Sceneplay
             foreach (var dic in m_FileInfo.m_hurdle)
             {
                 TreeNode nodeHurdle = new TreeNode(dic.Key.ToString());
-                foreach(var hurdle in dic.Value)
-                {
-                    TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
-                    CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
-                    nodeHurdle.Nodes.Add(nodeSceneplay);
-                }
+                CreateHurdleTree(nodeHurdle, dic.Key);
                 RootNode.Nodes.Add(nodeHurdle);
             }
             SceneTree.Nodes.Add(RootNode);
+        }
+
+        private void CreateHurdleTree(TreeNode node, int hurdle_id)
+        {
+            var hurdleList = m_FileInfo.m_hurdle[hurdle_id];
+            foreach (var hurdle in hurdleList)
+            {
+                TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
+                CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
+                node.Nodes.Add(nodeSceneplay);
+            }
         }
 
         private void CreateSceneplayTree(TreeNode node, int sceneplay_id)
@@ -621,11 +627,54 @@ namespace Sceneplay
             var nodeList = curTreeNode.FullPath.Split('.');
             switch (nodeList.Length)
             { 
-                case 2:
-                    break;
                 case 3:
+                    var hurdleList = m_FileInfo.m_hurdle[m_curHurdleId];
+                    if (curTreeNode.Index < hurdleList.Count - 1)
+                    {
+                        var curIndex = curTreeNode.Index;
+                        var curNode = hurdleList[curIndex];
+                        hurdleList.RemoveAt(curIndex);
+                        hurdleList.Insert(curIndex + 1, curNode);
+                        var parentNode = SceneTree.SelectedNode.Parent;
+                        parentNode.Nodes.Clear();
+                        foreach (var hurdle in hurdleList)
+                        {
+                            TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
+                            CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
+                            parentNode.Nodes.Add(nodeSceneplay);
+                            if (hurdle.SceneplayID == m_curSceneplayId)
+                                SceneTree.SelectedNode = nodeSceneplay;
+                        }
+                    }
                     break;
                 case 4:
+                    var sceneplayList = m_FileInfo.m_play[m_curSceneplayId];
+                    if (curTreeNode.Index < sceneplayList.Count - 1)
+                    {
+                        var curIndex = curTreeNode.Index;
+                        var curNode = sceneplayList[curIndex];
+                        sceneplayList.RemoveAt(curIndex);
+                        sceneplayList.Insert(curIndex + 1, curNode);
+                        var parentNode = SceneTree.SelectedNode.Parent;
+                        parentNode.Nodes.Clear();
+                        foreach (var func in sceneplayList)
+                        {
+                            TreeNode node = null;
+                            if (func.ActType == "func")
+                            {
+                                var obj = func.ActInfo;
+                                node = new TreeNode(obj.Name.ToString());
+                                parentNode.Nodes.Add(node);
+                            }
+                            else if (func.ActType == "talk")
+                            {
+                                node = new TreeNode("talk");
+                                parentNode.Nodes.Add(node);
+                            }
+                            if (func == curNode && node != null)
+                                SceneTree.SelectedNode = node;
+                        }
+                    }
                     break;
             }
         }
@@ -639,8 +688,53 @@ namespace Sceneplay
                 case 2:
                     break;
                 case 3:
+                    var list = m_FileInfo.m_hurdle[m_curHurdleId];
+                    if (curTreeNode.Index > 0)
+                    {
+                        var curIndex = curTreeNode.Index;
+                        var curNode = list[curIndex];
+                        list.RemoveAt(curTreeNode.Index);
+                        list.Insert(curIndex - 1, curNode);
+                        var parentNode = SceneTree.SelectedNode.Parent;
+                        parentNode.Nodes.Clear();
+                        foreach (var hurdle in list)
+                        {
+                            TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
+                            CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
+                            parentNode.Nodes.Add(nodeSceneplay);
+                            if (hurdle.SceneplayID == m_curSceneplayId)
+                                SceneTree.SelectedNode = nodeSceneplay;
+                        }
+                    }
                     break;
                 case 4:
+                    var sceneplayList = m_FileInfo.m_play[m_curSceneplayId];
+                    if (curTreeNode.Index > 0)
+                    {
+                        var curIndex = curTreeNode.Index;
+                        var curNode = sceneplayList[curIndex];
+                        sceneplayList.RemoveAt(curIndex);
+                        sceneplayList.Insert(curIndex - 1, curNode);
+                        var parentNode = SceneTree.SelectedNode.Parent;
+                        parentNode.Nodes.Clear();
+                        foreach (var func in sceneplayList)
+                        {
+                            TreeNode node = null;
+                            if (func.ActType == "func")
+                            {
+                                var obj = func.ActInfo;
+                                node = new TreeNode(obj.Name.ToString());
+                                parentNode.Nodes.Add(node);
+                            }
+                            else if (func.ActType == "talk")
+                            {
+                                node = new TreeNode("talk");
+                                parentNode.Nodes.Add(node);
+                            }
+                            if (func == curNode && node != null)
+                                SceneTree.SelectedNode = node;
+                        }
+                    }
                     break;
             }
         }
