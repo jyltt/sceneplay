@@ -40,6 +40,7 @@ namespace Sceneplay
             m_IconPath = si.m_IconPath;
             m_Describe = si.m_Describe;
             m_ActType = si.m_ActType;
+            m_ActTalk = si.m_ActTalk;
             if(m_ActType == "func")
                 m_ActInfo = new FuncInfo(si.m_ActInfo);
             for (int i = 0; i < si.m_Switch.Count; ++i)
@@ -84,7 +85,7 @@ namespace Sceneplay
             }
             else if (m_ActType == "talk")
             {
-                return m_ActTalk;
+                return "gs_screenplay."+m_ActTalk;
             }
             return "0";
         }
@@ -96,8 +97,8 @@ namespace Sceneplay
         public int SwitchNum { get { return m_SwitchNum; } }
         public string ActTalk
         {
-            get { return m_ActTalk; }
-            set { m_ActTalk = value; }
+            get { return m_ActTalk.Replace('\n',' '); }
+            set { m_ActTalk = value.Replace('\n',' '); }
         }
         public int Pos 
         { 

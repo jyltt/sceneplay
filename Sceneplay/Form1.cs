@@ -328,7 +328,7 @@ namespace Sceneplay
             }
             if (m_curFuncName == "talk")
             {
-                sceneplay.ActTalk = "gs_screenplay.";
+                sceneplay.ActTalk = "";
                 sceneplay.ActType = m_curFuncName;
             }
             else

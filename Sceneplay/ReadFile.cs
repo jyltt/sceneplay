@@ -135,7 +135,8 @@ namespace Sceneplay
                     }
                     else if(type == "talk")
                     {
-                        si.ActTalk = str[4];
+                        var list = str[4].Split('.');
+                        si.ActTalk = list[list.Length-1];
                     }
 
                     si.IconPath = str[5];
