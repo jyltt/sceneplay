@@ -562,6 +562,15 @@ namespace Sceneplay
                     curTreeNode.Nodes.Add(playsceneid.ToString());
                     break;
                 case 3:
+                    if(m_FileInfo.m_play2flg[m_curSceneplayId]>1)
+                    {
+                        var ret = MessageBox.Show("该剧情有多个关卡引用，添加会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        switch (ret)
+                        { 
+                            case DialogResult.No:
+                                return;
+                        }
+                    }
                     var funcName = "talk";
                     m_FileInfo.CreateFunc(m_curSceneplayId, funcName);
                     curTreeNode.Nodes.Add(funcName);
@@ -594,6 +603,15 @@ namespace Sceneplay
                     m_FileInfo.RemovePlayid(sceneplay_id, m_curHurdleId, curTreeNode.Index);
                     break;
                 case 4:
+                    if(m_FileInfo.m_play2flg[m_curSceneplayId]>1)
+                    {
+                        var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        switch (ret)
+                        { 
+                            case DialogResult.No:
+                                return;
+                        }
+                    }
                     var list = m_FileInfo.m_play[m_curSceneplayId];
                     for (int i = 0; i < list.Count; ++i)
                     {
@@ -606,7 +624,7 @@ namespace Sceneplay
                     break;
                 default:
                     MessageBox.Show("别乱删结点啊喂！！(╯‵□′)╯︵┴─┴");
-                    break;
+                    return;
             }
             curTreeNode.Remove();
             groupFuncRemarks.Visible = false;
