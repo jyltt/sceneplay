@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sceneplay
 {
-    class ComboBoxItem
+    class BoxItem
     {
         private string _text = null;
         private object _value = null;

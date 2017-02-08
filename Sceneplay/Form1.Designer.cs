@@ -102,9 +102,9 @@
             groupBox1.Controls.Add(this.pos1);
             groupBox1.Controls.Add(this.pos2);
             groupBox1.Controls.Add(this.pos3);
-            groupBox1.Location = new System.Drawing.Point(146, 7);
+            groupBox1.Location = new System.Drawing.Point(146, 54);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(128, 82);
+            groupBox1.Size = new System.Drawing.Size(128, 86);
             groupBox1.TabIndex = 21;
             groupBox1.TabStop = false;
             groupBox1.Text = "人物位置";
@@ -148,7 +148,7 @@
             // groupBox2
             // 
             groupBox2.Controls.Add(this.remarks);
-            groupBox2.Location = new System.Drawing.Point(186, 440);
+            groupBox2.Location = new System.Drawing.Point(276, 440);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new System.Drawing.Size(425, 39);
             groupBox2.TabIndex = 25;
@@ -187,18 +187,18 @@
             // groupBox4
             // 
             groupBox4.Controls.Add(this.param);
-            groupBox4.Location = new System.Drawing.Point(146, 92);
+            groupBox4.Location = new System.Drawing.Point(146, 147);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new System.Drawing.Size(128, 290);
+            groupBox4.Size = new System.Drawing.Size(128, 244);
             groupBox4.TabIndex = 23;
             groupBox4.TabStop = false;
             groupBox4.Text = "参数值";
             // 
             // param
             // 
-            this.param.Location = new System.Drawing.Point(4, 20);
+            this.param.Location = new System.Drawing.Point(4, 16);
             this.param.Name = "param";
-            this.param.Size = new System.Drawing.Size(120, 262);
+            this.param.Size = new System.Drawing.Size(120, 219);
             this.param.TabIndex = 3;
             this.param.Text = "";
             this.param.WordWrap = false;
@@ -217,6 +217,7 @@
             // paramType
             // 
             this.paramType.FormattingEnabled = true;
+            this.paramType.HorizontalScrollbar = true;
             this.paramType.ItemHeight = 12;
             this.paramType.Location = new System.Drawing.Point(4, 16);
             this.paramType.Name = "paramType";
@@ -227,9 +228,9 @@
             // groupBox6
             // 
             groupBox6.Controls.Add(this.funcList);
-            groupBox6.Location = new System.Drawing.Point(9, 100);
+            groupBox6.Location = new System.Drawing.Point(9, 10);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new System.Drawing.Size(131, 41);
+            groupBox6.Size = new System.Drawing.Size(265, 41);
             groupBox6.TabIndex = 25;
             groupBox6.TabStop = false;
             groupBox6.Text = "操作列表";
@@ -240,7 +241,7 @@
             this.funcList.FormattingEnabled = true;
             this.funcList.Location = new System.Drawing.Point(6, 16);
             this.funcList.Name = "funcList";
-            this.funcList.Size = new System.Drawing.Size(121, 20);
+            this.funcList.Size = new System.Drawing.Size(253, 20);
             this.funcList.TabIndex = 1;
             this.funcList.SelectedIndexChanged += new System.EventHandler(this.funcList_SelectedIndexChanged);
             // 
@@ -265,7 +266,7 @@
             // groupBox8
             // 
             groupBox8.Controls.Add(this.actor);
-            groupBox8.Location = new System.Drawing.Point(9, 7);
+            groupBox8.Location = new System.Drawing.Point(9, 100);
             groupBox8.Name = "groupBox8";
             groupBox8.Size = new System.Drawing.Size(131, 40);
             groupBox8.TabIndex = 27;
@@ -327,7 +328,7 @@
             this.SceneTree.Location = new System.Drawing.Point(0, 0);
             this.SceneTree.Name = "SceneTree";
             this.SceneTree.PathSeparator = ".";
-            this.SceneTree.Size = new System.Drawing.Size(180, 450);
+            this.SceneTree.Size = new System.Drawing.Size(270, 450);
             this.SceneTree.TabIndex = 0;
             this.SceneTree.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.SceneTree_DrawNode);
             this.SceneTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SceneTreeClickItem);
@@ -335,7 +336,7 @@
             // btnSave
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnSave.Location = new System.Drawing.Point(617, 449);
+            this.btnSave.Location = new System.Drawing.Point(707, 449);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(98, 23);
             this.btnSave.TabIndex = 5;
@@ -346,9 +347,9 @@
             // btnDeletNode
             // 
             this.btnDeletNode.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnDeletNode.Location = new System.Drawing.Point(135, 456);
+            this.btnDeletNode.Location = new System.Drawing.Point(217, 456);
             this.btnDeletNode.Name = "btnDeletNode";
-            this.btnDeletNode.Size = new System.Drawing.Size(19, 23);
+            this.btnDeletNode.Size = new System.Drawing.Size(25, 23);
             this.btnDeletNode.TabIndex = 5;
             this.btnDeletNode.Text = "-";
             this.btnDeletNode.UseVisualStyleBackColor = true;
@@ -364,7 +365,7 @@
             this.panel1.Controls.Add(groupBox3);
             this.panel1.Controls.Add(groupBox1);
             this.panel1.Controls.Add(this.switchList);
-            this.panel1.Location = new System.Drawing.Point(186, 2);
+            this.panel1.Location = new System.Drawing.Point(276, 2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(280, 438);
             this.panel1.TabIndex = 6;
@@ -389,7 +390,7 @@
             // 
             this.panel2.Controls.Add(groupBox11);
             this.panel2.Controls.Add(this.groupBox10);
-            this.panel2.Location = new System.Drawing.Point(471, 56);
+            this.panel2.Location = new System.Drawing.Point(561, 56);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(140, 384);
             this.panel2.TabIndex = 7;
@@ -439,9 +440,9 @@
             // btnAddNode
             // 
             this.btnAddNode.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnAddNode.Location = new System.Drawing.Point(161, 456);
+            this.btnAddNode.Location = new System.Drawing.Point(245, 456);
             this.btnAddNode.Name = "btnAddNode";
-            this.btnAddNode.Size = new System.Drawing.Size(19, 23);
+            this.btnAddNode.Size = new System.Drawing.Size(25, 23);
             this.btnAddNode.TabIndex = 8;
             this.btnAddNode.Text = "+";
             this.btnAddNode.UseVisualStyleBackColor = true;
@@ -450,7 +451,7 @@
             // panel3
             // 
             this.panel3.Controls.Add(groupBox9);
-            this.panel3.Location = new System.Drawing.Point(471, 2);
+            this.panel3.Location = new System.Drawing.Point(561, 2);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(140, 51);
             this.panel3.TabIndex = 24;
@@ -458,7 +459,7 @@
             // groupFuncRemarks
             // 
             this.groupFuncRemarks.Controls.Add(this.labFuncRemarks);
-            this.groupFuncRemarks.Location = new System.Drawing.Point(471, 2);
+            this.groupFuncRemarks.Location = new System.Drawing.Point(561, 2);
             this.groupFuncRemarks.Name = "groupFuncRemarks";
             this.groupFuncRemarks.Size = new System.Drawing.Size(140, 438);
             this.groupFuncRemarks.TabIndex = 25;
@@ -478,7 +479,7 @@
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.labReference);
-            this.groupBox12.Location = new System.Drawing.Point(617, 2);
+            this.groupBox12.Location = new System.Drawing.Point(707, 2);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(104, 438);
             this.groupBox12.TabIndex = 26;
@@ -497,9 +498,9 @@
             // btnDownNode
             // 
             this.btnDownNode.Cursor = System.Windows.Forms.Cursors.Default;
-            this.btnDownNode.Location = new System.Drawing.Point(110, 456);
+            this.btnDownNode.Location = new System.Drawing.Point(114, 456);
             this.btnDownNode.Name = "btnDownNode";
-            this.btnDownNode.Size = new System.Drawing.Size(19, 23);
+            this.btnDownNode.Size = new System.Drawing.Size(25, 23);
             this.btnDownNode.TabIndex = 27;
             this.btnDownNode.Text = "↓";
             this.btnDownNode.UseVisualStyleBackColor = true;
@@ -510,7 +511,7 @@
             this.btnUpNode.Cursor = System.Windows.Forms.Cursors.Default;
             this.btnUpNode.Location = new System.Drawing.Point(85, 456);
             this.btnUpNode.Name = "btnUpNode";
-            this.btnUpNode.Size = new System.Drawing.Size(19, 23);
+            this.btnUpNode.Size = new System.Drawing.Size(25, 23);
             this.btnUpNode.TabIndex = 28;
             this.btnUpNode.Text = "↑";
             this.btnUpNode.UseVisualStyleBackColor = true;
@@ -530,7 +531,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(718, 479);
+            this.ClientSize = new System.Drawing.Size(815, 479);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnUpNode);
             this.Controls.Add(this.btnDownNode);

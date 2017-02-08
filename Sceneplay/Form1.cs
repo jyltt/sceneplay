@@ -13,7 +13,7 @@ namespace Sceneplay
 {
     public partial class Form1 : Form
     {
-        ReadFile m_FileInfo = new ReadFile();
+        ReadFile m_FileInfo;
         int m_curHurdleId = -1;
         int m_curSceneplayId = -1;
         int m_curFuncIndex = -1;
@@ -26,21 +26,19 @@ namespace Sceneplay
             SceneTree.DrawNode += new DrawTreeNodeEventHandler(SceneTree_DrawNode);
             m_RootNode = new TreeNode("root");
             SceneTree.Nodes.Add(m_RootNode);
-            CreateTree();
-            CreateFuncList();
+            RefreshAll();
         }
 
         private void CreateFuncList()
         {
             foreach(var dic in m_FileInfo.m_funcList)
             {
-                funcList.Items.Add(dic.ToString());
+                var info = m_FileInfo.m_funcCfgList[dic];
+                BoxItem item = new BoxItem();
+                item.Text = info.Name+info.DescribeSimple;
+                item.Value = info.Name;
+                funcList.Items.Add(item);
             }
-        }
-
-        private void ClearParamTypeList()
-        {
-            paramType.Items.Clear();
         }
 
         private void CreateTree()
@@ -78,18 +76,22 @@ namespace Sceneplay
                 {
                     var func = m_FileInfo.m_play[sceneplay_id][i];
                     string name = null;
+                    string text = null;
                     if (func.ActType == "func")
                     {
                         var obj = func.ActInfo;
-                        name = obj.Name.ToString();
+                        name = obj.Name;
+                        text = obj.Name + "(" + func.Describe + ")";
                     }
                     else if (func.ActType == "talk")
                     {
                         name = "talk";
+                        text = "talk" + "(" + func.Describe + ")";
                     }
                     if (name != null)
                     {
-                        TreeNode nodeFuncName = new TreeNode(name.ToString());
+                        TreeNode nodeFuncName = new TreeNode(text);
+                        nodeFuncName.Tag = name;
                         node.Nodes.Add(nodeFuncName);
                         if (hurdle_id == m_curHurdleId && sceneplay_id == m_curSceneplayId && i == m_curFuncIndex)
                             SceneTree.SelectedNode = nodeFuncName;
@@ -100,12 +102,16 @@ namespace Sceneplay
 
         private void CreateParamTypeList()
         {
-            ClearParamTypeList();
+            paramType.Items.Clear();
             if (!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;
             foreach (var type in m_FileInfo.m_funcCfgList[m_curFuncName].GetParamList())
             {
-                paramType.Items.Add(type.ToString());
+                var param = m_FileInfo.m_funcCfgList[m_curFuncName].GetParamInfo(type);
+                BoxItem item = new BoxItem();
+                item.Text = type+param.DescribeSimple;
+                item.Value = type;
+                paramType.Items.Add(item);
             }
             labFuncRemarks.Text = m_FileInfo.m_funcCfgList[m_curFuncName].Describe;
         }
@@ -118,6 +124,7 @@ namespace Sceneplay
             var act = m_FileInfo.m_play[m_curSceneplayId];
             if (act.Count <= curTreeNode.Index)
                 return;
+            param.ReadOnly = false;
             var funcList = act[curTreeNode.Index];
             if (funcList.ActType == "func")
             {
@@ -143,9 +150,21 @@ namespace Sceneplay
             remarks.Text = funcDes.Describe;
         }
 
+        private int findIndexInFuncList(string func_name)
+        {
+            for(int i=0;i<funcList.Items.Count;++i)
+            {
+                BoxItem item = (BoxItem)funcList.Items[i];
+                string name = (string)item.Value;
+                if (name == func_name)
+                    return i;
+            }
+            return -1;
+        }
+
         private void SelectFunc()
         {
-            int id = funcList.Items.IndexOf(m_curFuncName);
+            int id = findIndexInFuncList(m_curFuncName);
             funcList.SelectedIndex = id;
             CreateParamTypeList();
 
@@ -226,6 +245,7 @@ namespace Sceneplay
             }
 
             param.Text = "";
+            param.ReadOnly = true;
             labFuncRemarks.Text = "";
             if (!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;
@@ -291,7 +311,7 @@ namespace Sceneplay
                 groupFuncRemarks.Visible = true;
                 m_curHurdleId = System.Int32.Parse(nodeParent[1]);
                 m_curSceneplayId = System.Int32.Parse(nodeParent[2]);
-                m_curFuncName = nodeParent[3];
+                m_curFuncName = (string)SceneTree.SelectedNode.Tag;
                 m_curFuncIndex = SceneTree.SelectedNode.Index;
                 labReference.Text = m_FileInfo.GetReferenceListStr(m_curSceneplayId);
                 SelectFunc();
@@ -337,16 +357,17 @@ namespace Sceneplay
         {
             if (paramType.SelectedItem == null)
                 return;
-            SetParam(paramType.SelectedItem.ToString());
+            var item = (BoxItem)paramType.SelectedItem;
+            SetParam((string)item.Value);
         }
 
         private void funcList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (funcList.SelectedItem == null)
                 return;
-            m_curFuncName = funcList.SelectedItem.ToString();
+            var item = (BoxItem)funcList.SelectedItem;
+            m_curFuncName = (string)item.Value;
             var curTreeNode = SceneTree.SelectedNode;
-            curTreeNode.Text = m_curFuncName;
             CreateParamTypeList();
             var sceneplay = m_FileInfo.m_play[m_curSceneplayId][curTreeNode.Index];
             if (sceneplay.ActType == "func")
@@ -360,6 +381,7 @@ namespace Sceneplay
                 if (sceneplay.ActType == m_curFuncName)
                     return;
             }
+
             if (m_curFuncName == "talk")
             {
                 sceneplay.ActTalk = "";
@@ -372,6 +394,8 @@ namespace Sceneplay
                 var funcInfo = new FuncInfo(m_curFuncName, funcCfg);
                 sceneplay.ActInfo = funcInfo;
             }
+            curTreeNode.Text = m_curFuncName + "(" + sceneplay.Describe + ")";
+            curTreeNode.Tag = m_curFuncName;
             RefreshAll(false);
             //m_FileInfo.m_play[m_curSceneplayId][curTreeNode.Index] = sceneplay;
         }
@@ -499,6 +523,7 @@ namespace Sceneplay
             if(m_curFuncName !="")
             {
                 m_FileInfo.m_play[m_curSceneplayId][curTreeNode.Index].Describe = remarks.Text;
+                curTreeNode.Text = m_curFuncName + "(" + remarks.Text + ")";
             }
             else if(m_curSceneplayId != -1)
             {
@@ -571,7 +596,8 @@ namespace Sceneplay
             if(obj.ActType == "func")
             {
                 var funcInfo = obj.ActInfo;
-                var paramName = paramType.SelectedItem.ToString();
+                var item = (BoxItem)paramType.SelectedItem;
+                var paramName = (string)item.Value;
                 funcInfo.ChangeParam(paramName, param.Text);
             }
             else if (obj.ActType == "talk")
