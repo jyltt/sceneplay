@@ -16,6 +16,7 @@ namespace Sceneplay
         ReadFile m_FileInfo = new ReadFile();
         int m_curHurdleId = -1;
         int m_curSceneplayId = -1;
+        int m_curFuncIndex = -1;
         string m_curFuncName = "";
         TreeNode m_RootNode;
 
@@ -46,9 +47,12 @@ namespace Sceneplay
         {
             foreach (var dic in m_FileInfo.m_hurdle)
             {
-                TreeNode nodeHurdle = new TreeNode(dic.Key.ToString());
-                CreateHurdleTree(nodeHurdle, dic.Key);
+                var hurdle_id = dic.Key;
+                TreeNode nodeHurdle = new TreeNode(hurdle_id.ToString());
                 m_RootNode.Nodes.Add(nodeHurdle);
+                if (hurdle_id == m_curHurdleId && -1 == m_curSceneplayId && -1 == m_curFuncIndex)
+                    SceneTree.SelectedNode = nodeHurdle;
+                CreateHurdleTree(nodeHurdle, dic.Key);
             }
         }
 
@@ -57,27 +61,38 @@ namespace Sceneplay
             var hurdleList = m_FileInfo.m_hurdle[hurdle_id];
             foreach (var hurdle in hurdleList)
             {
-                TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
-                CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
+                var sceneplay_id = hurdle.SceneplayID;
+                TreeNode nodeSceneplay = new TreeNode(sceneplay_id.ToString());
                 node.Nodes.Add(nodeSceneplay);
+                if (hurdle_id == m_curHurdleId && sceneplay_id == m_curSceneplayId && -1 == m_curFuncIndex)
+                    SceneTree.SelectedNode = nodeSceneplay;
+                CreateSceneplayTree(nodeSceneplay, sceneplay_id, hurdle_id);
             }
         }
 
-        private void CreateSceneplayTree(TreeNode node, int sceneplay_id)
+        private void CreateSceneplayTree(TreeNode node, int sceneplay_id, int hurdle_id)
         {
             if (m_FileInfo.m_play.ContainsKey(sceneplay_id))
             {
-                foreach (var func in m_FileInfo.m_play[sceneplay_id])
+                for (int i = 0; i < m_FileInfo.m_play[sceneplay_id].Count; i++)
                 {
+                    var func = m_FileInfo.m_play[sceneplay_id][i];
+                    string name = null;
                     if (func.ActType == "func")
                     {
                         var obj = func.ActInfo;
-                        TreeNode nodeFuncName = new TreeNode(obj.Name.ToString());
-                        node.Nodes.Add(nodeFuncName);
+                        name = obj.Name.ToString();
                     }
                     else if (func.ActType == "talk")
                     {
-                        node.Nodes.Add(new TreeNode("talk"));
+                        name = "talk";
+                    }
+                    if (name != null)
+                    {
+                        TreeNode nodeFuncName = new TreeNode(name.ToString());
+                        node.Nodes.Add(nodeFuncName);
+                        if (hurdle_id == m_curHurdleId && sceneplay_id == m_curSceneplayId && i == m_curFuncIndex)
+                            SceneTree.SelectedNode = nodeFuncName;
                     }
                 }
             }
@@ -239,6 +254,22 @@ namespace Sceneplay
 
         }
 
+        private void RefreshAll(bool refresh_file = true)
+        {
+            if (refresh_file)
+            {
+                m_FileInfo = new ReadFile();
+                funcList.Items.Clear();
+                CreateFuncList();
+            }
+            groupFuncRemarks.Visible = false;
+            panel1.Visible = false;
+            panel2.Visible = false;
+            panel3.Visible = false;
+            m_RootNode.Nodes.Clear();
+            CreateTree();
+        }
+
         //////////////////////////回调函数/////////////////////////////////////
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -261,6 +292,7 @@ namespace Sceneplay
                 m_curHurdleId = System.Int32.Parse(nodeParent[1]);
                 m_curSceneplayId = System.Int32.Parse(nodeParent[2]);
                 m_curFuncName = nodeParent[3];
+                m_curFuncIndex = SceneTree.SelectedNode.Index;
                 labReference.Text = m_FileInfo.GetReferenceListStr(m_curSceneplayId);
                 SelectFunc();
             }
@@ -269,6 +301,7 @@ namespace Sceneplay
                 m_curHurdleId = System.Int32.Parse(nodeParent[1]);
                 m_curSceneplayId = System.Int32.Parse(nodeParent[2]);
                 m_curFuncName = "";
+                m_curFuncIndex = -1;
                 groupFuncRemarks.Visible = false;
                 panel1.Visible = false;
                 panel2.Visible = true;
@@ -281,6 +314,7 @@ namespace Sceneplay
                 m_curHurdleId = System.Int32.Parse(nodeParent[1]);
                 m_curSceneplayId = -1;
                 m_curFuncName = "";
+                m_curFuncIndex = -1;
                 groupFuncRemarks.Visible = false;
                 panel1.Visible = false;
                 panel2.Visible = false;
@@ -338,6 +372,7 @@ namespace Sceneplay
                 var funcInfo = new FuncInfo(m_curFuncName, funcCfg);
                 sceneplay.ActInfo = funcInfo;
             }
+            RefreshAll(false);
             //m_FileInfo.m_play[m_curSceneplayId][curTreeNode.Index] = sceneplay;
         }
 
@@ -374,7 +409,7 @@ namespace Sceneplay
                         if (ret == DialogResult.No)
                             return;
                         curTreeNode.Nodes.Clear();
-                        CreateSceneplayTree(curTreeNode, id);
+                        CreateSceneplayTree(curTreeNode, id, m_curHurdleId);
                     }
                     else
                     {
@@ -574,6 +609,7 @@ namespace Sceneplay
                     var funcName = "talk";
                     m_FileInfo.CreateFunc(m_curSceneplayId, funcName);
                     curTreeNode.Nodes.Add(funcName);
+                    RefreshAll(false);
                     break;
                 default:
                     MessageBox.Show("该节点不能创建子节点(─.─|||)");
@@ -621,6 +657,8 @@ namespace Sceneplay
                             break;
                         }
                     }
+                    m_curFuncIndex -= 1;
+                    RefreshAll(false);
                     break;
                 default:
                     MessageBox.Show("别乱删结点啊喂！！(╯‵□′)╯︵┴─┴");
@@ -657,7 +695,7 @@ namespace Sceneplay
                         foreach (var hurdle in hurdleList)
                         {
                             TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
-                            CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
+                            CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID, hurdle.HurdleID);
                             parentNode.Nodes.Add(nodeSceneplay);
                             if (hurdle.SceneplayID == m_curSceneplayId)
                                 SceneTree.SelectedNode = nodeSceneplay;
@@ -691,6 +729,7 @@ namespace Sceneplay
                             if (func == curNode && node != null)
                                 SceneTree.SelectedNode = node;
                         }
+                        RefreshAll(false);
                     }
                     break;
             }
@@ -717,7 +756,7 @@ namespace Sceneplay
                         foreach (var hurdle in list)
                         {
                             TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
-                            CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID);
+                            CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID, hurdle.HurdleID);
                             parentNode.Nodes.Add(nodeSceneplay);
                             if (hurdle.SceneplayID == m_curSceneplayId)
                                 SceneTree.SelectedNode = nodeSceneplay;
@@ -751,6 +790,7 @@ namespace Sceneplay
                             if (func == curNode && node != null)
                                 SceneTree.SelectedNode = node;
                         }
+                        RefreshAll(false);
                     }
                     break;
             }
@@ -762,17 +802,7 @@ namespace Sceneplay
             switch (ret)
             { 
                 case DialogResult.Yes:
-                    m_FileInfo = new ReadFile();
-                    m_RootNode.Nodes.Clear();
-                    funcList.Items.Clear();
-                    CreateTree();
-                    CreateFuncList();
-                    groupFuncRemarks.Visible = false;
-                    panel1.Visible = false;
-                    panel2.Visible = false;
-                    panel3.Visible = false;
-                    remarks.Text = "";
-                    labReference.Text = "";
+                    RefreshAll();
                     break;
             }
         }
