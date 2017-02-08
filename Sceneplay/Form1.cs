@@ -669,6 +669,7 @@ namespace Sceneplay
             panel1.Visible = false;
             panel2.Visible = false;
             panel3.Visible = false;
+            SceneTreeClickItem(null, null);
         }
 
         private void SceneTree_DrawNode(object sender, DrawTreeNodeEventArgs e)
