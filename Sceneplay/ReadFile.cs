@@ -267,7 +267,7 @@ namespace Sceneplay
                         var lineAudio = m_play[playid_id][i].Audio;
                         var lineDes = m_play[playid_id][i].Describe;
                         var lineType = m_play[playid_id][i].ActType;
-                        var lineAction = m_play[playid_id][i].GetAct();
+                        var lineAction = m_play[playid_id][i].GetAct(m_funcCfgList);
                         var str = string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}", 
                             playid_id, linePos, actor2string(lineActor), lineType, lineAction, lineIcon, lineAudio, m_play[playid_id][i].GetSwitchToStr(0), m_play[playid_id][i].GetSwitchToStr(1), m_play[playid_id][i].GetSwitchToStr(2), m_play[playid_id][i].GetSwitchToStr(3), m_play[playid_id][i].GetSwitchToStr(4), lineDes);
                         sw.WriteLine(str);

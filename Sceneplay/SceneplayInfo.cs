@@ -68,14 +68,19 @@ namespace Sceneplay
         {
             m_ActInfo = new FuncInfo(str);
         }
-        public string GetAct()
+        public string GetAct(Dictionary<string, FuncCfgInfo> fciList)
         {
             if (m_ActType == "func")
             {
                 var info = m_ActInfo;
                 var funcName = info.Name;
                 var str = string.Format("{0};",funcName);
-                foreach(var param in info.GetParamType())
+                if (!fciList.ContainsKey(funcName))
+                {
+                    return str;
+                }
+
+                foreach(var param in fciList[funcName].GetParamList())
                 {
                     var value = info.GetParamValue(param);
                     if (value != null && value != "")
