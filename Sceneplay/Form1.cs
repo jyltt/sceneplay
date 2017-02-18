@@ -137,7 +137,7 @@ namespace Sceneplay
             else if (funcList.ActType == "talk")
             {
                 var func = funcList.ActTalk;
-                param.Text = func.ToString();
+                param.Text = m_FileInfo.m_StringCfg.GetString(func);
             }
             else
                 param.Text = "";
@@ -295,6 +295,7 @@ namespace Sceneplay
         {
             m_FileInfo.WriteConfigFile(m_FileInfo.GetPath() + "screenplay_config.txt");
             m_FileInfo.WriteContentFile(m_FileInfo.GetPath() + "screenplay_content.txt");
+            m_FileInfo.m_StringCfg.Save();
         }
 
         private void SceneTreeClickItem(object sender, TreeViewEventArgs e)
@@ -384,7 +385,7 @@ namespace Sceneplay
 
             if (m_curFuncName == "talk")
             {
-                sceneplay.ActTalk = "";
+                sceneplay.ActTalk = "str" + m_FileInfo.m_StringCfg.GetStringId().ToString();
                 sceneplay.ActType = m_curFuncName;
             }
             else
@@ -602,7 +603,7 @@ namespace Sceneplay
             }
             else if (obj.ActType == "talk")
             {
-                obj.ActTalk = param.Text;
+                m_FileInfo.m_StringCfg.ChangeString(obj.ActTalk, param.Text);
             }
         }
 
@@ -633,7 +634,8 @@ namespace Sceneplay
                         }
                     }
                     var funcName = "talk";
-                    m_FileInfo.CreateFunc(m_curSceneplayId, funcName);
+                    var sceneplay = m_FileInfo.CreateFunc(m_curSceneplayId, funcName);
+                    sceneplay.ActTalk = "str" + m_FileInfo.m_StringCfg.GetStringId().ToString();
                     curTreeNode.Nodes.Add(funcName);
                     RefreshAll(false);
                     break;

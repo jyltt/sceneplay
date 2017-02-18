@@ -22,11 +22,14 @@ namespace Sceneplay
         public Dictionary<int, int> m_play2flg = new Dictionary<int, int>();
         public List<string> m_funcList = new List<string>();
 
+        public StringCfgInfo m_StringCfg;
+
         public ReadFile()
         {
             ReadConfigFile(GetPath() + "screenplay_config.txt");
             ReadContentFile(GetPath() + "screenplay_content.txt");
             ReadFuncCfgFile("func_info.txt");
+            m_StringCfg = new StringCfgInfo("string/screenplay.txt");
         }
 
         public string GetPath()
@@ -286,10 +289,11 @@ namespace Sceneplay
             return id == 0 ? "0" : string.Format("aside_{0}", id);
         }
 
-        public void CreateFunc(int play_id, string funcName)
+        public SceneplayInfo CreateFunc(int play_id, string funcName)
         {
             var si = new SceneplayInfo(play_id,m_play[play_id].Count);
             m_play[play_id].Add(si);
+            return si;
         }
 
         public void DeleteFunc(int sceneplay_id, int index)
