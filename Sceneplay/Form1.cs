@@ -743,20 +743,27 @@ namespace Sceneplay
                         parentNode.Nodes.Clear();
                         foreach (var func in sceneplayList)
                         {
-                            TreeNode node = null;
+                            string name = null;
+                            string text = null;
                             if (func.ActType == "func")
                             {
                                 var obj = func.ActInfo;
-                                node = new TreeNode(obj.Name.ToString());
-                                parentNode.Nodes.Add(node);
+                                name = obj.Name;
+                                text = obj.Name + "(" + func.Describe + ")";
                             }
                             else if (func.ActType == "talk")
                             {
-                                node = new TreeNode("talk");
-                                parentNode.Nodes.Add(node);
+                                name = "talk";
+                                text = "talk" + "(" + func.Describe + ")";
                             }
-                            if (func == curNode && node != null)
-                                SceneTree.SelectedNode = node;
+                            if (name != null)
+                            {
+                                TreeNode nodeFuncName = new TreeNode(text);
+                                nodeFuncName.Tag = name;
+                                parentNode.Nodes.Add(nodeFuncName);
+                                if (func == curNode && parentNode != null)
+                                    SceneTree.SelectedNode = nodeFuncName;
+                            }
                         }
                         RefreshAll(false);
                     }
@@ -804,20 +811,27 @@ namespace Sceneplay
                         parentNode.Nodes.Clear();
                         foreach (var func in sceneplayList)
                         {
-                            TreeNode node = null;
+                            string name = null;
+                            string text = null;
                             if (func.ActType == "func")
                             {
                                 var obj = func.ActInfo;
-                                node = new TreeNode(obj.Name.ToString());
-                                parentNode.Nodes.Add(node);
+                                name = obj.Name;
+                                text = obj.Name + "(" + func.Describe + ")";
                             }
                             else if (func.ActType == "talk")
                             {
-                                node = new TreeNode("talk");
-                                parentNode.Nodes.Add(node);
+                                name = "talk";
+                                text = "talk" + "(" + func.Describe + ")";
                             }
-                            if (func == curNode && node != null)
-                                SceneTree.SelectedNode = node;
+                            if (name != null)
+                            {
+                                TreeNode nodeFuncName = new TreeNode(text);
+                                nodeFuncName.Tag = name;
+                                parentNode.Nodes.Add(nodeFuncName);
+                                if (func == curNode && parentNode != null)
+                                    SceneTree.SelectedNode = nodeFuncName;
+                            }
                         }
                         RefreshAll(false);
                     }

@@ -171,7 +171,7 @@
             groupBox3.Controls.Add(this.headIconPath);
             groupBox3.Location = new System.Drawing.Point(9, 388);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new System.Drawing.Size(265, 46);
+            groupBox3.Size = new System.Drawing.Size(410, 46);
             groupBox3.TabIndex = 22;
             groupBox3.TabStop = false;
             groupBox3.Text = "角色头像路径";
@@ -180,7 +180,7 @@
             // 
             this.headIconPath.Location = new System.Drawing.Point(6, 20);
             this.headIconPath.Name = "headIconPath";
-            this.headIconPath.Size = new System.Drawing.Size(253, 21);
+            this.headIconPath.Size = new System.Drawing.Size(402, 21);
             this.headIconPath.TabIndex = 8;
             this.headIconPath.TextChanged += new System.EventHandler(this.headIconPath_TextChanged);
             // 
@@ -189,7 +189,7 @@
             groupBox4.Controls.Add(this.param);
             groupBox4.Location = new System.Drawing.Point(146, 147);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new System.Drawing.Size(128, 244);
+            groupBox4.Size = new System.Drawing.Size(273, 244);
             groupBox4.TabIndex = 23;
             groupBox4.TabStop = false;
             groupBox4.Text = "参数值";
@@ -198,7 +198,7 @@
             // 
             this.param.Location = new System.Drawing.Point(4, 16);
             this.param.Name = "param";
-            this.param.Size = new System.Drawing.Size(120, 219);
+            this.param.Size = new System.Drawing.Size(263, 219);
             this.param.TabIndex = 3;
             this.param.Text = "";
             this.param.WordWrap = false;
@@ -358,6 +358,7 @@
             // panel1
             // 
             this.panel1.Controls.Add(groupBox8);
+            this.panel1.Controls.Add(this.groupFuncRemarks);
             this.panel1.Controls.Add(groupBox7);
             this.panel1.Controls.Add(groupBox6);
             this.panel1.Controls.Add(groupBox5);
@@ -365,9 +366,9 @@
             this.panel1.Controls.Add(groupBox3);
             this.panel1.Controls.Add(groupBox1);
             this.panel1.Controls.Add(this.switchList);
-            this.panel1.Location = new System.Drawing.Point(276, 2);
+            this.panel1.Location = new System.Drawing.Point(281, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(280, 438);
+            this.panel1.Size = new System.Drawing.Size(425, 438);
             this.panel1.TabIndex = 6;
             // 
             // switchList
@@ -459,9 +460,9 @@
             // groupFuncRemarks
             // 
             this.groupFuncRemarks.Controls.Add(this.labFuncRemarks);
-            this.groupFuncRemarks.Location = new System.Drawing.Point(561, 2);
+            this.groupFuncRemarks.Location = new System.Drawing.Point(282, 10);
             this.groupFuncRemarks.Name = "groupFuncRemarks";
-            this.groupFuncRemarks.Size = new System.Drawing.Size(140, 438);
+            this.groupFuncRemarks.Size = new System.Drawing.Size(140, 140);
             this.groupFuncRemarks.TabIndex = 25;
             this.groupFuncRemarks.TabStop = false;
             this.groupFuncRemarks.Text = "函数备注";
@@ -471,7 +472,7 @@
             this.labFuncRemarks.Location = new System.Drawing.Point(6, 20);
             this.labFuncRemarks.Name = "labFuncRemarks";
             this.labFuncRemarks.ReadOnly = true;
-            this.labFuncRemarks.Size = new System.Drawing.Size(129, 412);
+            this.labFuncRemarks.Size = new System.Drawing.Size(129, 115);
             this.labFuncRemarks.TabIndex = 23;
             this.labFuncRemarks.Text = "";
             this.labFuncRemarks.WordWrap = false;
@@ -532,16 +533,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(815, 479);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnUpNode);
             this.Controls.Add(this.btnDownNode);
             this.Controls.Add(this.groupBox12);
-            this.Controls.Add(this.groupFuncRemarks);
             this.Controls.Add(groupBox2);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.btnAddNode);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnDeletNode);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.SceneTree);
