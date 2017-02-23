@@ -102,8 +102,8 @@ namespace Sceneplay
         public int SwitchNum { get { return m_SwitchNum; } }
         public string ActTalk
         {
-            get { return m_ActTalk.Replace('\n',' '); }
-            set { m_ActTalk = value.Replace('\n',' '); }
+            get { return m_ActTalk; }
+            set { m_ActTalk = value; }
         }
         public int Pos 
         { 
