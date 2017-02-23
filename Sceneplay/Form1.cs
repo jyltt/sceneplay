@@ -124,7 +124,7 @@ namespace Sceneplay
             var act = m_FileInfo.m_play[m_curSceneplayId];
             if (act.Count <= curTreeNode.Index)
                 return;
-            param.ReadOnly = false;
+            param.Enabled = true;
             var funcList = act[curTreeNode.Index];
             if (funcList.ActType == "func")
             {
@@ -133,14 +133,20 @@ namespace Sceneplay
                     param.Text = func.GetParamValue(p);
                 else
                     param.Text = "";
+                labTalkId.Text = "";
             }
             else if (funcList.ActType == "talk")
             {
                 var func = funcList.ActTalk;
                 param.Text = m_FileInfo.m_StringCfg.GetString(func);
+                labTalkId.Text = func;
+                labTalkId.Enabled = true;
             }
             else
+            {
+                labTalkId.Text = "";
                 param.Text = "";
+            }
             remarks.Text = "";
             if(!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;
@@ -245,7 +251,9 @@ namespace Sceneplay
             }
 
             param.Text = "";
-            param.ReadOnly = true;
+            param.Enabled = false;
+            labTalkId.Enabled = false;
+            labTalkId.Text = "";
             labFuncRemarks.Text = "";
             if (!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;
@@ -374,11 +382,13 @@ namespace Sceneplay
             if (sceneplay.ActType == "func")
             {
                 var Info = sceneplay.ActInfo;
+                labTalkId.Enabled = false;
                 if (Info.Name == m_curFuncName)
                     return;
             }
             else if (sceneplay.ActType == "talk")
             {
+                labTalkId.Enabled = true;
                 if (sceneplay.ActType == m_curFuncName)
                     return;
             }
@@ -387,9 +397,11 @@ namespace Sceneplay
             {
                 sceneplay.ActTalk = "str" + m_FileInfo.m_StringCfg.GetStringId().ToString();
                 sceneplay.ActType = m_curFuncName;
+                labTalkId.Enabled = true;
             }
             else
             {
+                labTalkId.Enabled = false;
                 var funcCfg = m_FileInfo.m_funcCfgList[m_curFuncName];
                 sceneplay.ActType = "func";
                 var funcInfo = new FuncInfo(m_curFuncName, funcCfg);
@@ -848,6 +860,75 @@ namespace Sceneplay
                     RefreshAll();
                     break;
             }
+        }
+
+        private void labTalkId_Leave(object sender, EventArgs e)
+        {
+            var curTreeNode = SceneTree.SelectedNode;
+            var act = m_FileInfo.m_play[m_curSceneplayId];
+            if (act.Count <= curTreeNode.Index)
+                return;
+            var funcList = act[curTreeNode.Index];
+            var new_id = labTalkId.Text;
+            var old_id = funcList.ActTalk;
+            if (new_id == old_id)
+                return;
+
+            bool isNeedClearOld = true;
+            if(m_FileInfo.m_talk2flg[old_id] > 1)
+            {
+                var ret = MessageBox.Show("该字符串在多个地方使用，是否新建拷贝？o(〃'▽'〃)o", "有多个引用", MessageBoxButtons.YesNo);
+                switch(ret)
+                {
+                    case DialogResult.Yes:
+                        isNeedClearOld = false;
+                        break;
+                    case DialogResult.No:
+                        labTalkId.Text = old_id;
+                        return;
+                }
+            }
+
+            if (m_FileInfo.m_StringCfg.GetString(new_id) != "")
+            {
+                var old_str = "原字符串：" + m_FileInfo.m_StringCfg.GetString(new_id) + "\n";
+                var text = "对话id已经存在o(一︿一+)o\n" + old_str + "是否覆盖？";
+                var ret = MessageBox.Show(text, "对话id已经存在", MessageBoxButtons.YesNo);
+                switch (ret)
+                {
+                    case DialogResult.Yes:
+                        var str = m_FileInfo.m_StringCfg.GetString(old_id);
+                        m_FileInfo.m_StringCfg.ChangeString(new_id, str);
+                        funcList.ActTalk = new_id;
+                        if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
+                            m_FileInfo.m_talk2flg[new_id] = 0;
+                        ++m_FileInfo.m_talk2flg[new_id];
+                        --m_FileInfo.m_talk2flg[old_id];
+                        if (isNeedClearOld)
+                        {
+                            m_FileInfo.m_StringCfg.ChangeString(old_id, "");
+                        }
+                        break;
+                    case DialogResult.No:
+                        labTalkId.Text = old_id;
+                        break;
+                }
+            }
+            else
+            {
+                var str = m_FileInfo.m_StringCfg.GetString(old_id);
+                m_FileInfo.m_StringCfg.ChangeString(new_id, str);
+                if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
+                    m_FileInfo.m_talk2flg[new_id] = 0;
+                ++m_FileInfo.m_talk2flg[new_id];
+                funcList.ActTalk = new_id;
+                --m_FileInfo.m_talk2flg[old_id];
+                if (isNeedClearOld)
+                {
+                    m_FileInfo.m_StringCfg.ChangeString(old_id, "");
+                }
+            }
+            
         }
 
     }

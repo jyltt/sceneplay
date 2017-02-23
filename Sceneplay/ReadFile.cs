@@ -21,6 +21,7 @@ namespace Sceneplay
 
         public Dictionary<int, int> m_play2flg = new Dictionary<int, int>();
         public List<string> m_funcList = new List<string>();
+        public Dictionary<string, int> m_talk2flg = new Dictionary<string, int>();
 
         public StringCfgInfo m_StringCfg;
 
@@ -140,6 +141,9 @@ namespace Sceneplay
                     {
                         var list = str[4].Split('.');
                         si.ActTalk = list[list.Length-1];
+                        if (!m_talk2flg.ContainsKey(si.ActTalk))
+                            m_talk2flg[si.ActTalk] = 0;
+                        ++m_talk2flg[si.ActTalk];
                     }
 
                     si.IconPath = str[5];
