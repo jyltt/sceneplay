@@ -124,7 +124,7 @@ namespace Sceneplay
             var act = m_FileInfo.m_play[m_curSceneplayId];
             if (act.Count <= curTreeNode.Index)
                 return;
-            param.ReadOnly = false;
+            param.Enabled = true;
             var funcList = act[curTreeNode.Index];
             if (funcList.ActType == "func")
             {
@@ -203,7 +203,7 @@ namespace Sceneplay
                     }
                     for (int i = 0; i < 5; i++)
                     {
-                        switchList.SetSelected(i, sceneplayInfo.GetSwitch(i));
+                        switchList.SetItemChecked(i, sceneplayInfo.GetSwitch(i));
                     }
                     var hurdleInfo = m_FileInfo.m_hurdle[m_curHurdleId][curTreeNode.Parent.Index];
                     for (int i = 0; i < hurdleInfo.ObjList.Count; i++)
@@ -245,7 +245,7 @@ namespace Sceneplay
             }
 
             param.Text = "";
-            param.ReadOnly = true;
+            param.Enabled = false;
             labFuncRemarks.Text = "";
             if (!m_FileInfo.m_funcCfgList.ContainsKey(m_curFuncName))
                 return;

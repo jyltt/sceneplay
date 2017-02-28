@@ -50,13 +50,13 @@ namespace Sceneplay
         }
         public void SetSwitch(int index, bool isOpen)
         {
-            if (m_Switch.Count >= index)
+            if (m_Switch.Count <= index)
                 return;
             m_Switch[index] = isOpen;
         }
         public bool GetSwitch(int index)
         { 
-            if (m_Switch.Count >= index)
+            if (m_Switch.Count <= index)
                 return false;
             return m_Switch[index];
         }
@@ -102,8 +102,8 @@ namespace Sceneplay
         public int SwitchNum { get { return m_SwitchNum; } }
         public string ActTalk
         {
-            get { return m_ActTalk; }
-            set { m_ActTalk = value; }
+            get { return m_ActTalk.Replace('\n',' '); }
+            set { m_ActTalk = value.Replace('\n',' '); }
         }
         public int Pos 
         { 
