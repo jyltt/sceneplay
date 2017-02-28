@@ -615,7 +615,7 @@ namespace Sceneplay
             }
             else if (obj.ActType == "talk")
             {
-                m_FileInfo.m_StringCfg.ChangeString(obj.ActTalk, param.Text);
+                m_FileInfo.ChangeString(obj.ActTalk, param.Text);
             }
         }
 
@@ -898,7 +898,7 @@ namespace Sceneplay
                 {
                     case DialogResult.Yes:
                         var str = m_FileInfo.m_StringCfg.GetString(old_id);
-                        m_FileInfo.m_StringCfg.ChangeString(new_id, str);
+                        m_FileInfo.ChangeString(new_id, str);
                         funcList.ActTalk = new_id;
                         if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
                             m_FileInfo.m_talk2flg[new_id] = 0;
@@ -906,7 +906,7 @@ namespace Sceneplay
                         --m_FileInfo.m_talk2flg[old_id];
                         if (isNeedClearOld)
                         {
-                            m_FileInfo.m_StringCfg.ChangeString(old_id, "");
+                            m_FileInfo.ChangeString(old_id, "");
                         }
                         break;
                     case DialogResult.No:
@@ -917,7 +917,7 @@ namespace Sceneplay
             else
             {
                 var str = m_FileInfo.m_StringCfg.GetString(old_id);
-                m_FileInfo.m_StringCfg.ChangeString(new_id, str);
+                m_FileInfo.ChangeString(new_id, str);
                 if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
                     m_FileInfo.m_talk2flg[new_id] = 0;
                 ++m_FileInfo.m_talk2flg[new_id];
@@ -925,7 +925,7 @@ namespace Sceneplay
                 --m_FileInfo.m_talk2flg[old_id];
                 if (isNeedClearOld)
                 {
-                    m_FileInfo.m_StringCfg.ChangeString(old_id, "");
+                    m_FileInfo.ChangeString(old_id, "");
                 }
             }
             

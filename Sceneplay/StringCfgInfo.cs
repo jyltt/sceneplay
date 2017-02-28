@@ -90,27 +90,31 @@ namespace Sceneplay
             return i;
         }
 
-        public void ChangeString(int id, string str)
+        public int ChangeString(int id, string str)
         {
+            var ret = 1;
             if(m_StringList.ContainsKey(id))
             {
                 if (str == "")
                 {
                     m_StringList.Remove(id);
-                    return;
+                    return -1;
                 }
+                ret = 0;
             }
             m_StringList[id] = str;
+            return ret;
         }
 
-        public void ChangeString(string id, string str)
+        public int ChangeString(string id, string str)
         {
             var match = Regex.Match(id, @"str([0-9]+)");
             if (match.Groups.Count > 1)
             {
                 var index = System.Int32.Parse(match.Groups[1].ToString());
-                ChangeString(index, str);
+                return ChangeString(index, str);
             }
+            return 0;
         }
     }
 }

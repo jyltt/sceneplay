@@ -336,12 +336,25 @@ namespace Sceneplay
             if(m_play2flg[old_id] >= 2)
             {
                 if (m_play.ContainsKey(new_id))
+                {
+                    for (int i = 0; i < m_play[new_id].Count;++i)
+                    {
+                        if(m_play[new_id][i].ActTalk == "talk")
+                        {
+                            --m_talk2flg[m_play[new_id][i].ActTalk];
+                        }
+                    }
                     m_play[new_id].Clear();
+                }
                 else
                     m_play[new_id] = new List<SceneplayInfo>();
                 for (int i = 0; i < oldAct.Count; ++i)
                 {
                     m_play[new_id].Add(new SceneplayInfo(oldAct[i], new_id, i));
+                    if (oldAct[i].ActType == "talk")
+                    {
+                        ++m_talk2flg[oldAct[1].ActTalk];
+                    }
                 }
             }
             else
@@ -412,6 +425,19 @@ namespace Sceneplay
                 str += hurdle_id.Key.ToString()+"\n";
             }
             return str;
+        }
+
+        public void ChangeString(string str, string param)
+        {
+            var ret = m_StringCfg.ChangeString(str, param);
+            if (ret == -1)
+                --m_talk2flg[str];
+            if (ret == 1)
+            {
+                if (!m_talk2flg.ContainsKey(str))
+                    m_talk2flg[str] = 0;
+                ++m_talk2flg[str];
+            }
         }
     }
 }
