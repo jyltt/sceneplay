@@ -209,7 +209,7 @@ namespace Sceneplay
                     }
                     for (int i = 0; i < 5; i++)
                     {
-                        switchList.SetSelected(i, sceneplayInfo.GetSwitch(i));
+                        switchList.SetItemChecked(i, sceneplayInfo.GetSwitch(i));
                     }
                     var hurdleInfo = m_FileInfo.m_hurdle[m_curHurdleId][curTreeNode.Parent.Index];
                     for (int i = 0; i < hurdleInfo.ObjList.Count; i++)

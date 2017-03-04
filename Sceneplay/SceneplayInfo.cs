@@ -50,13 +50,13 @@ namespace Sceneplay
         }
         public void SetSwitch(int index, bool isOpen)
         {
-            if (m_Switch.Count >= index)
+            if (m_Switch.Count <= index)
                 return;
             m_Switch[index] = isOpen;
         }
         public bool GetSwitch(int index)
         { 
-            if (m_Switch.Count >= index)
+            if (m_Switch.Count <= index)
                 return false;
             return m_Switch[index];
         }

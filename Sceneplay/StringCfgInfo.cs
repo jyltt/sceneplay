@@ -28,11 +28,11 @@ namespace Sceneplay
                 String line;
                 while ((line = sr.ReadLine()) != null)
                 {
-                    var match = Regex.Match(line, @"str([0-9]+)\t([\S]+)");
+                    var match = Regex.Match(line, @"str([0-9]+)\t(.+)");
                     if (match.Groups.Count > 1)
                     {
                         var index = System.Int32.Parse(match.Groups[1].ToString());
-                        m_StringList[index] = match.Groups[2].ToString();
+                        m_StringList[index] = match.Groups[2].ToString().Replace("\\n","\n");
                     }
                 }
                 sr.Close();
@@ -50,7 +50,7 @@ namespace Sceneplay
                 StreamWriter sw = new StreamWriter(m_FilePath, false, Encoding.UTF8);
                 foreach (var id in m_StringList.Keys)
                 {
-                    string str = "str" + id.ToString() + "\t" + m_StringList[id];
+                    string str = "str" + id.ToString() + "\t" + m_StringList[id].Replace("\n","\\n");
                     sw.WriteLine(str);
                 }
                 sw.Close();
@@ -77,7 +77,7 @@ namespace Sceneplay
                 var index = System.Int32.Parse(match.Groups[1].ToString());
                 return GetString(index);
             }
-            return null;
+            return "";
         }
 
         public int GetStringId()

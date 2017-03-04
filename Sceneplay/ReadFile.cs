@@ -148,11 +148,11 @@ namespace Sceneplay
 
                     si.IconPath = str[5];
                     si.Audio = System.Int32.Parse(str[6]);
-                    si.SetSwitch(1, System.Int32.Parse(str[7]) == 1);
-                    si.SetSwitch(2, System.Int32.Parse(str[8]) == 1);
-                    si.SetSwitch(3, System.Int32.Parse(str[9]) == 1);
-                    si.SetSwitch(4, System.Int32.Parse(str[10]) == 1);
-                    si.SetSwitch(5, System.Int32.Parse(str[11]) == 1);
+                    si.SetSwitch(0, System.Int32.Parse(str[7]) == 1);
+                    si.SetSwitch(1, System.Int32.Parse(str[8]) == 1);
+                    si.SetSwitch(2, System.Int32.Parse(str[9]) == 1);
+                    si.SetSwitch(3, System.Int32.Parse(str[10]) == 1);
+                    si.SetSwitch(4, System.Int32.Parse(str[11]) == 1);
                     si.Describe = str[12];
 
                     m_play[id].Add(si);
