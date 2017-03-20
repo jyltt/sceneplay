@@ -900,9 +900,9 @@ namespace Sceneplay
                         var str = m_FileInfo.m_StringCfg.GetString(old_id);
                         m_FileInfo.ChangeString(new_id, str);
                         funcList.ActTalk = new_id;
-                        if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
-                            m_FileInfo.m_talk2flg[new_id] = 0;
-                        ++m_FileInfo.m_talk2flg[new_id];
+                        //if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
+                        //    m_FileInfo.m_talk2flg[new_id] = 0;
+                        //++m_FileInfo.m_talk2flg[new_id];
                         --m_FileInfo.m_talk2flg[old_id];
                         if (isNeedClearOld)
                         {
@@ -918,9 +918,9 @@ namespace Sceneplay
             {
                 var str = m_FileInfo.m_StringCfg.GetString(old_id);
                 m_FileInfo.ChangeString(new_id, str);
-                if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
-                    m_FileInfo.m_talk2flg[new_id] = 0;
-                ++m_FileInfo.m_talk2flg[new_id];
+                //if (!m_FileInfo.m_talk2flg.ContainsKey(new_id))
+                //    m_FileInfo.m_talk2flg[new_id] = 0;
+                //++m_FileInfo.m_talk2flg[new_id];
                 funcList.ActTalk = new_id;
                 --m_FileInfo.m_talk2flg[old_id];
                 if (isNeedClearOld)
