@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sceneplay.data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -68,19 +69,20 @@ namespace Sceneplay
         {
             m_ActInfo = new FuncInfo(str);
         }
-        public string GetAct(Dictionary<string, FuncCfgInfo> fciList)
+        public string GetAct()
         {
+            FuncCfgManager fciList = FileManager.GetInstance().FuncCfgMgr;
             if (m_ActType == "func")
             {
                 var info = m_ActInfo;
                 var funcName = info.Name;
                 var str = string.Format("{0};",funcName);
-                if (!fciList.ContainsKey(funcName))
+                if (fciList.GetFuncCfg(funcName) != null)
                 {
                     return str;
                 }
 
-                foreach(var param in fciList[funcName].GetParamList())
+                foreach(var param in fciList.GetFuncCfg(funcName).GetParamList())
                 {
                     var value = info.GetParamValue(param);
                     if (value != null && value != "")

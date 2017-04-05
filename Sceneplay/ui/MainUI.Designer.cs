@@ -122,8 +122,8 @@
             // 
             // panelInfo
             // 
-            this.panelInfo.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelInfo.Location = new System.Drawing.Point(275, 0);
+            this.panelInfo.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelInfo.Location = new System.Drawing.Point(271, 0);
             this.panelInfo.Name = "panelInfo";
             this.panelInfo.Size = new System.Drawing.Size(618, 479);
             this.panelInfo.TabIndex = 30;
@@ -147,6 +147,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(893, 479);
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panelRoot);
