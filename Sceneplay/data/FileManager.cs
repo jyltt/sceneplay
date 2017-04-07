@@ -51,5 +51,12 @@ namespace Sceneplay.data
             m_ConfigMgr = new ConfigManager("config/hurdle/hurdle_screenplay/screenplay_config.txt");
         }
 
+        public void Save()
+        {
+            m_StringCfg.Save();
+            m_ConfigMgr.Save();
+            m_ContentMgr.Save();
+        }
+
     }
 }

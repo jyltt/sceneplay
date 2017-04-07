@@ -1,4 +1,5 @@
 ﻿using Sceneplay.data;
+using Sceneplay.ui;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,6 +20,7 @@ namespace Sceneplay
         int m_curFuncIndex = -1;
         string m_curFuncName = "";
         TreeNode m_RootNode;
+        List<Form> m_curForm = new List<Form>();
 
         public MainUI()
         {
@@ -27,6 +29,16 @@ namespace Sceneplay
             m_RootNode = new TreeNode("root");
             SceneTree.Nodes.Add(m_RootNode);
             RefreshAll();
+        }
+
+        void ClearForm()
+        {
+            foreach (var w2 in m_curForm)
+            {
+                w2.Parent = null;
+                w2.MdiParent = null;
+            }
+            m_curForm.Clear();
         }
 
         private void CreateTree()
@@ -93,9 +105,7 @@ namespace Sceneplay
         //////////////////////////回调函数/////////////////////////////////////
         private void btnSave_Click(object sender, EventArgs e)
         {
-            //m_FileInfo.WriteConfigFile(m_FileInfo.GetPath() + "screenplay_config.txt");
-            //m_FileInfo.WriteContentFile(m_FileInfo.GetPath() + "screenplay_content.txt");
-            //m_FileInfo.m_StringCfg.Save();
+            FileManager.GetInstance().Save();
         }
 
         private void SceneTreeClickItem(object sender, TreeViewEventArgs e)
@@ -125,6 +135,12 @@ namespace Sceneplay
                 m_curSceneplayId = -1;
                 m_curFuncName = "";
                 m_curFuncIndex = -1;
+                ClearForm();
+                var w1 = new HurdleUI(m_curHurdleId);
+                w1.MdiParent = this;
+                w1.Parent = panelInfo;
+                w1.Show();
+                m_curForm.Add(w1);
             }
             else
             { 

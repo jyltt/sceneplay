@@ -119,5 +119,18 @@ namespace Sceneplay.data
             else
                 return new List<HurdleInfo>();
         }
+
+        public bool ChangeHurdleID(int old_id, int new_id)
+        {
+            if (m_hurdle.ContainsKey(new_id))
+            {
+                MessageBox.Show("该关卡id已存在\\('o'/)");
+                return false;
+            }
+            var oldDes = m_hurdle[old_id];
+            m_hurdle[new_id] = oldDes;
+            m_hurdle.Remove(old_id);
+            return true;
+        }
     }
 }
