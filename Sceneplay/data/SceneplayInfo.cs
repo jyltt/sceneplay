@@ -10,17 +10,16 @@ namespace Sceneplay
 {
     class SceneplayInfo
     {
+        const int m_SwitchNum = 5;
         int m_SceneplayID;
         int m_Index;
-        int m_SwitchNum = 5;
         int m_Pos = 0;
         int m_ActorID = 1;
         int m_Audio = 0;
         string m_IconPath = "0";
         string m_Describe = "0";
         string m_ActType = "talk";
-        FuncInfo m_ActInfo;
-        string m_ActTalk = "0";
+        ActionBase m_ActInfo;
         List<bool> m_Switch = new List<bool>();
         public SceneplayInfo(int sceneplay_id,int index) 
         {
@@ -41,9 +40,11 @@ namespace Sceneplay
             m_IconPath = si.m_IconPath;
             m_Describe = si.m_Describe;
             m_ActType = si.m_ActType;
-            m_ActTalk = si.m_ActTalk;
-            if(m_ActType == "func")
-                m_ActInfo = new FuncInfo(si.m_ActInfo);
+            if (m_ActType == "func")
+                m_ActInfo = new FuncInfo((FuncInfo)si.m_ActInfo);
+            else if (m_ActType == "talk")
+                m_ActInfo = new ActionTalk((ActionTalk)si.m_ActInfo);
+
             for (int i = 0; i < si.m_Switch.Count; ++i)
             {
                 m_Switch.Add(si.m_Switch[i]);
@@ -67,46 +68,16 @@ namespace Sceneplay
         }
         public void SetActInfo(string str)
         {
-            m_ActInfo = new FuncInfo(str);
+            if (m_ActType == "talk")
+                m_ActInfo = new ActionTalk(str);
+            else if (m_ActType == "func")
+                m_ActInfo = new FuncInfo(str);
         }
-        public string GetAct()
-        {
-            FuncCfgManager fciList = FileManager.GetInstance().FuncCfgMgr;
-            if (m_ActType == "func")
-            {
-                var info = m_ActInfo;
-                var funcName = info.Name;
-                var str = string.Format("{0};",funcName);
-                if (fciList.GetFuncCfg(funcName) != null)
-                {
-                    return str;
-                }
-
-                foreach(var param in fciList.GetFuncCfg(funcName).GetParamList())
-                {
-                    var value = info.GetParamValue(param);
-                    if (value != null && value != "")
-                        str = string.Format("{0}{1}={2};", str, param, value.Replace('\n', ','));
-                }
-                return str;
-            }
-            else if (m_ActType == "talk")
-            {
-                return "gs_screenplay."+m_ActTalk;
-            }
-            return "0";
-        }
-        public FuncInfo ActInfo 
+        public ActionBase ActInfo 
         { 
             get { return m_ActInfo; }
-            set { m_ActInfo = value; }
         }
         public int SwitchNum { get { return m_SwitchNum; } }
-        public string ActTalk
-        {
-            get { return m_ActTalk.Replace('\n',' '); }
-            set { m_ActTalk = value.Replace('\n',' '); }
-        }
         public int Pos 
         { 
             set { m_Pos = value; }

@@ -91,19 +91,19 @@ namespace Sceneplay
                 }
                 sr.Close();
                 m_funcCfgList["talk"] = new FuncCfgInfo("talk");
-                m_funcCfgList["talk"].AddParam(new ParamInfo("gs_screenplay","对话内容"));
+                m_funcCfgList["talk"].AddParam(new ParamInfo("gs_screenplay", "对话内容"));
                 m_funcCfgList["talk"].Describe = "对话内容";
                 m_funcList.Add("talk");
                 m_funcList.Sort();
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Msg:" + ex.Message,"文件被占用了。(─.─|||");
+                MessageBox.Show("Msg:" + ex.Message, "文件被占用了。(─.─|||");
             }
         }
 
         private void ReadContentFile(string path)
-        { 
+        {
             try
             {
                 StreamReader sr = new StreamReader(path, Encoding.Default);
@@ -117,7 +117,7 @@ namespace Sceneplay
                     var id = System.Int32.Parse(str[0]);
                     if (!m_play.ContainsKey(id))
                         m_play[id] = new List<SceneplayInfo>();
-                    var si = new SceneplayInfo(id,m_play[id].Count);
+                    var si = new SceneplayInfo(id, m_play[id].Count);
                     si.Pos = System.Int32.Parse(str[1]);
 
                     var match = Regex.Match(str[2], @"[a-z]+_([0-9]+)");
@@ -126,7 +126,7 @@ namespace Sceneplay
                         var index = System.Int32.Parse(match.Groups[1].ToString());
                         si.ActorID = index;
                     }
-                    else 
+                    else
                     {
                         si.ActorID = 0;
                     }
@@ -137,10 +137,10 @@ namespace Sceneplay
                     {
                         si.SetActInfo(str[4]);
                     }
-                    else if(type == "talk")
+                    else if (type == "talk")
                     {
                         var list = str[4].Split('.');
-                        si.ActTalk = list[list.Length-1];
+                        si.ActTalk = list[list.Length - 1];
                         if (!m_talk2flg.ContainsKey(si.ActTalk))
                             m_talk2flg[si.ActTalk] = 0;
                         ++m_talk2flg[si.ActTalk];
@@ -161,7 +161,7 @@ namespace Sceneplay
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Msg:" + ex.Message,"文件被占用了。(─.─|||");
+                MessageBox.Show("Msg:" + ex.Message, "文件被占用了。(─.─|||");
             }
         }
 
@@ -199,7 +199,7 @@ namespace Sceneplay
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Msg:" + ex.Message,"文件被占用了。(─.─|||");
+                MessageBox.Show("Msg:" + ex.Message, "文件被占用了。(─.─|||");
             }
         }
 
@@ -207,7 +207,7 @@ namespace Sceneplay
         {
             var list = new List<string>();
             string[] p = str.Split(';');
-            foreach(var s in p)
+            foreach (var s in p)
             {
                 var match = Regex.Match(s, @"[a-z]+_([0-9]+) *= *[0-9]+ *, *([\w ]+)");
                 if (match.Groups.Count > 1)
@@ -225,7 +225,7 @@ namespace Sceneplay
         {
             try
             {
-                StreamWriter sw = new StreamWriter(path,false,Encoding.UTF8);
+                StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8);
                 sw.WriteLine("o\ts\tn\tn\tb");
                 sw.WriteLine("关卡id\t登场对象\t剧情触发器\t剧情编号\t备注");
                 sw.WriteLine("hurdleid\tscene_obj\ttriggerid\tplayid\tb");
@@ -240,11 +240,11 @@ namespace Sceneplay
                         var lineObj = "";
                         for (int j = 0; j < ObjList.Count; ++j)
                         {
-                            lineObj += string.Format("aside_{0}=1,{1};",j+1,ObjList[j]);
+                            lineObj += string.Format("aside_{0}=1,{1};", j + 1, ObjList[j]);
                         }
                         if (lineObj == "")
                             lineObj = "aside_1=1, ;";
-                        string line = string.Format("{0}\t{1}\t{2}\t{3}\t{4}",hurdle_id,lineObj,lineTriggerid,linePlayid,lineDes);
+                        string line = string.Format("{0}\t{1}\t{2}\t{3}\t{4}", hurdle_id, lineObj, lineTriggerid, linePlayid, lineDes);
                         sw.WriteLine(line);
                     }
                 }
@@ -252,7 +252,7 @@ namespace Sceneplay
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Msg:" + ex.Message,"文件被占用了。(─.─|||");
+                MessageBox.Show("Msg:" + ex.Message, "文件被占用了。(─.─|||");
             }
         }
 
@@ -260,7 +260,7 @@ namespace Sceneplay
         {
             try
             {
-                StreamWriter sw = new StreamWriter(path,false,Encoding.UTF8);
+                StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8);
                 sw.WriteLine("o\tn\ts\ts\tn\ts\tn\tn\tn\tn\tn\tn\ts");
                 sw.WriteLine("剧情id：60021000～60050999\t人物位置(0中间 1左边 2右边）\t剧情操作对象\t操作类型\t操作内容\t角色头像路径\t语音id\t是否自动播放下一句剧情（非自动则点击播放下一句）\t是否显示跳过（0无跳过，1有跳过）\t是否开启黑幕\t是否开启暂停（0暂停，1开启）\t是否mmo剧情（0关卡，1mmo）\t备注");
                 sw.WriteLine("playid\tactor_pos\tactor\tactiontype\taction\ticon_path\taudio_id\tis_auto\tis_skip\tis_black\tis_pause\tis_mmo\tdes");
@@ -274,8 +274,8 @@ namespace Sceneplay
                         var lineAudio = m_play[playid_id][i].Audio;
                         var lineDes = m_play[playid_id][i].Describe;
                         var lineType = m_play[playid_id][i].ActType;
-                        var lineAction = m_play[playid_id][i].GetAct();
-                        var str = string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}", 
+                        var lineAction = m_play[playid_id][i].ActInfo.ToString();
+                        var str = string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}\t{9}\t{10}\t{11}\t{12}",
                             playid_id, linePos, actor2string(lineActor), lineType, lineAction, lineIcon, lineAudio, m_play[playid_id][i].GetSwitchToStr(0), m_play[playid_id][i].GetSwitchToStr(1), m_play[playid_id][i].GetSwitchToStr(2), m_play[playid_id][i].GetSwitchToStr(3), m_play[playid_id][i].GetSwitchToStr(4), lineDes);
                         sw.WriteLine(str);
                     }
@@ -284,7 +284,7 @@ namespace Sceneplay
             }
             catch (IOException ex)
             {
-                MessageBox.Show("Msg:" + ex.Message,"文件被占用了。(─.─|||");
+                MessageBox.Show("Msg:" + ex.Message, "文件被占用了。(─.─|||");
             }
         }
 
@@ -295,7 +295,7 @@ namespace Sceneplay
 
         public SceneplayInfo CreateFunc(int play_id, string funcName)
         {
-            var si = new SceneplayInfo(play_id,m_play[play_id].Count);
+            var si = new SceneplayInfo(play_id, m_play[play_id].Count);
             m_play[play_id].Add(si);
             return si;
         }
@@ -307,7 +307,7 @@ namespace Sceneplay
 
         public void CreatePlayid(int hurdle_id, int play_id)
         {
-            var hi = new HurdleInfo(hurdle_id,m_hurdle[hurdle_id].Count);
+            var hi = new HurdleInfo(hurdle_id, m_hurdle[hurdle_id].Count);
             hi.SceneplayID = play_id;
             m_hurdle[hurdle_id].Add(hi);
 
@@ -333,13 +333,13 @@ namespace Sceneplay
         public void ChangePlayid1(int old_id, int new_id)
         {
             var oldAct = m_play[old_id];
-            if(m_play2flg[old_id] >= 2)
+            if (m_play2flg[old_id] >= 2)
             {
                 if (m_play.ContainsKey(new_id))
                 {
-                    for (int i = 0; i < m_play[new_id].Count;++i)
+                    for (int i = 0; i < m_play[new_id].Count; ++i)
                     {
-                        if(m_play[new_id][i].ActTalk == "talk")
+                        if (m_play[new_id][i].ActTalk == "talk")
                         {
                             --m_talk2flg[m_play[new_id][i].ActTalk];
                         }
@@ -362,7 +362,7 @@ namespace Sceneplay
         }
 
         public void ChangePlayid2(int old_id, int hurdle_id, int id, int new_id)
-        { 
+        {
             m_hurdle[hurdle_id][id].SceneplayID = new_id;
 
             if (!m_play2flg.ContainsKey(new_id))
@@ -377,7 +377,7 @@ namespace Sceneplay
             }
         }
 
-        public bool ChangeHurdleid(int old_id,int new_id)
+        public bool ChangeHurdleid(int old_id, int new_id)
         {
             if (m_hurdle.ContainsKey(new_id))
             {
@@ -422,7 +422,7 @@ namespace Sceneplay
             }
             foreach (var hurdle_id in dic)
             {
-                str += hurdle_id.Key.ToString()+"\n";
+                str += hurdle_id.Key.ToString() + "\n";
             }
             return str;
         }

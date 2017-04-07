@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoxItem.cs" />
+    <Compile Include="data\ActionBase.cs" />
+    <Compile Include="data\ActionTalk.cs" />
     <Compile Include="data\ConfigManager.cs" />
     <Compile Include="data\ContentManager.cs" />
     <Compile Include="data\FileManager.cs" />
@@ -74,9 +76,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="FuncCfgInfo.cs" />
-    <Compile Include="FuncInfo.cs" />
-    <Compile Include="HurdleInfo.cs" />
+    <Compile Include="data\FuncCfgInfo.cs" />
+    <Compile Include="data\FuncInfo.cs" />
+    <Compile Include="data\HurdleInfo.cs" />
     <Compile Include="ui\MainUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,8 +87,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReadFile.cs" />
-    <Compile Include="SceneplayInfo.cs" />
+    <Content Include="ReadFile.cs" />
+    <Compile Include="data\SceneplayInfo.cs" />
     <Compile Include="data\StringCfgInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

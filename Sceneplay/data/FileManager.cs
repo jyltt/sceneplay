@@ -30,19 +30,25 @@ namespace Sceneplay.data
         FuncCfgManager m_FuncCfgMgr;
         public FuncCfgManager FuncCfgMgr
         {
-            get { return FuncCfgMgr; }
+            get { return m_FuncCfgMgr; }
         }
         ContentManager m_ContentMgr;
-        public FuncCfgManager ContentMgr
+        public ContentManager ContentMgr
         {
-            get { return ContentMgr; }
+            get { return m_ContentMgr; }
+        }
+        ConfigManager m_ConfigMgr;
+        public ConfigManager ConfigMgr
+        {
+            get { return m_ConfigMgr; }
         }
 
         public void ReadFile()
         {
             m_StringCfg = new StringCfgInfo("string/screenplay.txt");
             m_FuncCfgMgr = new FuncCfgManager("func_info.txt");
-            m_ContentMgr = new ContentManager("config/hurdle/hurdle_screenplay/screenplay_config.txt");
+            m_ContentMgr = new ContentManager("config/hurdle/hurdle_screenplay/screenplay_content.txt");
+            m_ConfigMgr = new ConfigManager("config/hurdle/hurdle_screenplay/screenplay_config.txt");
         }
 
     }
