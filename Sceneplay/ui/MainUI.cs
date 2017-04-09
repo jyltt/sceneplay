@@ -51,12 +51,13 @@ namespace Sceneplay
                     SceneTree.SelectedNode = nodeHurdle;
                 CreateHurdleTree(nodeHurdle, hurdle_id);
             }
+            m_RootNode.Expand();
         }
 
         private void CreateHurdleTree(TreeNode node, int hurdle_id)
         {
             var hurdleList = FileManager.GetInstance().ConfigMgr.GetContList(hurdle_id);
-            foreach (var hurdle in hurdleList)
+            foreach (var hurdle in hurdleList.Values)
             {
                 var sceneplay_id = hurdle.SceneplayID;
                 TreeNode nodeSceneplay = new TreeNode(sceneplay_id.ToString());
@@ -136,7 +137,7 @@ namespace Sceneplay
                 m_curFuncName = "";
                 m_curFuncIndex = -1;
                 ClearForm();
-                var w1 = new HurdleUI(m_curHurdleId);
+                var w1 = new HurdleUI(m_curHurdleId, SceneTree.SelectedNode);
                 w1.MdiParent = this;
                 w1.Parent = panelInfo;
                 w1.Show();

@@ -54,6 +54,8 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDeletNode = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.labTalkId = new System.Windows.Forms.TextBox();
             this.groupFuncRemarks = new System.Windows.Forms.GroupBox();
             this.labFuncRemarks = new System.Windows.Forms.RichTextBox();
             this.switchList = new System.Windows.Forms.CheckedListBox();
@@ -69,8 +71,6 @@
             this.btnDownNode = new System.Windows.Forms.Button();
             this.btnUpNode = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.labTalkId = new System.Windows.Forms.TextBox();
             groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2 = new System.Windows.Forms.GroupBox();
             groupBox3 = new System.Windows.Forms.GroupBox();
@@ -92,12 +92,12 @@
             groupBox9.SuspendLayout();
             groupBox11.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox13.SuspendLayout();
             this.groupFuncRemarks.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox12.SuspendLayout();
-            this.groupBox13.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -370,10 +370,29 @@
             this.panel1.Controls.Add(groupBox3);
             this.panel1.Controls.Add(groupBox1);
             this.panel1.Controls.Add(this.switchList);
-            this.panel1.Location = new System.Drawing.Point(281, 2);
+            this.panel1.Location = new System.Drawing.Point(276, 485);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(425, 438);
             this.panel1.TabIndex = 6;
+            // 
+            // groupBox13
+            // 
+            this.groupBox13.Controls.Add(this.labTalkId);
+            this.groupBox13.Location = new System.Drawing.Point(334, 388);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(88, 46);
+            this.groupBox13.TabIndex = 28;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "对话id";
+            // 
+            // labTalkId
+            // 
+            this.labTalkId.Location = new System.Drawing.Point(7, 20);
+            this.labTalkId.Name = "labTalkId";
+            this.labTalkId.Size = new System.Drawing.Size(72, 21);
+            this.labTalkId.TabIndex = 0;
+            this.labTalkId.WordWrap = false;
+            this.labTalkId.Leave += new System.EventHandler(this.labTalkId_Leave);
             // 
             // groupFuncRemarks
             // 
@@ -484,7 +503,7 @@
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.labReference);
-            this.groupBox12.Location = new System.Drawing.Point(707, 2);
+            this.groupBox12.Location = new System.Drawing.Point(832, 2);
             this.groupBox12.Name = "groupBox12";
             this.groupBox12.Size = new System.Drawing.Size(104, 438);
             this.groupBox12.TabIndex = 26;
@@ -532,30 +551,11 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
-            // groupBox13
-            // 
-            this.groupBox13.Controls.Add(this.labTalkId);
-            this.groupBox13.Location = new System.Drawing.Point(334, 388);
-            this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(88, 46);
-            this.groupBox13.TabIndex = 28;
-            this.groupBox13.TabStop = false;
-            this.groupBox13.Text = "对话id";
-            // 
-            // labTalkId
-            // 
-            this.labTalkId.Location = new System.Drawing.Point(7, 20);
-            this.labTalkId.Name = "labTalkId";
-            this.labTalkId.Size = new System.Drawing.Size(72, 21);
-            this.labTalkId.TabIndex = 0;
-            this.labTalkId.WordWrap = false;
-            this.labTalkId.Leave += new System.EventHandler(this.labTalkId_Leave);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(815, 479);
+            this.ClientSize = new System.Drawing.Size(960, 842);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.btnUpNode);
@@ -589,14 +589,14 @@
             groupBox11.ResumeLayout(false);
             groupBox11.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
             this.groupFuncRemarks.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
-            this.groupBox13.ResumeLayout(false);
-            this.groupBox13.PerformLayout();
             this.ResumeLayout(false);
 
         }

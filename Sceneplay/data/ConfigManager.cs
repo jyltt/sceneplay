@@ -12,7 +12,7 @@ namespace Sceneplay.data
     class ConfigManager
     {
         string m_FilePath;
-        Dictionary<int, List<HurdleInfo>> m_hurdle = new Dictionary<int, List<HurdleInfo>>();
+        Dictionary<int, Dictionary<int, HurdleInfo>> m_hurdle = new Dictionary<int, Dictionary<int, HurdleInfo>>();
         public ConfigManager(string file_path)
         {
             m_FilePath = file_path;
@@ -33,7 +33,7 @@ namespace Sceneplay.data
                     string[] str = line.Split('\t');
                     var id = System.Int32.Parse(str[0]);
                     if (!m_hurdle.ContainsKey(id))
-                        m_hurdle[id] = new List<HurdleInfo>();
+                        m_hurdle[id] = new Dictionary<int, HurdleInfo>();
                     var hi = new HurdleInfo(id, m_hurdle[id].Count);
                     var list = ReadSceneObj(str[1]);
                     for (int i = 0; i < list.Count; ++i)
@@ -44,7 +44,7 @@ namespace Sceneplay.data
                     var play_id = System.Int32.Parse(str[3]);
                     hi.SceneplayID = play_id;
                     hi.Describe = str[4];
-                    m_hurdle[id].Add(hi);
+                    m_hurdle[id][play_id] = hi;
                 }
                 sr.Close();
             }
@@ -82,12 +82,12 @@ namespace Sceneplay.data
                 sw.WriteLine("hurdleid\tscene_obj\ttriggerid\tplayid\tb");
                 foreach (var hurdle_id in m_hurdle.Keys)
                 {
-                    for (int i = 0; i < m_hurdle[hurdle_id].Count; ++i)
+                    foreach (HurdleInfo sceenPlay in m_hurdle[hurdle_id].Values)
                     {
-                        var linePlayid = m_hurdle[hurdle_id][i].SceneplayID;
-                        var lineTriggerid = m_hurdle[hurdle_id][i].TriggerID;
-                        var ObjList = m_hurdle[hurdle_id][i].ObjList;
-                        var lineDes = m_hurdle[hurdle_id][i].Describe;
+                        var linePlayid = sceenPlay.SceneplayID;
+                        var lineTriggerid = sceenPlay.TriggerID;
+                        var ObjList = sceenPlay.ObjList;
+                        var lineDes = sceenPlay.Describe;
                         var lineObj = "";
                         for (int j = 0; j < ObjList.Count; ++j)
                         {
@@ -107,20 +107,20 @@ namespace Sceneplay.data
             }
         }
 
-        public Dictionary<int, List<HurdleInfo>>.KeyCollection GetHurdleList()
+        public Dictionary<int, Dictionary<int, HurdleInfo>>.KeyCollection GetHurdleList()
         {
             return m_hurdle.Keys;
         }
 
-        public List<HurdleInfo> GetContList(int hurdle_id)
+        public Dictionary<int, HurdleInfo> GetContList(int hurdle_id)
         {
             if (m_hurdle.ContainsKey(hurdle_id))
                 return m_hurdle[hurdle_id];
             else
-                return new List<HurdleInfo>();
+                return new Dictionary<int, HurdleInfo>();
         }
 
-        public bool ChangeHurdleID(int old_id, int new_id)
+        public bool ExchangeHurdleID(int old_id, int new_id)
         {
             if (m_hurdle.ContainsKey(new_id))
             {
@@ -131,6 +131,27 @@ namespace Sceneplay.data
             m_hurdle[new_id] = oldDes;
             m_hurdle.Remove(old_id);
             return true;
+        }
+
+        public void ChangeSceenplay(int hurdle_id, int old_id, int new_id)
+        {
+            var hurdle = m_hurdle[hurdle_id];
+            hurdle[new_id] = hurdle[old_id];
+            hurdle[new_id].SceneplayID = new_id;
+            hurdle.Remove(old_id);
+        }
+
+        public int GetSceenplayCount(int sceenplay_id)
+        {
+            int count = 0;
+            var _hurdleList = GetHurdleList();
+            foreach(var _hurdle_id in _hurdleList)
+            {
+                var _hurdleInfo = FileManager.GetInstance().ConfigMgr.GetContList(_hurdle_id);
+                if (_hurdleInfo.ContainsKey(sceenplay_id))
+                    ++count;
+            }
+            return count;
         }
     }
 }

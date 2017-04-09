@@ -14,10 +14,12 @@ namespace Sceneplay.ui
     public partial class HurdleUI : Form
     {
         int m_curHurdleID;
-        public HurdleUI(int hurdle_id)
+        TreeNode m_curNode;
+        public HurdleUI(int hurdle_id, TreeNode node)
         {
             InitializeComponent();
             m_curHurdleID = hurdle_id;
+            m_curNode = node;
             m_labID.Text = hurdle_id.ToString();
         }
 
@@ -37,6 +39,7 @@ namespace Sceneplay.ui
             if (FileManager.GetInstance().ConfigMgr.ChangeHurdleID(m_curHurdleID, id))
             {
                 m_curHurdleID = id;
+                m_curNode.Text = newName;
             }
             else
             {

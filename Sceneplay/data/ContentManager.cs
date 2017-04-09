@@ -113,12 +113,48 @@ namespace Sceneplay.data
             if (m_play.ContainsKey(sceenplay_id))
                 return m_play[sceenplay_id];
             else
-                return new List<SceneplayInfo>();
+                return null;
         }
 
         public Dictionary<int, List<SceneplayInfo>>.KeyCollection GetSceenplayList()
         {
             return m_play.Keys;
+        }
+
+        public void RemoveSceenplay(int id)
+        {
+            int count = FileManager.GetInstance().ConfigMgr.GetSceenplayCount(id);
+            if (count == 0)
+            {
+                m_play.Remove(id);
+            }
+        }
+
+        public void ExchangeSceenplayID(int hurdle_id, int new_id, int old_id)
+        {
+            if (m_play.ContainsKey(new_id))
+            {
+                var ret = MessageBox.Show("是否重置节点?●﹏●", "id已存在", MessageBoxButtons.YesNo);
+                if (ret == DialogResult.No)
+                    return;
+                FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
+                RemoveSceenplay(old_id);
+            }
+            else
+            {
+                int count = FileManager.GetInstance().ConfigMgr.GetSceenplayCount(old_id);
+                if (count >= 2)
+                {
+                    var ret = MessageBox.Show("是否复制~>_<~", "该id被多个地方引用了", MessageBoxButtons.YesNo);
+                    switch (ret)
+                    {
+                        case DialogResult.Yes:
+                            break;
+                        case DialogResult.No:
+                            return;
+                    }
+                }
+            }
         }
 
     }

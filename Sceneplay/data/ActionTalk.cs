@@ -44,7 +44,7 @@ namespace Sceneplay.data
 
         override public string ToString()
         {
-            return ".str" + m_nId;
+            return "gs_screenplay.str" + m_nId;
         }
     }
 }
