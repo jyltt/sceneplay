@@ -13,8 +13,8 @@ namespace Sceneplay.data
     {
         string m_FilePath;
         Dictionary<int, List<SceneplayInfo>> m_play = new Dictionary<int, List<SceneplayInfo>>();
-        delegate void UpdateScreenplayNode();
-        Dictionary<int, Delegate> m_list = new Dictionary<int,Delegate>();
+        public delegate void UpdateScreenplayNode(int screenplay_id, int hurdle_id);
+        public Dictionary<int, UpdateScreenplayNode> m_UpdateFunc = new Dictionary<int,UpdateScreenplayNode>();
         public ContentManager(string file_path)
         {
             m_FilePath = file_path;
@@ -140,6 +140,8 @@ namespace Sceneplay.data
                 if (ret == DialogResult.No)
                     return;
                 FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
+                if (m_UpdateFunc[old_id] != null)
+                    m_UpdateFunc[old_id](new_id, hurdle_id);
                 RemoveSceenplay(old_id);
             }
             else

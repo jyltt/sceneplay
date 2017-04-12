@@ -57,29 +57,12 @@ namespace Sceneplay
             foreach (var hurdle in hurdleList.Values)
             {
                 var sceneplay_id = hurdle.SceneplayID;
-                ScreenplayTreeNode nodeSceneplay = new ScreenplayTreeNode();
+                ScreenplayTreeNode nodeSceneplay = new ScreenplayTreeNode(sceneplay_id,hurdle_id);
                 node.Nodes.Add(nodeSceneplay);
                 if (hurdle_id == DataCenter.curHurdleId && sceneplay_id == DataCenter.curScreenplayId && -1 == DataCenter.curFuncIndex)
                     SceneTree.SelectedNode = nodeSceneplay;
                 nodeSceneplay.CreateSceneplayTree(sceneplay_id, hurdle_id);
                 //CreateSceneplayTree(nodeSceneplay, sceneplay_id, hurdle_id);
-            }
-        }
-
-        private void CreateSceneplayTree(TreeNode node, int sceneplay_id, int hurdle_id)
-        {
-            var list = FileManager.GetInstance().ContentMgr.GetInfoList(sceneplay_id);
-            for (int i = 0; i < list.Count; i++)
-            {
-                var func = list[i];
-                var obj = func.ActInfo;
-                string name = obj.Name;
-                string text = obj.Name + "(" + func.Describe + ")";
-                TreeNode nodeFuncName = new TreeNode(text);
-                nodeFuncName.Tag = name;
-                node.Nodes.Add(nodeFuncName);
-                if (hurdle_id == DataCenter.curHurdleId && sceneplay_id == DataCenter.curScreenplayId && i == DataCenter.curFuncIndex)
-                    SceneTree.SelectedNode = nodeFuncName;
             }
         }
 
