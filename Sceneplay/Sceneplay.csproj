@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoxItem.cs" />
+    <Compile Include="DataCenter.cs" />
     <Compile Include="data\ActionBase.cs" />
     <Compile Include="data\ActionTalk.cs" />
     <Compile Include="data\ConfigManager.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="ui\HurdleUI.Designer.cs">
       <DependentUpon>HurdleUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="ui\item\ScreenplayTreeNode.cs" />
     <Compile Include="ui\MainUI.cs">
       <SubType>Form</SubType>
     </Compile>

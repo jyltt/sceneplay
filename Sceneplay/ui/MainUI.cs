@@ -1,5 +1,6 @@
 ﻿using Sceneplay.data;
 using Sceneplay.ui;
+using Sceneplay.ui.item;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +16,6 @@ namespace Sceneplay
 {
     public partial class MainUI : Form
     {
-        int m_curHurdleId = -1;
-        int m_curSceneplayId = -1;
-        int m_curFuncIndex = -1;
         string m_curFuncName = "";
         TreeNode m_RootNode;
         List<Form> m_curForm = new List<Form>();
@@ -25,7 +23,6 @@ namespace Sceneplay
         public MainUI()
         {
             InitializeComponent();
-            SceneTree.DrawNode += new DrawTreeNodeEventHandler(SceneTree_DrawNode);
             m_RootNode = new TreeNode("root");
             SceneTree.Nodes.Add(m_RootNode);
             RefreshAll();
@@ -47,7 +44,7 @@ namespace Sceneplay
             {
                 TreeNode nodeHurdle = new TreeNode(hurdle_id.ToString());
                 m_RootNode.Nodes.Add(nodeHurdle);
-                if (hurdle_id == m_curHurdleId && -1 == m_curSceneplayId && -1 == m_curFuncIndex)
+                if (hurdle_id == DataCenter.curHurdleId && -1 == DataCenter.curScreenplayId && -1 == DataCenter.curFuncIndex)
                     SceneTree.SelectedNode = nodeHurdle;
                 CreateHurdleTree(nodeHurdle, hurdle_id);
             }
@@ -60,11 +57,12 @@ namespace Sceneplay
             foreach (var hurdle in hurdleList.Values)
             {
                 var sceneplay_id = hurdle.SceneplayID;
-                TreeNode nodeSceneplay = new TreeNode(sceneplay_id.ToString());
+                ScreenplayTreeNode nodeSceneplay = new ScreenplayTreeNode();
                 node.Nodes.Add(nodeSceneplay);
-                if (hurdle_id == m_curHurdleId && sceneplay_id == m_curSceneplayId && -1 == m_curFuncIndex)
+                if (hurdle_id == DataCenter.curHurdleId && sceneplay_id == DataCenter.curScreenplayId && -1 == DataCenter.curFuncIndex)
                     SceneTree.SelectedNode = nodeSceneplay;
-                CreateSceneplayTree(nodeSceneplay, sceneplay_id, hurdle_id);
+                nodeSceneplay.CreateSceneplayTree(sceneplay_id, hurdle_id);
+                //CreateSceneplayTree(nodeSceneplay, sceneplay_id, hurdle_id);
             }
         }
 
@@ -80,7 +78,7 @@ namespace Sceneplay
                 TreeNode nodeFuncName = new TreeNode(text);
                 nodeFuncName.Tag = name;
                 node.Nodes.Add(nodeFuncName);
-                if (hurdle_id == m_curHurdleId && sceneplay_id == m_curSceneplayId && i == m_curFuncIndex)
+                if (hurdle_id == DataCenter.curHurdleId && sceneplay_id == DataCenter.curScreenplayId && i == DataCenter.curFuncIndex)
                     SceneTree.SelectedNode = nodeFuncName;
             }
         }
@@ -116,28 +114,28 @@ namespace Sceneplay
             string[] nodeParent = fullPath.Split('.');
             if (nodeParent.Length == 4)
             {
-                m_curHurdleId = System.Int32.Parse(nodeParent[1]);
-                m_curSceneplayId = System.Int32.Parse(nodeParent[2]);
+                DataCenter.curHurdleId = System.Int32.Parse(nodeParent[1]);
+                DataCenter.curScreenplayId = System.Int32.Parse(nodeParent[2]);
                 m_curFuncName = (string)SceneTree.SelectedNode.Tag;
-                m_curFuncIndex = SceneTree.SelectedNode.Index;
+                DataCenter.curFuncIndex = SceneTree.SelectedNode.Index;
                 SelectFunc();
             }
             else if(nodeParent.Length == 3)
             {
-                m_curHurdleId = System.Int32.Parse(nodeParent[1]);
-                m_curSceneplayId = System.Int32.Parse(nodeParent[2]);
+                DataCenter.curHurdleId = System.Int32.Parse(nodeParent[1]);
+                DataCenter.curScreenplayId = System.Int32.Parse(nodeParent[2]);
                 m_curFuncName = "";
-                m_curFuncIndex = -1;
+                DataCenter.curFuncIndex = -1;
                 SelectSceneplay();
             }
             else if (nodeParent.Length == 2)
             {
-                m_curHurdleId = System.Int32.Parse(nodeParent[1]);
-                m_curSceneplayId = -1;
+                DataCenter.curHurdleId = System.Int32.Parse(nodeParent[1]);
+                DataCenter.curScreenplayId = -1;
                 m_curFuncName = "";
-                m_curFuncIndex = -1;
+                DataCenter.curFuncIndex = -1;
                 ClearForm();
-                var w1 = new HurdleUI(m_curHurdleId, SceneTree.SelectedNode);
+                var w1 = new HurdleUI(DataCenter.curHurdleId, SceneTree.SelectedNode);
                 w1.MdiParent = this;
                 w1.Parent = panelInfo;
                 w1.Show();
@@ -161,11 +159,11 @@ namespace Sceneplay
                     break;
                 case 2:
                     var playsceneid = 1;
-                    //m_FileInfo.CreatePlayid(m_curHurdleId, playsceneid);
+                    //m_FileInfo.CreatePlayid(DataCenter.curHurdleId, playsceneid);
                     curTreeNode.Nodes.Add(playsceneid.ToString());
                     break;
                 case 3:
-                    //if(m_FileInfo.m_play2flg[m_curSceneplayId]>1)
+                    //if(m_FileInfo.m_play2flg[DataCenter.curScreenplayId]>1)
                     //{
                     //    var ret = MessageBox.Show("该剧情有多个关卡引用，添加会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     //    switch (ret)
@@ -175,7 +173,7 @@ namespace Sceneplay
                     //    }
                     //}
                     //var funcName = "talk";
-                    //var sceneplay = m_FileInfo.CreateFunc(m_curSceneplayId, funcName);
+                    //var sceneplay = m_FileInfo.CreateFunc(DataCenter.curScreenplayId, funcName);
                     //sceneplay.ActTalk = "str" + m_FileInfo.m_StringCfg.GetStringId().ToString();
                     //curTreeNode.Nodes.Add(funcName);
                     //RefreshAll(false);
@@ -205,10 +203,10 @@ namespace Sceneplay
                     result = Int32.TryParse(nodeName, out sceneplay_id); // return bool value hint y/n
                     if (!result)
                         return;
-                    //m_FileInfo.RemovePlayid(sceneplay_id, m_curHurdleId, curTreeNode.Index);
+                    //m_FileInfo.RemovePlayid(sceneplay_id, DataCenter.curHurdleId, curTreeNode.Index);
                     break;
                 case 4:
-                    //if(m_FileInfo.m_play2flg[m_curSceneplayId]>1)
+                    //if(m_FileInfo.m_play2flg[DataCenter.curScreenplayId]>1)
                     //{
                     //    var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     //    switch (ret)
@@ -217,16 +215,16 @@ namespace Sceneplay
                     //            return;
                     //    }
                     //}
-                    //var list = m_FileInfo.m_play[m_curSceneplayId];
+                    //var list = m_FileInfo.m_play[DataCenter.curScreenplayId];
                     //for (int i = 0; i < list.Count; ++i)
                     //{
                     //    if (i == curTreeNode.Index)
                     //    {
-                    //        m_FileInfo.DeleteFunc(m_curSceneplayId, i);
+                    //        m_FileInfo.DeleteFunc(DataCenter.curScreenplayId, i);
                     //        break;
                     //    }
                     //}
-                    //m_curFuncIndex -= 1;
+                    //DataCenter.curFuncIndex -= 1;
                     //RefreshAll(false);
                     break;
                 default:
@@ -249,7 +247,7 @@ namespace Sceneplay
             switch (nodeList.Length)
             { 
                 case 3:
-                    //var hurdleList = m_FileInfo.m_hurdle[m_curHurdleId];
+                    //var hurdleList = m_FileInfo.m_hurdle[DataCenter.curHurdleId];
                     //if (curTreeNode.Index < hurdleList.Count - 1)
                     //{
                     //    var curIndex = curTreeNode.Index;
@@ -263,13 +261,13 @@ namespace Sceneplay
                     //        TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
                     //        CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID, hurdle.HurdleID);
                     //        parentNode.Nodes.Add(nodeSceneplay);
-                    //        if (hurdle.SceneplayID == m_curSceneplayId)
+                    //        if (hurdle.SceneplayID == DataCenter.curScreenplayId)
                     //            SceneTree.SelectedNode = nodeSceneplay;
                     //    }
                     //}
                     break;
                 case 4:
-                    //var sceneplayList = m_FileInfo.m_play[m_curSceneplayId];
+                    //var sceneplayList = m_FileInfo.m_play[DataCenter.curScreenplayId];
                     //if (curTreeNode.Index < sceneplayList.Count - 1)
                     //{
                     //    var curIndex = curTreeNode.Index;
@@ -317,7 +315,7 @@ namespace Sceneplay
                 case 2:
                     break;
                 case 3:
-                    //var list = m_FileInfo.m_hurdle[m_curHurdleId];
+                    //var list = m_FileInfo.m_hurdle[DataCenter.curHurdleId];
                     //if (curTreeNode.Index > 0)
                     //{
                     //    var curIndex = curTreeNode.Index;
@@ -331,13 +329,13 @@ namespace Sceneplay
                     //        TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
                     //        CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID, hurdle.HurdleID);
                     //        parentNode.Nodes.Add(nodeSceneplay);
-                    //        if (hurdle.SceneplayID == m_curSceneplayId)
+                    //        if (hurdle.SceneplayID == DataCenter.curScreenplayId)
                     //            SceneTree.SelectedNode = nodeSceneplay;
                     //    }
                     //}
                     break;
                 case 4:
-                    //var sceneplayList = m_FileInfo.m_play[m_curSceneplayId];
+                    //var sceneplayList = m_FileInfo.m_play[DataCenter.curScreenplayId];
                     //if (curTreeNode.Index > 0)
                     //{
                     //    var curIndex = curTreeNode.Index;

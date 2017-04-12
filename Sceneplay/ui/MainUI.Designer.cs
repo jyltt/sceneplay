@@ -44,6 +44,7 @@
             // 
             this.SceneTree.Dock = System.Windows.Forms.DockStyle.Top;
             this.SceneTree.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.SceneTree.FullRowSelect = true;
             this.SceneTree.HideSelection = false;
             this.SceneTree.ItemHeight = 14;
             this.SceneTree.LineColor = System.Drawing.Color.Aqua;

@@ -13,6 +13,8 @@ namespace Sceneplay.data
     {
         string m_FilePath;
         Dictionary<int, List<SceneplayInfo>> m_play = new Dictionary<int, List<SceneplayInfo>>();
+        delegate void UpdateScreenplayNode();
+        Dictionary<int, Delegate> m_list = new Dictionary<int,Delegate>();
         public ContentManager(string file_path)
         {
             m_FilePath = file_path;
