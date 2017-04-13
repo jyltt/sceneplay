@@ -132,13 +132,13 @@ namespace Sceneplay.data
             }
         }
 
-        public void ExchangeSceenplayID(int hurdle_id, int new_id, int old_id)
+        public bool ExchangeSceenplayID(int hurdle_id, int new_id, int old_id)
         {
             if (m_play.ContainsKey(new_id))
             {
                 var ret = MessageBox.Show("是否重置节点?●﹏●", "id已存在", MessageBoxButtons.YesNo);
                 if (ret == DialogResult.No)
-                    return;
+                    return false;
                 FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
                 if (m_UpdateFunc[old_id] != null)
                     m_UpdateFunc[old_id](new_id, hurdle_id);
@@ -155,10 +155,11 @@ namespace Sceneplay.data
                         case DialogResult.Yes:
                             break;
                         case DialogResult.No:
-                            return;
+                            return false;
                     }
                 }
             }
+            return true;
         }
 
     }

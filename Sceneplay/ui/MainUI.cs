@@ -72,6 +72,12 @@ namespace Sceneplay
 
         private void SelectSceneplay()
         {
+            ClearForm();
+            var w1 = new SceenplayUI(DataCenter.curHurdleId, DataCenter.curScreenplayId, SceneTree.SelectedNode);
+            w1.MdiParent = this;
+            w1.Parent = panelInfo;
+            w1.Show();
+            m_curForm.Add(w1);
         }
 
         private void RefreshAll(bool refresh_file = true)

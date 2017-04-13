@@ -23,6 +23,7 @@ namespace Sceneplay.ui
             m_curSceenplayID = sceenplay_id;
             m_curNode = node;
             InitializeComponent();
+            m_labID.Text = sceenplay_id.ToString();
         }
 
         private void m_labID_Leave(object sender, EventArgs e)
@@ -38,7 +39,11 @@ namespace Sceneplay.ui
             }
             if (id == m_curSceenplayID)
                 return;
-            FileManager.GetInstance().ContentMgr.ExchangeSceenplayID(m_curHurdleID, id, m_curSceenplayID);
+            bool res = FileManager.GetInstance().ContentMgr.ExchangeSceenplayID(m_curHurdleID, id, m_curSceenplayID);
+            if(!res)
+            {
+                m_labID.Text = m_curHurdleID.ToString();
+            }
             //if (m_FileInfo.m_play.ContainsKey(id))
             //{
             //    var ret = MessageBox.Show("是否重置节点?●﹏●", "id已存在", MessageBoxButtons.YesNo);
