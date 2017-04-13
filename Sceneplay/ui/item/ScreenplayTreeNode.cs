@@ -15,21 +15,29 @@ namespace Sceneplay.ui.item
         public ScreenplayTreeNode(int screenplay_id, int hurdle_id):base(screenplay_id.ToString())
         {
             m_screenplayId = screenplay_id;
-            if (!FileManager.GetInstance().ContentMgr.m_UpdateFunc.ContainsKey(screenplay_id))
-                FileManager.GetInstance().ContentMgr.m_UpdateFunc[screenplay_id] = null;
-            FileManager.GetInstance().ContentMgr.m_UpdateFunc[screenplay_id] += CreateSceneplayTree;
+            SetCallFunc(m_screenplayId);
             m_hurdleId = hurdle_id;
         }
         public void CreateSceneplayTree(int screenplay_id, int hurdle_id)
         {
             if (screenplay_id != m_screenplayId && hurdle_id == m_hurdleId)
             {
-                FileManager.GetInstance().ContentMgr.m_UpdateFunc[m_screenplayId] -= CreateSceneplayTree;
-                FileManager.GetInstance().ContentMgr.m_UpdateFunc[screenplay_id] += CreateSceneplayTree;
+                SetCallFunc(screenplay_id, m_screenplayId);
                 m_screenplayId = screenplay_id;
                 Text = m_screenplayId.ToString();
             }
             CreateSceneplayTree();
+        }
+        private void SetCallFunc(int new_id,int old_id=-1)
+        {
+            if (new_id != -1)
+            {
+                if (!FileManager.GetInstance().ContentMgr.m_UpdateFunc.ContainsKey(new_id))
+                    FileManager.GetInstance().ContentMgr.m_UpdateFunc[new_id] = null;
+                FileManager.GetInstance().ContentMgr.m_UpdateFunc[new_id] += CreateSceneplayTree;
+            }
+            if (old_id != -1)
+                FileManager.GetInstance().ContentMgr.m_UpdateFunc[old_id] -= CreateSceneplayTree;
         }
         private void CreateSceneplayTree()
         {
@@ -70,7 +78,7 @@ namespace Sceneplay.ui.item
 
         ~ScreenplayTreeNode()
         {
-            FileManager.GetInstance().ContentMgr.m_UpdateFunc[m_screenplayId] -= CreateSceneplayTree;
+            SetCallFunc(-1, m_screenplayId);
         }
     }
 }
