@@ -140,9 +140,9 @@ namespace Sceneplay.data
                 if (ret == DialogResult.No)
                     return false;
                 FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
+                RemoveSceenplay(old_id);
                 if (m_UpdateFunc[old_id] != null)
                     m_UpdateFunc[old_id](new_id, hurdle_id);
-                RemoveSceenplay(old_id);
             }
             else
             {
@@ -157,6 +157,25 @@ namespace Sceneplay.data
                         case DialogResult.No:
                             return false;
                     }
+                    FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
+                    if (m_play.ContainsKey(new_id))
+                        m_play[new_id].Clear();
+                    else
+                        m_play[new_id] = new List<SceneplayInfo>();
+                    for(int i=0;i<m_play[old_id].Count;++i)
+                    {
+                        m_play[new_id].Add(new SceneplayInfo(m_play[old_id][i], new_id, i));
+                    }
+                    if (m_UpdateFunc[old_id] != null)
+                        m_UpdateFunc[old_id](new_id, hurdle_id);
+                }
+                else
+                {
+                    FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
+                    m_play[new_id] = m_play[old_id];
+                    RemoveSceenplay(old_id);
+                    //if (m_UpdateFunc[old_id] != null)
+                    //    m_UpdateFunc[old_id](new_id, hurdle_id);
                 }
             }
             return true;

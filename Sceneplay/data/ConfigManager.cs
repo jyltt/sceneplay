@@ -133,12 +133,19 @@ namespace Sceneplay.data
             return true;
         }
 
-        public void ChangeSceenplay(int hurdle_id, int old_id, int new_id)
+        public bool ChangeSceenplay(int hurdle_id, int old_id, int new_id)
         {
+            if (old_id == new_id)
+                return false;
             var hurdle = m_hurdle[hurdle_id];
+            if (hurdle.ContainsKey(new_id))
+                return false;
+            if (!hurdle.ContainsKey(old_id))
+                return false;
             hurdle[new_id] = hurdle[old_id];
             hurdle[new_id].SceneplayID = new_id;
             hurdle.Remove(old_id);
+            return true;
         }
 
         public int GetSceenplayCount(int sceenplay_id)
