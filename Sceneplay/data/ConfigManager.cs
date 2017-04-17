@@ -160,5 +160,31 @@ namespace Sceneplay.data
             }
             return count;
         }
+
+        public bool AddActor(int hurdle_id, int screenplay_id, string name)
+        {
+            var _screenplayInfo = GetScreenplayInfo(hurdle_id, screenplay_id);
+            if (_screenplayInfo == null)
+                return false;
+            return _screenplayInfo.AddObj(name);
+        }
+
+        public bool RemoveActor(int hurdle_id, int screenplay_id, string name)
+        {
+            var _screenplayInfo = GetScreenplayInfo(hurdle_id, screenplay_id);
+            if (_screenplayInfo == null)
+                return false;
+            return _screenplayInfo.RemoveObj(name);
+        }
+
+        public HurdleInfo GetScreenplayInfo(int hurdle_id, int screenplay_id)
+        {
+            if (!m_hurdle.ContainsKey(hurdle_id))
+                return null;
+            var _hurdleInfo = m_hurdle[hurdle_id];
+            if (!_hurdleInfo.ContainsKey(screenplay_id))
+                return null;
+            return _hurdleInfo[screenplay_id];
+        }
     }
 }

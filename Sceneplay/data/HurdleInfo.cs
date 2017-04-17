@@ -43,6 +43,12 @@ namespace Sceneplay
             return false;
         }
 
+
+        public bool RemoveObj(string objName)
+        {
+            return m_ObjList.Remove(objName);
+        }
+
         public List<string> ObjList { get { return m_ObjList; } }
 
         public int HurdleID 

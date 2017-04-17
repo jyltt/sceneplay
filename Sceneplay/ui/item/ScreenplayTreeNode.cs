@@ -41,6 +41,9 @@ namespace Sceneplay.ui.item
         }
         private void CreateSceneplayTree()
         {
+            var _bExpanded = false;
+            if (IsExpanded)
+                _bExpanded = IsExpanded;
             Nodes.Clear();
             var list = FileManager.GetInstance().ContentMgr.GetInfoList(m_screenplayId);
             var isSelect = (m_hurdleId == DataCenter.curHurdleId && m_screenplayId == DataCenter.curScreenplayId);
@@ -56,6 +59,10 @@ namespace Sceneplay.ui.item
                 if (isSelect && i == DataCenter.curFuncIndex)
                     TreeView.SelectedNode = nodeFuncName;
             }
+            if (_bExpanded)
+                Expand();
+            else
+                Collapse();
         }
 
         private void AddFunc()
