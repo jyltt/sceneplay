@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.m_labRemarks = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.m_labTriggerID = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -38,14 +40,12 @@
             this.m_btnAddActor = new System.Windows.Forms.Button();
             this.m_labActor = new System.Windows.Forms.TextBox();
             this.m_listActor = new System.Windows.Forms.ListBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.m_labRemarks = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -58,6 +58,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(370, 270);
             this.panel1.TabIndex = 0;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.m_labRemarks);
+            this.groupBox4.Location = new System.Drawing.Point(2, 52);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(240, 215);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "备注";
+            // 
+            // m_labRemarks
+            // 
+            this.m_labRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_labRemarks.Location = new System.Drawing.Point(3, 17);
+            this.m_labRemarks.Multiline = true;
+            this.m_labRemarks.Name = "m_labRemarks";
+            this.m_labRemarks.Size = new System.Drawing.Size(234, 195);
+            this.m_labRemarks.TabIndex = 0;
+            this.m_labRemarks.TextChanged += new System.EventHandler(this.m_labRemarks_TextChanged);
             // 
             // groupBox3
             // 
@@ -150,26 +170,6 @@
             this.m_listActor.TabIndex = 0;
             this.m_listActor.SelectedIndexChanged += new System.EventHandler(this.m_listActor_SelectedIndexChanged);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.m_labRemarks);
-            this.groupBox4.Location = new System.Drawing.Point(2, 52);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(240, 215);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "备注";
-            // 
-            // m_labRemarks
-            // 
-            this.m_labRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_labRemarks.Location = new System.Drawing.Point(3, 17);
-            this.m_labRemarks.Multiline = true;
-            this.m_labRemarks.Name = "m_labRemarks";
-            this.m_labRemarks.Size = new System.Drawing.Size(234, 195);
-            this.m_labRemarks.TabIndex = 0;
-            this.m_labRemarks.TextChanged += new System.EventHandler(this.m_labRemarks_TextChanged);
-            // 
             // SceenplayUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -184,6 +184,8 @@
             this.ShowInTaskbar = false;
             this.Text = "SceenplayUI";
             this.panel1.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -191,8 +193,6 @@
             this.groupBox1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }

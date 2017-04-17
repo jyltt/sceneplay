@@ -80,6 +80,12 @@
     <Compile Include="data\FuncCfgInfo.cs" />
     <Compile Include="data\FuncInfo.cs" />
     <Compile Include="data\HurdleInfo.cs" />
+    <Compile Include="ui\ActionFuncUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ui\ActionFuncUI.Designer.cs">
+      <DependentUpon>ActionFuncUI.cs</DependentUpon>
+    </Compile>
     <Compile Include="ui\HurdleUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -117,6 +123,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ui\ActionFuncUI.resx">
+      <DependentUpon>ActionFuncUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ui\HurdleUI.resx">
       <DependentUpon>HurdleUI.cs</DependentUpon>
     </EmbeddedResource>
