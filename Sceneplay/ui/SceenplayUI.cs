@@ -31,6 +31,7 @@ namespace Sceneplay.ui
                 m_listActor.Items.Add(name);
             }
             m_labTriggerID.Text = _screenplayInfo.TriggerID.ToString();
+            m_labRemarks.Text = _screenplayInfo.Describe.Replace("\\n","\r\n");
         }
 
         private void m_labID_Leave(object sender, EventArgs e)
@@ -107,6 +108,12 @@ namespace Sceneplay.ui
                 return;
             }
             _screenplayInfo.TriggerID = id;
+        }
+
+        private void m_labRemarks_TextChanged(object sender, EventArgs e)
+        {
+            var _screenplayInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
+            _screenplayInfo.Describe = m_labRemarks.Text.Replace("\r\n", "\\n");
         }
     }
 }

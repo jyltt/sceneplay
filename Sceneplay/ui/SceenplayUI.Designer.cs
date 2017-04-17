@@ -38,30 +38,33 @@
             this.m_btnAddActor = new System.Windows.Forms.Button();
             this.m_labActor = new System.Windows.Forms.TextBox();
             this.m_listActor = new System.Windows.Forms.ListBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.m_labRemarks = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.groupBox4);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Controls.Add(this.groupBox2);
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(117, 351);
+            this.panel1.Size = new System.Drawing.Size(370, 270);
             this.panel1.TabIndex = 0;
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.m_labTriggerID);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox3.Location = new System.Drawing.Point(0, 307);
+            this.groupBox3.Location = new System.Drawing.Point(125, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(117, 44);
+            this.groupBox3.Size = new System.Drawing.Size(117, 43);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "触发器";
@@ -78,10 +81,9 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.m_labID);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Location = new System.Drawing.Point(2, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(117, 45);
+            this.groupBox2.Size = new System.Drawing.Size(117, 44);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "剧情id";
@@ -100,7 +102,7 @@
             // 
             this.groupBox1.Controls.Add(this.panel2);
             this.groupBox1.Controls.Add(this.m_listActor);
-            this.groupBox1.Location = new System.Drawing.Point(0, 45);
+            this.groupBox1.Location = new System.Drawing.Point(248, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(115, 263);
             this.groupBox1.TabIndex = 2;
@@ -148,11 +150,31 @@
             this.m_listActor.TabIndex = 0;
             this.m_listActor.SelectedIndexChanged += new System.EventHandler(this.m_listActor_SelectedIndexChanged);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.m_labRemarks);
+            this.groupBox4.Location = new System.Drawing.Point(2, 52);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(240, 215);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "备注";
+            // 
+            // m_labRemarks
+            // 
+            this.m_labRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_labRemarks.Location = new System.Drawing.Point(3, 17);
+            this.m_labRemarks.Multiline = true;
+            this.m_labRemarks.Name = "m_labRemarks";
+            this.m_labRemarks.Size = new System.Drawing.Size(234, 195);
+            this.m_labRemarks.TabIndex = 0;
+            this.m_labRemarks.TextChanged += new System.EventHandler(this.m_labRemarks_TextChanged);
+            // 
             // SceenplayUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(123, 357);
+            this.ClientSize = new System.Drawing.Size(393, 294);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -169,6 +191,8 @@
             this.groupBox1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -185,5 +209,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox m_labTriggerID;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox m_labRemarks;
     }
 }
