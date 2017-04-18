@@ -120,6 +120,36 @@ namespace Sceneplay.data
                 return new Dictionary<int, HurdleInfo>();
         }
 
+        public bool CreateNewHurdle(int hurdle_id)
+        {
+            if (m_hurdle.ContainsKey(hurdle_id))
+                return false;
+            else
+            {
+                m_hurdle[hurdle_id] = new Dictionary<int, HurdleInfo>();
+                return true;
+            }
+        }
+
+        public bool CreateNewScreenplay(int hurdle_id, int screenplay_id)
+        {
+            if (m_hurdle.ContainsKey(hurdle_id))
+            {
+                if (FileManager.GetInstance().ContentMgr.CreateNewScreenplay(screenplay_id))
+                {
+                    var hurdle = m_hurdle[hurdle_id];
+                    if (!hurdle.ContainsKey(screenplay_id))
+                    {
+                        var screenplay = new HurdleInfo(hurdle_id, hurdle.Count);
+                        screenplay.SceneplayID = screenplay_id;
+                        hurdle[screenplay_id] = screenplay;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         public bool ExchangeHurdleID(int old_id, int new_id)
         {
             if (m_hurdle.ContainsKey(new_id))

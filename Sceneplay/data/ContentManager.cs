@@ -133,6 +133,17 @@ namespace Sceneplay.data
             return m_play.Keys;
         }
 
+        public bool CreateNewScreenplay(int screenplay_id)
+        {
+            if (m_play.ContainsKey(screenplay_id))
+                return false;
+            else
+            {
+                m_play[screenplay_id] = new List<SceneplayInfo>();
+                return true;
+            }
+        }
+
         public void RemoveSceenplay(int id)
         {
             int count = FileManager.GetInstance().ConfigMgr.GetSceenplayCount(id);
@@ -174,7 +185,8 @@ namespace Sceneplay.data
                 }
                 else
                 {
-                    m_play[new_id] = m_play[old_id];
+                    if(m_play.ContainsKey(old_id))
+                        m_play[new_id] = m_play[old_id];
                 }
             }
             FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);

@@ -46,6 +46,8 @@ namespace Sceneplay.ui.item
                 _bExpanded = IsExpanded;
             Nodes.Clear();
             var list = FileManager.GetInstance().ContentMgr.GetInfoList(m_screenplayId);
+            if (list == null)
+                return;
             var isSelect = (m_hurdleId == DataCenter.curHurdleId && m_screenplayId == DataCenter.curScreenplayId);
             for (int i = 0; i < list.Count; i++)
             {

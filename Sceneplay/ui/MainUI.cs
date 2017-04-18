@@ -148,13 +148,21 @@ namespace Sceneplay
             { 
                 case 1:
                     var name = 1;
-                    //m_FileInfo.CreateHurdle(name);
-                    curTreeNode.Nodes.Add(name.ToString());
+                    if (FileManager.GetInstance().ConfigMgr.CreateNewHurdle(name))
+                        curTreeNode.Nodes.Add(name.ToString());
+                    else
+                        MessageBox.Show("关卡id已存在d(╯﹏╰)b", "创建失败");
                     break;
                 case 2:
                     var playsceneid = 1;
-                    //m_FileInfo.CreatePlayid(DataCenter.curHurdleId, playsceneid);
-                    curTreeNode.Nodes.Add(playsceneid.ToString());
+                    var res = FileManager.GetInstance().ConfigMgr.CreateNewScreenplay(DataCenter.curHurdleId, playsceneid);
+                    if(res)
+                    {
+                        ScreenplayTreeNode nodeSceneplay = new ScreenplayTreeNode(playsceneid, DataCenter.curHurdleId );
+                        curTreeNode.Nodes.Add(nodeSceneplay);
+                    }
+                    else
+                        MessageBox.Show("剧情id创建失败⊙︿⊙", "创建失败");
                     break;
                 case 3:
                     //if(m_FileInfo.m_play2flg[DataCenter.curScreenplayId]>1)
