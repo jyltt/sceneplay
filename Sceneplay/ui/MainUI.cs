@@ -68,6 +68,12 @@ namespace Sceneplay
 
         private void SelectFunc()
         {
+            ClearForm();
+            var w1 = new ActionFuncUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+            w1.MdiParent = this;
+            w1.Parent = panelInfo;
+            w1.Show();
+            m_curForm.Add(w1);
         }
 
         private void SelectSceneplay()
@@ -98,7 +104,6 @@ namespace Sceneplay
 
         private void SceneTreeClickItem(object sender, TreeViewEventArgs e)
         {
-            string nodeName = SceneTree.SelectedNode.Text;
             string fullPath = SceneTree.SelectedNode.FullPath;
             string[] nodeParent = fullPath.Split('.');
             if (nodeParent.Length == 4)

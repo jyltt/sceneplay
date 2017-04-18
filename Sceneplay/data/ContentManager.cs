@@ -118,6 +118,16 @@ namespace Sceneplay.data
                 return null;
         }
 
+        public SceneplayInfo GetFuncInfo(int screenplay_id,int index)
+        {
+            var _screenplay = GetInfoList(screenplay_id);
+            if (_screenplay == null)
+                return null;
+            if (_screenplay.Count <= index)
+                return null;
+            return _screenplay[index];
+        }
+
         public Dictionary<int, List<SceneplayInfo>>.KeyCollection GetSceenplayList()
         {
             return m_play.Keys;
