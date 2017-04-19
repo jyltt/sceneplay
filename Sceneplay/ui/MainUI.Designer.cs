@@ -153,7 +153,6 @@
             this.Controls.Add(this.panelInfo);
             this.Controls.Add(this.panelRoot);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.IsMdiContainer = true;
             this.MaximizeBox = false;
             this.Name = "MainUI";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

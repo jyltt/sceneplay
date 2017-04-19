@@ -19,7 +19,7 @@ namespace Sceneplay
         string m_IconPath = "0";
         string m_Describe = "0";
         string m_ActType = "talk";
-        ActionBase m_ActInfo;
+        ActionBase m_ActInfo = new ActionTalk();
         List<bool> m_Switch = new List<bool>();
         public SceneplayInfo(int sceneplay_id,int index) 
         {

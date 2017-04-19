@@ -13,7 +13,7 @@ namespace Sceneplay.data
     {
         string m_FilePath;
         Dictionary<int, List<SceneplayInfo>> m_play = new Dictionary<int, List<SceneplayInfo>>();
-        public delegate void UpdateScreenplayNode(int screenplay_id, int hurdle_id);
+        public delegate void UpdateScreenplayNode(int screenplay_id, int hurdle_id=-1);
         public Dictionary<int, UpdateScreenplayNode> m_UpdateFunc = new Dictionary<int,UpdateScreenplayNode>();
         public ContentManager(string file_path)
         {
@@ -133,6 +133,16 @@ namespace Sceneplay.data
             return m_play.Keys;
         }
 
+        public void CreateNewAction(int screenplay_id)
+        {
+            if (!m_play.ContainsKey(screenplay_id))
+                return;
+            var act = new SceneplayInfo(screenplay_id, m_play[screenplay_id].Count);
+            m_play[screenplay_id].Add(act);
+            if (m_UpdateFunc.ContainsKey(screenplay_id))
+                m_UpdateFunc[screenplay_id](screenplay_id);
+        }
+
         public bool CreateNewScreenplay(int screenplay_id)
         {
             if (m_play.ContainsKey(screenplay_id))
@@ -191,7 +201,7 @@ namespace Sceneplay.data
             }
             FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
             RemoveSceenplay(old_id);
-            if (m_UpdateFunc[old_id] != null)
+            if (m_UpdateFunc.ContainsKey(old_id))
                 m_UpdateFunc[old_id](new_id, hurdle_id);
             return true;
         }

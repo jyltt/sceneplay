@@ -33,7 +33,7 @@ namespace Sceneplay
             foreach (var w2 in m_curForm)
             {
                 w2.Parent = null;
-                w2.MdiParent = null;
+                w2.TopLevel = false;
             }
             m_curForm.Clear();
         }
@@ -69,8 +69,8 @@ namespace Sceneplay
         private void SelectFunc()
         {
             ClearForm();
-            var w1 = new ActionFuncUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
-            w1.MdiParent = this;
+            var w1 = new ActionBaseUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+            w1.TopLevel = false;
             w1.Parent = panelInfo;
             w1.Show();
             m_curForm.Add(w1);
@@ -80,7 +80,7 @@ namespace Sceneplay
         {
             ClearForm();
             var w1 = new SceenplayUI(DataCenter.curHurdleId, DataCenter.curScreenplayId, SceneTree.SelectedNode);
-            w1.MdiParent = this;
+            w1.TopLevel = false;
             w1.Parent = panelInfo;
             w1.Show();
             m_curForm.Add(w1);
@@ -130,7 +130,7 @@ namespace Sceneplay
                 DataCenter.curFuncIndex = -1;
                 ClearForm();
                 var w1 = new HurdleUI(DataCenter.curHurdleId, SceneTree.SelectedNode);
-                w1.MdiParent = this;
+                w1.TopLevel = false;
                 w1.Parent = panelInfo;
                 w1.Show();
                 m_curForm.Add(w1);
@@ -165,20 +165,16 @@ namespace Sceneplay
                         MessageBox.Show("剧情id创建失败⊙︿⊙", "创建失败");
                     break;
                 case 3:
-                    //if(m_FileInfo.m_play2flg[DataCenter.curScreenplayId]>1)
-                    //{
-                    //    var ret = MessageBox.Show("该剧情有多个关卡引用，添加会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    //    switch (ret)
-                    //    { 
-                    //        case DialogResult.No:
-                    //            return;
-                    //    }
-                    //}
-                    //var funcName = "talk";
-                    //var sceneplay = m_FileInfo.CreateFunc(DataCenter.curScreenplayId, funcName);
-                    //sceneplay.ActTalk = "str" + m_FileInfo.m_StringCfg.GetStringId().ToString();
-                    //curTreeNode.Nodes.Add(funcName);
-                    //RefreshAll(false);
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    {
+                        var ret = MessageBox.Show("该剧情有多个关卡引用，添加会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        switch (ret)
+                        {
+                            case DialogResult.No:
+                                return;
+                        }
+                    }
+                    FileManager.GetInstance().ContentMgr.CreateNewAction(DataCenter.curScreenplayId);
                     break;
                 default:
                     MessageBox.Show("该节点不能创建子节点(─.─|||)");

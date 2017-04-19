@@ -11,6 +11,10 @@ namespace Sceneplay.data
     class ActionTalk : ActionBase
     {
         int m_nId;
+        public ActionTalk()
+        {
+        }
+
         public ActionTalk(string str_id)
         {
             Name = "talk";

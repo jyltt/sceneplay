@@ -18,7 +18,7 @@ namespace Sceneplay.ui.item
             SetCallFunc(m_screenplayId);
             m_hurdleId = hurdle_id;
         }
-        public void CreateSceneplayTree(int screenplay_id, int hurdle_id)
+        public void CreateSceneplayTree(int screenplay_id, int hurdle_id = -1)
         {
             if (screenplay_id != m_screenplayId && hurdle_id == m_hurdleId)
             {
@@ -67,21 +67,7 @@ namespace Sceneplay.ui.item
                 Collapse();
         }
 
-        private void AddFunc()
-        {
-            CreateSceneplayTree();
-        }
-
-        private void DelFunc()
-        {
-            CreateSceneplayTree();
-        }
-
         private void ChangeFunc()
-        {
-        }
-
-        private void ChangeScreenplayId(int new_id)
         {
         }
 
