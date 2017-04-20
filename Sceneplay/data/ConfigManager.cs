@@ -150,6 +150,31 @@ namespace Sceneplay.data
             return false;
         }
 
+        public bool RemoveHurdle(int hurdle_id)
+        {
+            if (!m_hurdle.ContainsKey(hurdle_id))
+                return false;
+            var list = m_hurdle[hurdle_id];
+            m_hurdle.Remove(hurdle_id);
+            foreach (var v in list.Values)
+            {
+                FileManager.GetInstance().ContentMgr.RemoveSceenplay(v.SceneplayID);
+            }
+            return true;
+        }
+
+        public bool RemoveScreenplay(int hurdle_id, int screenplay_id)
+        {
+            if (!m_hurdle.ContainsKey(hurdle_id))
+                return false;
+            var hurdle = m_hurdle[hurdle_id];
+            if (!hurdle.ContainsKey(screenplay_id))
+                return false;
+            hurdle.Remove(screenplay_id);
+            FileManager.GetInstance().ContentMgr.RemoveSceenplay(screenplay_id);
+            return true;
+        }
+
         public bool ExchangeHurdleID(int old_id, int new_id)
         {
             if (m_hurdle.ContainsKey(new_id))

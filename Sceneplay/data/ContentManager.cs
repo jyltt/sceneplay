@@ -163,6 +163,19 @@ namespace Sceneplay.data
             }
         }
 
+        public bool RemoveAction(int screenplay_id, int index)
+        {
+            if (!m_play.ContainsKey(screenplay_id))
+                return false;
+            var screenplay = m_play[screenplay_id];
+            if (screenplay.Count <= index)
+                return false;
+            screenplay.RemoveAt(index);
+            if (m_UpdateFunc.ContainsKey(screenplay_id))
+                m_UpdateFunc[screenplay_id](screenplay_id);
+            return true;
+        }
+
         public bool ExchangeSceenplayID(int hurdle_id, int new_id, int old_id)
         {
             if (m_play.ContainsKey(new_id))

@@ -193,7 +193,7 @@ namespace Sceneplay
                     bool result = Int32.TryParse(nodeName, out hurdle_id); // return bool value hint y/n
                     if (!result)
                         return;
-                    //m_FileInfo.DeleteHurdle(hurdle_id);
+                    FileManager.GetInstance().ConfigMgr.RemoveHurdle(hurdle_id);
                     break;
                 case 3:
                     nodeName = curTreeNode.Text;
@@ -201,29 +201,20 @@ namespace Sceneplay
                     result = Int32.TryParse(nodeName, out sceneplay_id); // return bool value hint y/n
                     if (!result)
                         return;
-                    //m_FileInfo.RemovePlayid(sceneplay_id, DataCenter.curHurdleId, curTreeNode.Index);
+                    FileManager.GetInstance().ConfigMgr.RemoveScreenplay(DataCenter.curHurdleId, sceneplay_id);
                     break;
                 case 4:
-                    //if(m_FileInfo.m_play2flg[DataCenter.curScreenplayId]>1)
-                    //{
-                    //    var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                    //    switch (ret)
-                    //    { 
-                    //        case DialogResult.No:
-                    //            return;
-                    //    }
-                    //}
-                    //var list = m_FileInfo.m_play[DataCenter.curScreenplayId];
-                    //for (int i = 0; i < list.Count; ++i)
-                    //{
-                    //    if (i == curTreeNode.Index)
-                    //    {
-                    //        m_FileInfo.DeleteFunc(DataCenter.curScreenplayId, i);
-                    //        break;
-                    //    }
-                    //}
-                    //DataCenter.curFuncIndex -= 1;
-                    //RefreshAll(false);
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    {
+                        var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        switch (ret)
+                        {
+                            case DialogResult.No:
+                                return;
+                        }
+                    }
+                    FileManager.GetInstance().ContentMgr.RemoveAction(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+                    DataCenter.curFuncIndex -= 1;
                     break;
                 default:
                     MessageBox.Show("别乱删结点啊喂！！(╯‵□′)╯︵┴─┴");
