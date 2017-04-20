@@ -219,5 +219,35 @@ namespace Sceneplay.data
             return true;
         }
 
+        public void MoveDownFunc(int screenplay_id, int func_index)
+        {
+            if (!m_play.ContainsKey(screenplay_id))
+                return;
+            var screenplay = m_play[screenplay_id];
+            if (func_index + 1 >= screenplay.Count)
+                return;
+            var curNode = screenplay[func_index];
+            screenplay.RemoveAt(func_index);
+            screenplay.Insert(func_index + 1, curNode);
+            ++DataCenter.curFuncIndex;
+            if (m_UpdateFunc.ContainsKey(screenplay_id))
+                m_UpdateFunc[screenplay_id](screenplay_id);
+        }
+
+        public void MoveUpFunc(int screenplay_id, int func_index)
+        {
+            if (!m_play.ContainsKey(screenplay_id))
+                return;
+            var screenplay = m_play[screenplay_id];
+            if (func_index <= 0)
+                return;
+            var curNode = screenplay[func_index];
+            screenplay.RemoveAt(func_index);
+            screenplay.Insert(func_index - 1, curNode);
+            --DataCenter.curFuncIndex;
+            if (m_UpdateFunc.ContainsKey(screenplay_id))
+                m_UpdateFunc[screenplay_id](screenplay_id);
+        }
+
     }
 }

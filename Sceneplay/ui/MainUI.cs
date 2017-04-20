@@ -235,62 +235,17 @@ namespace Sceneplay
             var nodeList = curTreeNode.FullPath.Split('.');
             switch (nodeList.Length)
             { 
-                case 3:
-                    //var hurdleList = m_FileInfo.m_hurdle[DataCenter.curHurdleId];
-                    //if (curTreeNode.Index < hurdleList.Count - 1)
-                    //{
-                    //    var curIndex = curTreeNode.Index;
-                    //    var curNode = hurdleList[curIndex];
-                    //    hurdleList.RemoveAt(curIndex);
-                    //    hurdleList.Insert(curIndex + 1, curNode);
-                    //    var parentNode = SceneTree.SelectedNode.Parent;
-                    //    parentNode.Nodes.Clear();
-                    //    foreach (var hurdle in hurdleList)
-                    //    {
-                    //        TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
-                    //        CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID, hurdle.HurdleID);
-                    //        parentNode.Nodes.Add(nodeSceneplay);
-                    //        if (hurdle.SceneplayID == DataCenter.curScreenplayId)
-                    //            SceneTree.SelectedNode = nodeSceneplay;
-                    //    }
-                    //}
-                    break;
                 case 4:
-                    //var sceneplayList = m_FileInfo.m_play[DataCenter.curScreenplayId];
-                    //if (curTreeNode.Index < sceneplayList.Count - 1)
-                    //{
-                    //    var curIndex = curTreeNode.Index;
-                    //    var curNode = sceneplayList[curIndex];
-                    //    sceneplayList.RemoveAt(curIndex);
-                    //    sceneplayList.Insert(curIndex + 1, curNode);
-                    //    var parentNode = SceneTree.SelectedNode.Parent;
-                    //    parentNode.Nodes.Clear();
-                    //    foreach (var func in sceneplayList)
-                    //    {
-                    //        string name = null;
-                    //        string text = null;
-                    //        if (func.ActType == "func")
-                    //        {
-                    //            var obj = func.ActInfo;
-                    //            name = obj.Name;
-                    //            text = obj.Name + "(" + func.Describe + ")";
-                    //        }
-                    //        else if (func.ActType == "talk")
-                    //        {
-                    //            name = "talk";
-                    //            text = "talk" + "(" + func.Describe + ")";
-                    //        }
-                    //        if (name != null)
-                    //        {
-                    //            TreeNode nodeFuncName = new TreeNode(text);
-                    //            nodeFuncName.Tag = name;
-                    //            parentNode.Nodes.Add(nodeFuncName);
-                    //            if (func == curNode && parentNode != null)
-                    //                SceneTree.SelectedNode = nodeFuncName;
-                    //        }
-                    //    }
-                    //    RefreshAll(false);
-                    //}
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    {
+                        var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        switch (ret)
+                        {
+                            case DialogResult.No:
+                                return;
+                        }
+                    }
+                    FileManager.GetInstance().ContentMgr.MoveDownFunc(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
                     break;
             }
         }
@@ -301,64 +256,17 @@ namespace Sceneplay
             var nodeList = curTreeNode.FullPath.Split('.');
             switch (nodeList.Length)
             { 
-                case 2:
-                    break;
-                case 3:
-                    //var list = m_FileInfo.m_hurdle[DataCenter.curHurdleId];
-                    //if (curTreeNode.Index > 0)
-                    //{
-                    //    var curIndex = curTreeNode.Index;
-                    //    var curNode = list[curIndex];
-                    //    list.RemoveAt(curTreeNode.Index);
-                    //    list.Insert(curIndex - 1, curNode);
-                    //    var parentNode = SceneTree.SelectedNode.Parent;
-                    //    parentNode.Nodes.Clear();
-                    //    foreach (var hurdle in list)
-                    //    {
-                    //        TreeNode nodeSceneplay = new TreeNode(hurdle.SceneplayID.ToString());
-                    //        CreateSceneplayTree(nodeSceneplay, hurdle.SceneplayID, hurdle.HurdleID);
-                    //        parentNode.Nodes.Add(nodeSceneplay);
-                    //        if (hurdle.SceneplayID == DataCenter.curScreenplayId)
-                    //            SceneTree.SelectedNode = nodeSceneplay;
-                    //    }
-                    //}
-                    break;
                 case 4:
-                    //var sceneplayList = m_FileInfo.m_play[DataCenter.curScreenplayId];
-                    //if (curTreeNode.Index > 0)
-                    //{
-                    //    var curIndex = curTreeNode.Index;
-                    //    var curNode = sceneplayList[curIndex];
-                    //    sceneplayList.RemoveAt(curIndex);
-                    //    sceneplayList.Insert(curIndex - 1, curNode);
-                    //    var parentNode = SceneTree.SelectedNode.Parent;
-                    //    parentNode.Nodes.Clear();
-                    //    foreach (var func in sceneplayList)
-                    //    {
-                    //        string name = null;
-                    //        string text = null;
-                    //        if (func.ActType == "func")
-                    //        {
-                    //            var obj = func.ActInfo;
-                    //            name = obj.Name;
-                    //            text = obj.Name + "(" + func.Describe + ")";
-                    //        }
-                    //        else if (func.ActType == "talk")
-                    //        {
-                    //            name = "talk";
-                    //            text = "talk" + "(" + func.Describe + ")";
-                    //        }
-                    //        if (name != null)
-                    //        {
-                    //            TreeNode nodeFuncName = new TreeNode(text);
-                    //            nodeFuncName.Tag = name;
-                    //            parentNode.Nodes.Add(nodeFuncName);
-                    //            if (func == curNode && parentNode != null)
-                    //                SceneTree.SelectedNode = nodeFuncName;
-                    //        }
-                    //    }
-                    //    RefreshAll(false);
-                    //}
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    {
+                        var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        switch (ret)
+                        {
+                            case DialogResult.No:
+                                return;
+                        }
+                    }
+                    FileManager.GetInstance().ContentMgr.MoveUpFunc(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
                     break;
             }
         }
