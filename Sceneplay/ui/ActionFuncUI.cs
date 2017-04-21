@@ -31,7 +31,7 @@ namespace Sceneplay.ui
                 return;
             var func = _funcInfo.ActInfo as FuncInfo;
             var funcInfo = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(func.Name);
-            foreach (var type in func.GetParamType())
+            foreach (var type in funcInfo.GetParamList())
             {
                 var param = funcInfo.GetParamInfo(type);
                 BoxItem item = new BoxItem();
@@ -42,11 +42,6 @@ namespace Sceneplay.ui
         }
 
         private void m_listParamType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void m_labParam_TextChanged(object sender, EventArgs e)
         {
 
         }
