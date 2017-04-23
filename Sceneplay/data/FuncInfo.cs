@@ -71,7 +71,7 @@ namespace Sceneplay
             FuncCfgManager fciList = FileManager.GetInstance().FuncCfgMgr;
             var funcName = Name;
             var str = string.Format("{0};", funcName);
-            if (fciList.GetFuncCfg(funcName) != null)
+            if (fciList.GetFuncCfg(funcName) == null)
             {
                 return str;
             }

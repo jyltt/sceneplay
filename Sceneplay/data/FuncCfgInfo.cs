@@ -8,10 +8,11 @@ namespace Sceneplay
 {
     class ParamInfo
     {
-        public ParamInfo(string name, string des, string def_value)
+        public ParamInfo(string type, string name, string des, string def_value)
         {
             m_Name = name;
             m_Describe = des;
+            m_Type = type;
             var desList = des.Split(';');
             if (desList.Length == 2)
             {
@@ -20,9 +21,10 @@ namespace Sceneplay
             }
             m_DefaultValue = def_value;
         }
-        public ParamInfo(string name, string des)
+        public ParamInfo(string type, string name, string des)
         {
             m_Name = name;
+            m_Type = type;
             var desList = des.Split(';');
             m_Describe = des;
             if (desList.Length == 2)
@@ -35,6 +37,7 @@ namespace Sceneplay
         string m_DescribeSimple = null;
         string m_DefaultValue;
         string m_Name;
+        string m_Type;
         public string Name
         {
             get { return m_Name; }
@@ -59,6 +62,10 @@ namespace Sceneplay
         public string DefValue
         {
             get { return m_DefaultValue; }
+        }
+        public string Type
+        {
+            get { return m_Type; }
         }
 
     }

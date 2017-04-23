@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_btnChangeStr = new System.Windows.Forms.Button();
+            this.m_btnChangeFile = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.m_labString = new System.Windows.Forms.TextBox();
+            this.m_btnChangeStr = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // m_btnChangeStr
+            // m_btnChangeFile
             // 
-            this.m_btnChangeStr.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_btnChangeStr.Location = new System.Drawing.Point(0, 0);
-            this.m_btnChangeStr.Name = "m_btnChangeStr";
-            this.m_btnChangeStr.Size = new System.Drawing.Size(75, 29);
-            this.m_btnChangeStr.TabIndex = 0;
-            this.m_btnChangeStr.Text = "button1";
-            this.m_btnChangeStr.UseVisualStyleBackColor = true;
+            this.m_btnChangeFile.Dock = System.Windows.Forms.DockStyle.Left;
+            this.m_btnChangeFile.Location = new System.Drawing.Point(0, 0);
+            this.m_btnChangeFile.Name = "m_btnChangeFile";
+            this.m_btnChangeFile.Size = new System.Drawing.Size(75, 29);
+            this.m_btnChangeFile.TabIndex = 3;
+            this.m_btnChangeFile.Text = "File";
+            this.m_btnChangeFile.UseVisualStyleBackColor = true;
+            this.m_btnChangeFile.Click += new System.EventHandler(this.m_btnChangeFile_Click);
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.m_btnChangeStr);
+            this.panel1.Controls.Add(this.m_btnChangeFile);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -62,6 +65,17 @@
             this.m_labString.ReadOnly = true;
             this.m_labString.Size = new System.Drawing.Size(281, 124);
             this.m_labString.TabIndex = 2;
+            // 
+            // m_btnChangeStr
+            // 
+            this.m_btnChangeStr.Dock = System.Windows.Forms.DockStyle.Left;
+            this.m_btnChangeStr.Location = new System.Drawing.Point(75, 0);
+            this.m_btnChangeStr.Name = "m_btnChangeStr";
+            this.m_btnChangeStr.Size = new System.Drawing.Size(75, 29);
+            this.m_btnChangeStr.TabIndex = 1;
+            this.m_btnChangeStr.Text = "String";
+            this.m_btnChangeStr.UseVisualStyleBackColor = true;
+            this.m_btnChangeStr.Click += new System.EventHandler(this.m_btnChangeStr_Click);
             // 
             // ParamStringUI
             // 
@@ -84,8 +98,9 @@
 
         #endregion
 
-        private System.Windows.Forms.Button m_btnChangeStr;
+        private System.Windows.Forms.Button m_btnChangeFile;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox m_labString;
+        private System.Windows.Forms.Button m_btnChangeStr;
     }
 }
