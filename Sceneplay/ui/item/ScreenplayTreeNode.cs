@@ -28,16 +28,37 @@ namespace Sceneplay.ui.item
             }
             CreateSceneplayTree();
         }
+        public void UpdateFunc(int index)
+        {
+            var list = FileManager.GetInstance().ContentMgr.GetInfoList(m_screenplayId);
+            if (list == null)
+                return;
+            if (list.Count <= index)
+                return;
+            var func = list[index];
+            var obj = func.ActInfo;
+            string name = obj.Name;
+            string text = obj.Name + "(" + func.Describe + ")";
+            TreeNode nodeFuncName = Nodes[index];
+            nodeFuncName.Tag = name;
+            nodeFuncName.Text = text;
+        }
         private void SetCallFunc(int new_id,int old_id=-1)
         {
             if (new_id != -1)
             {
+                if (!FileManager.GetInstance().ContentMgr.m_UpdateScreenplay.ContainsKey(new_id))
+                    FileManager.GetInstance().ContentMgr.m_UpdateScreenplay[new_id] = null;
+                FileManager.GetInstance().ContentMgr.m_UpdateScreenplay[new_id] += CreateSceneplayTree;
                 if (!FileManager.GetInstance().ContentMgr.m_UpdateFunc.ContainsKey(new_id))
                     FileManager.GetInstance().ContentMgr.m_UpdateFunc[new_id] = null;
-                FileManager.GetInstance().ContentMgr.m_UpdateFunc[new_id] += CreateSceneplayTree;
+                FileManager.GetInstance().ContentMgr.m_UpdateFunc[new_id] += UpdateFunc;
             }
             if (old_id != -1)
-                FileManager.GetInstance().ContentMgr.m_UpdateFunc[old_id] -= CreateSceneplayTree;
+            {
+                FileManager.GetInstance().ContentMgr.m_UpdateScreenplay[old_id] -= CreateSceneplayTree;
+                FileManager.GetInstance().ContentMgr.m_UpdateFunc[old_id] -= UpdateFunc;
+            }
         }
         private void CreateSceneplayTree()
         {

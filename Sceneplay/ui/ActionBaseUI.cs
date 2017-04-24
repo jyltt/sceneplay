@@ -88,8 +88,7 @@ namespace Sceneplay.ui
 
         private void m_labRemarks_TextChanged(object sender, EventArgs e)
         {
-            var _funcInfo = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
-            _funcInfo.Describe = m_labRemarks.Text.Replace("\r\n", "\\n");
+            FileManager.GetInstance().ContentMgr.ChangeFuncRemark(m_curScreenplayID, m_curFuncIndex, m_labRemarks.Text.Replace("\r\n", "\\n"));
         }
     }
 }

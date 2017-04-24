@@ -94,5 +94,31 @@ namespace Sceneplay
             return false;
         }
 
+        public Dictionary<string, string> GetStringListByFile(string file_name)
+        {
+            if (m_StringList.ContainsKey(file_name))
+                return m_StringList[file_name];
+            else
+                return null;
+        }
+
+        public bool AddString(string file, string id)
+        {
+            if (!m_StringList.ContainsKey(file))
+                return false;
+            var _stringList = m_StringList[file];
+            if (_stringList.ContainsKey(id))
+                return false;
+            _stringList[id] = "";
+            return true;
+        }
+
+        public bool DelString(string file, string id)
+        {
+            if (!m_StringList.ContainsKey(file))
+                return false;
+            return m_StringList[file].Remove(id);
+        }
+
     }
 }

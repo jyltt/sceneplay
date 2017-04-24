@@ -23,14 +23,23 @@ namespace Sceneplay.ui
             m_labString.Text = FileManager.GetInstance().StringCfg.GetString(func.File, func.ID);
         }
 
-        private void m_btnChangeFile_Click(object sender, EventArgs e)
+        protected override void m_btnChangeFile_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void m_btnChangeStr_Click(object sender, EventArgs e)
+        protected override void m_btnChangeStr_Click(object sender, EventArgs e)
         {
-
+            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            if (screenplay == null)
+                return;
+            var func = (ActionTalk)screenplay.ActInfo;
+            var w = new StringCfgListUI(func.File, func.ID);
+            w.ShowDialog();
+            var select = w.GetSelectItem();
+            m_btnChangeStr.Text = select;
+            func.ID = select;
+            m_labString.Text = FileManager.GetInstance().StringCfg.GetString(func.File, func.ID);
         }
     }
 }
