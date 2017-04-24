@@ -12,27 +12,34 @@ namespace Sceneplay
     class StringCfgInfo
     {
         private string m_FilePath;
-        private Dictionary<int, string> m_StringList = new Dictionary<int,string>();
+        private Dictionary<string,Dictionary<string, string>> m_StringList = new Dictionary<string,Dictionary<string,string>>();
 
         public StringCfgInfo(string file_path)
         {
             m_FilePath = file_path;
-            ReadFile();
+            ReadFile(m_FilePath,"screenplay.txt");
         }
 
-        void ReadFile()
+        void ReadFile(string file_path, string file_name)
         {
             try
             {
-                StreamReader sr = new StreamReader(m_FilePath, Encoding.Default);
+                var _match = Regex.Match(file_name, @"([a-zA-Z0-9_]+).txt");
+                if (_match.Groups.Count <= 1)
+                {
+                    return;
+                }
+                StreamReader sr = new StreamReader(file_path+file_name, Encoding.Default);
                 String line;
+                var name = _match.Groups[1].ToString();
+                m_StringList[name] = new Dictionary<string, string>();
+                var StringList = m_StringList[name];
                 while ((line = sr.ReadLine()) != null)
                 {
-                    var match = Regex.Match(line, @"str([0-9]+)\t(.+)");
+                    var match = Regex.Match(line, @"([a-zA-Z0-9_]+)\t(.+)");
                     if (match.Groups.Count > 1)
                     {
-                        var index = System.Int32.Parse(match.Groups[1].ToString());
-                        m_StringList[index] = match.Groups[2].ToString().Replace("\\n","\n");
+                        StringList[match.Groups[1].ToString()] = match.Groups[2].ToString().Replace("\\n","\n");
                     }
                 }
                 sr.Close();
@@ -47,10 +54,12 @@ namespace Sceneplay
         {
             try
             {
-                StreamWriter sw = new StreamWriter(m_FilePath, false, Encoding.UTF8);
-                foreach (var id in m_StringList.Keys)
+                var fileName = "screenplay";
+                StreamWriter sw = new StreamWriter(m_FilePath+fileName+".txt", false, Encoding.UTF8);
+                var _stringList = m_StringList[fileName];
+                foreach (var id in _stringList.Keys)
                 {
-                    string str = "str" + id.ToString() + "\t" + m_StringList[id].Replace("\n","\\n");
+                    string str = id + "\t" + _stringList[id].Replace("\n","\\n");
                     sw.WriteLine(str);
                 }
                 sw.Close();
@@ -61,60 +70,29 @@ namespace Sceneplay
             }
         }
 
-        public string GetString(int id)
+        public string GetString(string file, string key)
         {
-            if (m_StringList.ContainsKey(id))
-                return m_StringList[id];
-            else
+            if (!m_StringList.ContainsKey(file))
                 return "";
+            var _stringList = m_StringList[file];
+            if (!_stringList.ContainsKey(key))
+                return "";
+            return _stringList[key];
         }
 
-        public string GetString(string str)
+        public bool ChangeString(string file, string id, string str)
         {
-            var match = Regex.Match(str, @"str([0-9]+)");
-            if (match.Groups.Count > 1)
+            if(m_StringList.ContainsKey(file))
             {
-                var index = System.Int32.Parse(match.Groups[1].ToString());
-                return GetString(index);
-            }
-            return "";
-        }
-
-        public int GetStringId()
-        {
-            int i = 1;
-            while (m_StringList.ContainsKey(i))
-            {
-                ++i;
-            }
-            return i;
-        }
-
-        public int ChangeString(int id, string str)
-        {
-            var ret = 1;
-            if(m_StringList.ContainsKey(id))
-            {
-                if (str == "")
+                var _stringList = m_StringList[file];
+                if (_stringList.ContainsKey(id))
                 {
-                    m_StringList.Remove(id);
-                    return -1;
+                    _stringList[id] = str;
+                    return true;
                 }
-                ret = 0;
             }
-            m_StringList[id] = str;
-            return ret;
+            return false;
         }
 
-        public int ChangeString(string id, string str)
-        {
-            var match = Regex.Match(id, @"str([0-9]+)");
-            if (match.Groups.Count > 1)
-            {
-                var index = System.Int32.Parse(match.Groups[1].ToString());
-                return ChangeString(index, str);
-            }
-            return 0;
-        }
     }
 }

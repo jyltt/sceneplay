@@ -76,6 +76,7 @@ namespace Sceneplay
         public ActionBase ActInfo 
         { 
             get { return m_ActInfo; }
+            set { m_ActInfo = value; }
         }
         public int SwitchNum { get { return m_SwitchNum; } }
         public int Pos 

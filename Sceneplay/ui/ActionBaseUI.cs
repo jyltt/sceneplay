@@ -72,22 +72,18 @@ namespace Sceneplay.ui
         {
             var item = (BoxItem)m_listFunc.SelectedItem;
             var curFuncName = (string)item.Value;
+            FileManager.GetInstance().ContentMgr.ChangeFunc(m_curScreenplayID, m_curFuncIndex, curFuncName);
             var _funcInfo = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
-            if(_funcInfo.ActInfo.Name == curFuncName)
+            Form w1 = null;
+            if (_funcInfo.ActType == "func")
             {
-                Form w1 = null;
-                if(_funcInfo.ActType == "func")
-                {
-                    w1 = new ActionFuncUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
-                }
-                else
-                {
-                }
-                ChangeDlg(w1);
+                w1 = new ActionFuncUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
             }
             else
             {
+                w1 = new ActionStringUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
             }
+            ChangeDlg(w1);
         }
 
         private void m_labRemarks_TextChanged(object sender, EventArgs e)

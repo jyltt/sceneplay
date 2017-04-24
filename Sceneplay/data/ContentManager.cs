@@ -249,5 +249,26 @@ namespace Sceneplay.data
                 m_UpdateFunc[screenplay_id](screenplay_id);
         }
 
+        public void ChangeFunc(int screenplay_id, int index, string new_func_name)
+        {
+            var _funcInfo = GetFuncInfo(screenplay_id, index);
+            if(_funcInfo.ActInfo.Name != new_func_name)
+            {
+                if (new_func_name == "talk")
+                {
+                    var at = new ActionTalk();
+                    at.File = "screenplay";
+                    _funcInfo.ActInfo = at;
+                }
+                else
+                {
+                    var funcCfg = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(new_func_name);
+                    _funcInfo.ActInfo = new FuncInfo(new_func_name, funcCfg);
+                }
+                if (m_UpdateFunc.ContainsKey(screenplay_id))
+                    m_UpdateFunc[screenplay_id](screenplay_id);
+            }
+        }
+
     }
 }

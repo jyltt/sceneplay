@@ -59,6 +59,8 @@ namespace Sceneplay.ui
 
         private void m_listParamType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (m_listParamType.SelectedItem == null)
+                return;
             var item = (BoxItem)m_listParamType.SelectedItem;
             var paramName = (string)item.Value;
             var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);

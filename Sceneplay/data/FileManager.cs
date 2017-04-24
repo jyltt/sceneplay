@@ -19,7 +19,6 @@ namespace Sceneplay.data
         }
         private FileManager()
         {
-            ReadFile();
         }
 
         StringCfgInfo m_StringCfg;
@@ -45,7 +44,7 @@ namespace Sceneplay.data
 
         public void ReadFile()
         {
-            m_StringCfg = new StringCfgInfo("string/screenplay.txt");
+            m_StringCfg = new StringCfgInfo("string/");
             m_FuncCfgMgr = new FuncCfgManager("func_info.txt");
             m_ContentMgr = new ContentManager("config/hurdle/hurdle_screenplay/screenplay_content.txt");
             m_ConfigMgr = new ConfigManager("config/hurdle/hurdle_screenplay/screenplay_config.txt");

@@ -10,7 +10,8 @@ namespace Sceneplay.data
 {
     class ActionTalk : ActionBase
     {
-        int m_nId;
+        string m_sId;
+        string m_sFile;
         public ActionTalk()
         {
         }
@@ -18,10 +19,11 @@ namespace Sceneplay.data
         public ActionTalk(string str_id)
         {
             Name = "talk";
-            var match = Regex.Match(str_id, @"str([0-9]+)");
+            var match = Regex.Match(str_id, @"gs_([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)");
             if (match.Groups.Count > 1)
             {
-                m_nId = System.Int32.Parse(match.Groups[1].ToString());
+                m_sFile = match.Groups[1].ToString();
+                m_sId = match.Groups[2].ToString();
             }
             else
             {
@@ -29,26 +31,33 @@ namespace Sceneplay.data
             }
         }
 
-        public ActionTalk(int id)
-        {
-            m_nId = id;
-        }
-
         public ActionTalk(ActionTalk at)
         {
-            m_nId = at.m_nId;
+            m_sId = at.m_sId;
+            m_sFile = at.m_sFile;
         }
 
-        int ID { set { m_nId = value; } }
-
-        public string ToText()
-        {
-            return m_nId.ToString();
+        public string ID 
+        { 
+            get { return m_sId; }
+            set { m_sId = value; }
+        }
+        public string File 
+        { 
+            get { return m_sFile; }
+            set 
+            { 
+                if (m_sFile != value) 
+                { 
+                    m_sId = "0";
+                    m_sFile = value; 
+                } 
+            }
         }
 
         override public string ToString()
         {
-            return "gs_screenplay.str" + m_nId;
+            return "gs_" + m_sFile + "." + m_sId;
         }
     }
 }

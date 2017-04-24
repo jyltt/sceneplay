@@ -61,7 +61,7 @@ namespace Sceneplay.data
                                 m_funcCfgList[funcName].AddParam(new ParamInfo(paramType, paramName, paramDes));
                             break;
                         }
-                        var des = Regex.Match(line, @"^\t(.+)$");
+                        var des = Regex.Match(line, @"^(.+)$");
                         if (des.Groups.Count > 1)
                         {
                             if (m_funcCfgList.ContainsKey(funcName))

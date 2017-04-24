@@ -92,6 +92,9 @@
     <Compile Include="ui\ActionFuncUI.Designer.cs">
       <DependentUpon>ActionFuncUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="ui\ActionStringUI.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ui\HurdleUI.cs">
       <SubType>Form</SubType>
     </Compile>
