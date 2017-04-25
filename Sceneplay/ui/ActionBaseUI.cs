@@ -77,11 +77,11 @@ namespace Sceneplay.ui
             Form w1 = null;
             if (_funcInfo.ActType == "func")
             {
-                w1 = new ActionFuncUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+                w1 = new ActionFuncUI(m_curScreenplayID, m_curFuncIndex);
             }
             else
             {
-                w1 = new ActionStringUI(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+                w1 = new ActionStringUI(m_curScreenplayID, m_curFuncIndex);
             }
             ChangeDlg(w1);
         }
