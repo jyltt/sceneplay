@@ -34,15 +34,14 @@ namespace Sceneplay.data
                     var id = System.Int32.Parse(str[0]);
                     if (!m_hurdle.ContainsKey(id))
                         m_hurdle[id] = new Dictionary<int, HurdleInfo>();
-                    var hi = new HurdleInfo(id, m_hurdle[id].Count);
+                    var play_id = System.Int32.Parse(str[3]);
+                    var hi = new HurdleInfo(id, m_hurdle[id].Count,play_id);
                     var list = ReadSceneObj(str[1]);
                     for (int i = 0; i < list.Count; ++i)
                     {
                         hi.AddObj(list[i]);
                     }
                     hi.TriggerID = System.Int32.Parse(str[2]);
-                    var play_id = System.Int32.Parse(str[3]);
-                    hi.SceneplayID = play_id;
                     hi.Describe = str[4];
                     m_hurdle[id][play_id] = hi;
                 }
@@ -142,8 +141,7 @@ namespace Sceneplay.data
                     var hurdle = m_hurdle[hurdle_id];
                     if (!hurdle.ContainsKey(screenplay_id))
                     {
-                        var screenplay = new HurdleInfo(hurdle_id, hurdle.Count);
-                        screenplay.SceneplayID = screenplay_id;
+                        var screenplay = new HurdleInfo(hurdle_id, hurdle.Count, screenplay_id);
                         hurdle[screenplay_id] = screenplay;
                         return true;
                     }

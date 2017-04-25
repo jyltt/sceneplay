@@ -15,6 +15,7 @@ namespace Sceneplay.data
         public ActionTalk()
         {
             Name = "talk";
+            File = "screenplay";
         }
 
         public ActionTalk(string str_id)

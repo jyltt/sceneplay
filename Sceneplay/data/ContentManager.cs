@@ -140,7 +140,7 @@ namespace Sceneplay.data
         public void CreateNewAction(int screenplay_id)
         {
             if (!m_play.ContainsKey(screenplay_id))
-                return;
+                m_play[screenplay_id] = new List<SceneplayInfo>();
             var act = new SceneplayInfo(screenplay_id, m_play[screenplay_id].Count);
             m_play[screenplay_id].Add(act);
             if (m_UpdateScreenplay.ContainsKey(screenplay_id))
@@ -216,8 +216,16 @@ namespace Sceneplay.data
                         m_play[new_id] = m_play[old_id];
                 }
             }
-            FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
-            RemoveSceenplay(old_id);
+            var ret1 = FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
+            if (ret1)
+            {
+                RemoveSceenplay(old_id);
+            }
+            else
+            {
+                MessageBox.Show("修改失败，当前id在此关卡中已存在");
+                return false;
+            }
             if (m_UpdateScreenplay.ContainsKey(old_id))
                 m_UpdateScreenplay[old_id](new_id, hurdle_id);
             return true;

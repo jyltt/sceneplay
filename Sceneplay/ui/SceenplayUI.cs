@@ -50,7 +50,7 @@ namespace Sceneplay.ui
             bool res = FileManager.GetInstance().ContentMgr.ExchangeSceenplayID(m_curHurdleID, id, m_curSceenplayID);
             if(!res)
             {
-                m_labID.Text = m_curHurdleID.ToString();
+                m_labID.Text = m_curSceenplayID.ToString();
             }
             else
             {

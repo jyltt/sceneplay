@@ -12,13 +12,14 @@ namespace Sceneplay
         int m_Index;
         int m_TriggerID = 0;
         int m_SceneplayID = 0;
-        string m_Describe = "";
+        string m_Describe = "0";
         List<string> m_ObjList = new List<string>();
 
-        public HurdleInfo(int hurdle_id, int index) 
+        public HurdleInfo(int hurdle_id, int index, int screenplay_id) 
         {
             m_Index = index;
             m_hurdleID = hurdle_id;
+            m_SceneplayID = screenplay_id;
         }
 
         public HurdleInfo(HurdleInfo hi,int hurdle_id, int index)
