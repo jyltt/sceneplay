@@ -29,41 +29,19 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.Panel m_Node1;
-            this.m_listFunc = new System.Windows.Forms.ComboBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupFuncRemarks = new System.Windows.Forms.GroupBox();
             this.m_labFuncRemarks = new System.Windows.Forms.RichTextBox();
-            this.m_labRemarks = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.m_labRemarks = new System.Windows.Forms.TextBox();
+            this.m_listFunc = new System.Windows.Forms.ComboBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.m_Node = new System.Windows.Forms.Panel();
             m_Node1 = new System.Windows.Forms.Panel();
-            this.groupBox1.SuspendLayout();
             m_Node1.SuspendLayout();
             this.groupFuncRemarks.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // m_listFunc
-            // 
-            this.m_listFunc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_listFunc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.m_listFunc.FormattingEnabled = true;
-            this.m_listFunc.Location = new System.Drawing.Point(3, 17);
-            this.m_listFunc.Name = "m_listFunc";
-            this.m_listFunc.Size = new System.Drawing.Size(435, 20);
-            this.m_listFunc.TabIndex = 1;
-            this.m_listFunc.SelectedIndexChanged += new System.EventHandler(this.m_listFunc_SelectedIndexChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.m_listFunc);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(441, 41);
-            this.groupBox1.TabIndex = 25;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "操作列表";
             // 
             // m_Node1
             // 
@@ -96,16 +74,6 @@
             this.m_labFuncRemarks.Text = "";
             this.m_labFuncRemarks.WordWrap = false;
             // 
-            // m_labRemarks
-            // 
-            this.m_labRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_labRemarks.Location = new System.Drawing.Point(3, 17);
-            this.m_labRemarks.Multiline = true;
-            this.m_labRemarks.Name = "m_labRemarks";
-            this.m_labRemarks.Size = new System.Drawing.Size(259, 125);
-            this.m_labRemarks.TabIndex = 8;
-            this.m_labRemarks.TextChanged += new System.EventHandler(this.m_labRemarks_TextChanged);
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.m_labRemarks);
@@ -116,19 +84,51 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "备注";
             // 
+            // m_labRemarks
+            // 
+            this.m_labRemarks.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_labRemarks.Location = new System.Drawing.Point(3, 17);
+            this.m_labRemarks.Multiline = true;
+            this.m_labRemarks.Name = "m_labRemarks";
+            this.m_labRemarks.Size = new System.Drawing.Size(259, 125);
+            this.m_labRemarks.TabIndex = 8;
+            this.m_labRemarks.TextChanged += new System.EventHandler(this.m_labRemarks_TextChanged);
+            // 
+            // m_listFunc
+            // 
+            this.m_listFunc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_listFunc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.m_listFunc.FormattingEnabled = true;
+            this.m_listFunc.Location = new System.Drawing.Point(3, 17);
+            this.m_listFunc.Name = "m_listFunc";
+            this.m_listFunc.Size = new System.Drawing.Size(435, 20);
+            this.m_listFunc.TabIndex = 1;
+            this.m_listFunc.SelectedIndexChanged += new System.EventHandler(this.m_listFunc_SelectedIndexChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.m_listFunc);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(441, 41);
+            this.groupBox1.TabIndex = 25;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "操作列表";
+            // 
             // m_Node
             // 
             this.m_Node.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_Node.Location = new System.Drawing.Point(0, 192);
             this.m_Node.Name = "m_Node";
-            this.m_Node.Size = new System.Drawing.Size(441, 156);
+            this.m_Node.Size = new System.Drawing.Size(441, 200);
             this.m_Node.TabIndex = 27;
             // 
             // ActionBaseUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 348);
+            this.ClientSize = new System.Drawing.Size(441, 392);
             this.ControlBox = false;
             this.Controls.Add(this.m_Node);
             this.Controls.Add(m_Node1);
@@ -140,11 +140,11 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.Text = "ActionBaseUI";
-            this.groupBox1.ResumeLayout(false);
             m_Node1.ResumeLayout(false);
             this.groupFuncRemarks.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

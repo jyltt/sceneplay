@@ -28,26 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.GroupBox groupBox1;
             System.Windows.Forms.GroupBox groupBox2;
             System.Windows.Forms.GroupBox groupBox3;
             System.Windows.Forms.GroupBox groupBox4;
             System.Windows.Forms.GroupBox groupBox5;
             System.Windows.Forms.GroupBox groupBox6;
-            System.Windows.Forms.GroupBox groupBox7;
-            System.Windows.Forms.GroupBox groupBox8;
             System.Windows.Forms.GroupBox groupBox9;
             System.Windows.Forms.GroupBox groupBox11;
-            this.pos1 = new System.Windows.Forms.RadioButton();
-            this.pos2 = new System.Windows.Forms.RadioButton();
-            this.pos3 = new System.Windows.Forms.RadioButton();
+            System.Windows.Forms.GroupBox groupBox8;
+            System.Windows.Forms.GroupBox groupBox7;
+            System.Windows.Forms.GroupBox groupBox1;
             this.remarks = new System.Windows.Forms.RichTextBox();
             this.headIconPath = new System.Windows.Forms.TextBox();
             this.param = new System.Windows.Forms.RichTextBox();
             this.paramType = new System.Windows.Forms.ListBox();
             this.funcList = new System.Windows.Forms.ComboBox();
-            this.audioId = new System.Windows.Forms.TextBox();
-            this.actor = new System.Windows.Forms.ComboBox();
             this.labNodeName = new System.Windows.Forms.TextBox();
             this.labTriggerID = new System.Windows.Forms.TextBox();
             this.SceneTree = new System.Windows.Forms.TreeView();
@@ -71,24 +66,31 @@
             this.btnDownNode = new System.Windows.Forms.Button();
             this.btnUpNode = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
-            groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.actor = new System.Windows.Forms.ComboBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.audioId = new System.Windows.Forms.TextBox();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.pos3 = new System.Windows.Forms.RadioButton();
+            this.pos2 = new System.Windows.Forms.RadioButton();
+            this.pos1 = new System.Windows.Forms.RadioButton();
             groupBox2 = new System.Windows.Forms.GroupBox();
             groupBox3 = new System.Windows.Forms.GroupBox();
             groupBox4 = new System.Windows.Forms.GroupBox();
             groupBox5 = new System.Windows.Forms.GroupBox();
             groupBox6 = new System.Windows.Forms.GroupBox();
-            groupBox7 = new System.Windows.Forms.GroupBox();
-            groupBox8 = new System.Windows.Forms.GroupBox();
             groupBox9 = new System.Windows.Forms.GroupBox();
             groupBox11 = new System.Windows.Forms.GroupBox();
-            groupBox1.SuspendLayout();
+            groupBox8 = new System.Windows.Forms.GroupBox();
+            groupBox7 = new System.Windows.Forms.GroupBox();
+            groupBox1 = new System.Windows.Forms.GroupBox();
             groupBox2.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox4.SuspendLayout();
             groupBox5.SuspendLayout();
             groupBox6.SuspendLayout();
-            groupBox7.SuspendLayout();
-            groupBox8.SuspendLayout();
             groupBox9.SuspendLayout();
             groupBox11.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -98,55 +100,10 @@
             this.groupBox10.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox12.SuspendLayout();
+            groupBox8.SuspendLayout();
+            groupBox7.SuspendLayout();
+            groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(this.pos1);
-            groupBox1.Controls.Add(this.pos2);
-            groupBox1.Controls.Add(this.pos3);
-            groupBox1.Location = new System.Drawing.Point(146, 54);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(128, 86);
-            groupBox1.TabIndex = 21;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "人物位置";
-            // 
-            // pos1
-            // 
-            this.pos1.AutoSize = true;
-            this.pos1.Location = new System.Drawing.Point(6, 15);
-            this.pos1.Name = "pos1";
-            this.pos1.Size = new System.Drawing.Size(47, 16);
-            this.pos1.TabIndex = 16;
-            this.pos1.TabStop = true;
-            this.pos1.Text = "中间";
-            this.pos1.UseVisualStyleBackColor = true;
-            this.pos1.CheckedChanged += new System.EventHandler(this.pos_CheckedChanged);
-            // 
-            // pos2
-            // 
-            this.pos2.AutoSize = true;
-            this.pos2.Location = new System.Drawing.Point(6, 37);
-            this.pos2.Name = "pos2";
-            this.pos2.Size = new System.Drawing.Size(47, 16);
-            this.pos2.TabIndex = 17;
-            this.pos2.TabStop = true;
-            this.pos2.Text = "左边";
-            this.pos2.UseVisualStyleBackColor = true;
-            this.pos2.CheckedChanged += new System.EventHandler(this.pos_CheckedChanged);
-            // 
-            // pos3
-            // 
-            this.pos3.AutoSize = true;
-            this.pos3.Location = new System.Drawing.Point(6, 60);
-            this.pos3.Name = "pos3";
-            this.pos3.Size = new System.Drawing.Size(47, 16);
-            this.pos3.TabIndex = 18;
-            this.pos3.TabStop = true;
-            this.pos3.Text = "右边";
-            this.pos3.UseVisualStyleBackColor = true;
-            this.pos3.CheckedChanged += new System.EventHandler(this.pos_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -247,44 +204,6 @@
             this.funcList.Size = new System.Drawing.Size(253, 20);
             this.funcList.TabIndex = 1;
             this.funcList.SelectedIndexChanged += new System.EventHandler(this.funcList_SelectedIndexChanged);
-            // 
-            // groupBox7
-            // 
-            groupBox7.Controls.Add(this.audioId);
-            groupBox7.Location = new System.Drawing.Point(9, 53);
-            groupBox7.Name = "groupBox7";
-            groupBox7.Size = new System.Drawing.Size(131, 41);
-            groupBox7.TabIndex = 26;
-            groupBox7.TabStop = false;
-            groupBox7.Text = "语音id";
-            // 
-            // audioId
-            // 
-            this.audioId.Location = new System.Drawing.Point(6, 15);
-            this.audioId.Name = "audioId";
-            this.audioId.Size = new System.Drawing.Size(119, 21);
-            this.audioId.TabIndex = 7;
-            this.audioId.TextChanged += new System.EventHandler(this.audioId_TextChanged);
-            // 
-            // groupBox8
-            // 
-            groupBox8.Controls.Add(this.actor);
-            groupBox8.Location = new System.Drawing.Point(9, 100);
-            groupBox8.Name = "groupBox8";
-            groupBox8.Size = new System.Drawing.Size(131, 40);
-            groupBox8.TabIndex = 27;
-            groupBox8.TabStop = false;
-            groupBox8.Text = "剧情操作对象";
-            // 
-            // actor
-            // 
-            this.actor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.actor.FormattingEnabled = true;
-            this.actor.Location = new System.Drawing.Point(6, 15);
-            this.actor.Name = "actor";
-            this.actor.Size = new System.Drawing.Size(121, 20);
-            this.actor.TabIndex = 6;
-            this.actor.SelectedIndexChanged += new System.EventHandler(this.actor_SelectedIndexChanged);
             // 
             // groupBox9
             // 
@@ -551,6 +470,141 @@
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
+            // groupBox8
+            // 
+            groupBox8.Controls.Add(this.actor);
+            groupBox8.Location = new System.Drawing.Point(9, 100);
+            groupBox8.Name = "groupBox8";
+            groupBox8.Size = new System.Drawing.Size(131, 40);
+            groupBox8.TabIndex = 27;
+            groupBox8.TabStop = false;
+            groupBox8.Text = "剧情操作对象";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(6, 15);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 20);
+            this.comboBox2.TabIndex = 6;
+            // 
+            // actor
+            // 
+            this.actor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.actor.FormattingEnabled = true;
+            this.actor.Location = new System.Drawing.Point(6, 15);
+            this.actor.Name = "actor";
+            this.actor.Size = new System.Drawing.Size(121, 20);
+            this.actor.TabIndex = 6;
+            this.actor.SelectedIndexChanged += new System.EventHandler(this.actor_SelectedIndexChanged);
+            // 
+            // groupBox7
+            // 
+            groupBox7.Controls.Add(this.audioId);
+            groupBox7.Location = new System.Drawing.Point(9, 53);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new System.Drawing.Size(131, 41);
+            groupBox7.TabIndex = 26;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "语音id";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(6, 15);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(119, 21);
+            this.textBox2.TabIndex = 7;
+            // 
+            // audioId
+            // 
+            this.audioId.Location = new System.Drawing.Point(6, 15);
+            this.audioId.Name = "audioId";
+            this.audioId.Size = new System.Drawing.Size(119, 21);
+            this.audioId.TabIndex = 7;
+            this.audioId.TextChanged += new System.EventHandler(this.audioId_TextChanged);
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(this.pos1);
+            groupBox1.Controls.Add(this.pos2);
+            groupBox1.Controls.Add(this.pos3);
+            groupBox1.Location = new System.Drawing.Point(146, 54);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new System.Drawing.Size(128, 86);
+            groupBox1.TabIndex = 21;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "人物位置";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(6, 15);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(47, 16);
+            this.radioButton1.TabIndex = 16;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "中间";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(6, 37);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(47, 16);
+            this.radioButton2.TabIndex = 17;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "左边";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(6, 60);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(47, 16);
+            this.radioButton3.TabIndex = 18;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "右边";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // pos3
+            // 
+            this.pos3.AutoSize = true;
+            this.pos3.Location = new System.Drawing.Point(6, 60);
+            this.pos3.Name = "pos3";
+            this.pos3.Size = new System.Drawing.Size(47, 16);
+            this.pos3.TabIndex = 18;
+            this.pos3.TabStop = true;
+            this.pos3.Text = "右边";
+            this.pos3.UseVisualStyleBackColor = true;
+            this.pos3.CheckedChanged += new System.EventHandler(this.pos_CheckedChanged);
+            // 
+            // pos2
+            // 
+            this.pos2.AutoSize = true;
+            this.pos2.Location = new System.Drawing.Point(6, 37);
+            this.pos2.Name = "pos2";
+            this.pos2.Size = new System.Drawing.Size(47, 16);
+            this.pos2.TabIndex = 17;
+            this.pos2.TabStop = true;
+            this.pos2.Text = "左边";
+            this.pos2.UseVisualStyleBackColor = true;
+            this.pos2.CheckedChanged += new System.EventHandler(this.pos_CheckedChanged);
+            // 
+            // pos1
+            // 
+            this.pos1.AutoSize = true;
+            this.pos1.Location = new System.Drawing.Point(6, 15);
+            this.pos1.Name = "pos1";
+            this.pos1.Size = new System.Drawing.Size(47, 16);
+            this.pos1.TabIndex = 16;
+            this.pos1.TabStop = true;
+            this.pos1.Text = "中间";
+            this.pos1.UseVisualStyleBackColor = true;
+            this.pos1.CheckedChanged += new System.EventHandler(this.pos_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -573,17 +627,12 @@
             this.Name = "Form1";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "剧情编辑器-无名";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             groupBox4.ResumeLayout(false);
             groupBox5.ResumeLayout(false);
             groupBox6.ResumeLayout(false);
-            groupBox7.ResumeLayout(false);
-            groupBox7.PerformLayout();
-            groupBox8.ResumeLayout(false);
             groupBox9.ResumeLayout(false);
             groupBox9.PerformLayout();
             groupBox11.ResumeLayout(false);
@@ -597,6 +646,11 @@
             this.groupBox10.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
+            groupBox8.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
+            groupBox7.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -610,12 +664,7 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDeletNode;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton pos3;
-        private System.Windows.Forms.RadioButton pos2;
-        private System.Windows.Forms.RadioButton pos1;
         private System.Windows.Forms.TextBox headIconPath;
-        private System.Windows.Forms.TextBox audioId;
-        private System.Windows.Forms.ComboBox actor;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ListBox actorList;
         private System.Windows.Forms.Button btnAddNode;
@@ -636,6 +685,16 @@
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.GroupBox groupBox13;
         private System.Windows.Forms.TextBox labTalkId;
+        private System.Windows.Forms.ComboBox actor;
+        private System.Windows.Forms.TextBox audioId;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.RadioButton pos1;
+        private System.Windows.Forms.RadioButton pos2;
+        private System.Windows.Forms.RadioButton pos3;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton3;
     }
 }
 
