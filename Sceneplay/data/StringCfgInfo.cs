@@ -17,7 +17,11 @@ namespace Sceneplay
         public StringCfgInfo(string file_path)
         {
             m_FilePath = file_path;
-            ReadFile(m_FilePath,"screenplay.txt");
+            DirectoryInfo folder = new DirectoryInfo(m_FilePath);
+            foreach(FileInfo file in folder.GetFiles())
+            {
+                ReadFile(m_FilePath, file.Name);
+            }
         }
 
         void ReadFile(string file_path, string file_name)
@@ -33,15 +37,16 @@ namespace Sceneplay
                 String line;
                 var name = _match.Groups[1].ToString();
                 m_StringList[name] = new Dictionary<string, string>();
-                var StringList = m_StringList[name];
+                var _stringList = m_StringList[name];
                 while ((line = sr.ReadLine()) != null)
                 {
                     var match = Regex.Match(line, @"([a-zA-Z0-9_]+)\t(.+)");
                     if (match.Groups.Count > 1)
                     {
-                        StringList[match.Groups[1].ToString()] = match.Groups[2].ToString().Replace("\\n","\n");
+                        _stringList[match.Groups[1].ToString()] = match.Groups[2].ToString().Replace("\\n","\n");
                     }
                 }
+                _stringList.OrderBy(i => i.Value);
                 sr.Close();
             }
             catch (IOException ex)
@@ -50,23 +55,27 @@ namespace Sceneplay
             }
         }
 
-        public void Save()
+        public bool Save()
         {
             try
             {
-                var fileName = "screenplay";
-                StreamWriter sw = new StreamWriter(m_FilePath+fileName+".txt", false, Encoding.UTF8);
-                var _stringList = m_StringList[fileName];
-                foreach (var id in _stringList.Keys)
+                foreach(var fileName in m_StringList.Keys)
                 {
-                    string str = id + "\t" + _stringList[id].Replace("\n","\\n");
-                    sw.WriteLine(str);
+                    var _stringList = m_StringList[fileName];
+                    StreamWriter sw = new StreamWriter(m_FilePath + fileName + ".txt", false, Encoding.UTF8);
+                    foreach (var id in _stringList.Keys)
+                    {
+                        string str = id + "\t" + _stringList[id].Replace("\n", "\\n");
+                        sw.WriteLine(str);
+                    }
+                    sw.Close();
                 }
-                sw.Close();
+                return true;
             }
             catch (IOException ex)
             {
                 MessageBox.Show("Msg:" + ex.Message, "文件被占用了。(─.─|||");
+                return false;
             }
         }
 
@@ -78,6 +87,23 @@ namespace Sceneplay
             if (!_stringList.ContainsKey(key))
                 return "";
             return _stringList[key];
+        }
+
+        public string GetString(string str)
+        {
+            var match = Regex.Match(str, @"gs_([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)");
+            string file, id;
+            if (match.Groups.Count > 1)
+            {
+                file = match.Groups[1].ToString();
+                id = match.Groups[2].ToString();
+            }
+            else
+            {
+                file = "screenplay";
+                id = "";
+            }
+            return GetString(file, id);
         }
 
         public bool ChangeString(string file, string id, string str)
@@ -118,6 +144,11 @@ namespace Sceneplay
             if (!m_StringList.ContainsKey(file))
                 return false;
             return m_StringList[file].Remove(id);
+        }
+
+        public Dictionary<string, Dictionary<string, string>>.KeyCollection GetFileList()
+        {
+            return m_StringList.Keys;
         }
 
     }

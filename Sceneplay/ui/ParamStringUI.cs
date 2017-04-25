@@ -23,6 +23,11 @@ namespace Sceneplay.ui
             m_curFuncIndex = index;
             m_paramName = param_name;
             InitializeComponent();
+            var list = FileManager.GetInstance().StringCfg.GetFileList();
+            foreach(var file in list)
+            {
+                m_listFile.Items.Add(file);
+            }
             InitUI();
         }
 
@@ -34,26 +39,58 @@ namespace Sceneplay.ui
             var func = (FuncInfo)screenplay.ActInfo;
             var param = func.GetParamValue(m_paramName);
             var match = Regex.Match(param, @"gs_([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)");
+            string file, id;
             if (match.Groups.Count > 1)
             {
-                m_btnChangeFile.Text = match.Groups[1].ToString();
-                m_btnChangeStr.Text = match.Groups[2].ToString();
+                file = match.Groups[1].ToString();
+                id = match.Groups[2].ToString();
             }
             else
             {
-                m_btnChangeFile.Text = "screenplay";
-                m_btnChangeStr.Text = "";
+                file = "screenplay";
+                id = "";
             }
-        }
-
-        virtual protected void m_btnChangeFile_Click(object sender, EventArgs e)
-        {
-
+            m_listFile.SelectedItem = file;
+            m_btnChangeStr.Text = id;
+            m_labString.Text = FileManager.GetInstance().StringCfg.GetString(file, id);
         }
 
         virtual protected void m_btnChangeStr_Click(object sender, EventArgs e)
         {
+            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            if (screenplay == null)
+                return;
+            var func = (FuncInfo)screenplay.ActInfo;
+            var param = func.GetParamValue(m_paramName);
+            var match = Regex.Match(param, @"gs_([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)");
+            string file, id;
+            if (match.Groups.Count > 1)
+            {
+                file = match.Groups[1].ToString();
+                id = match.Groups[2].ToString();
+            }
+            else
+            {
+                file = "screenplay";
+                id = "";
+            }
+            var w = new StringCfgListUI(file, id);
+            w.ShowDialog();
+            var select = w.GetSelectItem();
+            m_btnChangeStr.Text = select;
+            func.ChangeParam(m_paramName, "gs_" + file + "." + select);
+            m_labString.Text = FileManager.GetInstance().StringCfg.GetString(file, id);
+        }
 
+        virtual protected void m_ListFile_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            if (screenplay == null)
+                return;
+            var func = (FuncInfo)screenplay.ActInfo;
+            var file = (string)m_listFile.SelectedItem;
+            var select = m_btnChangeStr.Text;
+            func.ChangeParam(m_paramName, "gs_" + file + "." + select);
         }
     }
 }

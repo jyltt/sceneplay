@@ -72,7 +72,7 @@ namespace Sceneplay.data
             return list;
         }
 
-        public void Save()
+        public bool Save()
         {
             try
             {
@@ -100,10 +100,12 @@ namespace Sceneplay.data
                     }
                 }
                 sw.Close();
+                return true;
             }
             catch (IOException ex)
             {
                 MessageBox.Show("Msg:" + ex.Message,"文件被占用了。(─.─|||");
+                return false;
             }
         }
 

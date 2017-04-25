@@ -53,7 +53,7 @@
             // m_btnDelete
             // 
             this.m_btnDelete.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_btnDelete.Location = new System.Drawing.Point(75, 0);
+            this.m_btnDelete.Location = new System.Drawing.Point(175, 0);
             this.m_btnDelete.Name = "m_btnDelete";
             this.m_btnDelete.Size = new System.Drawing.Size(75, 23);
             this.m_btnDelete.TabIndex = 1;
@@ -64,7 +64,7 @@
             // m_btnAdd
             // 
             this.m_btnAdd.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_btnAdd.Location = new System.Drawing.Point(0, 0);
+            this.m_btnAdd.Location = new System.Drawing.Point(100, 0);
             this.m_btnAdd.Name = "m_btnAdd";
             this.m_btnAdd.Size = new System.Drawing.Size(75, 23);
             this.m_btnAdd.TabIndex = 2;
@@ -84,10 +84,10 @@
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.m_labAdd);
             this.panel1.Controls.Add(this.m_btnSure);
             this.panel1.Controls.Add(this.m_btnDelete);
             this.panel1.Controls.Add(this.m_btnAdd);
+            this.panel1.Controls.Add(this.m_labAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(120, 469);
             this.panel1.Name = "panel1";
@@ -108,7 +108,7 @@
             // m_labAdd
             // 
             this.m_labAdd.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_labAdd.Location = new System.Drawing.Point(150, 0);
+            this.m_labAdd.Location = new System.Drawing.Point(0, 0);
             this.m_labAdd.Name = "m_labAdd";
             this.m_labAdd.Size = new System.Drawing.Size(100, 21);
             this.m_labAdd.TabIndex = 4;

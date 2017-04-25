@@ -14,6 +14,7 @@ namespace Sceneplay.data
         string m_sFile;
         public ActionTalk()
         {
+            Name = "talk";
         }
 
         public ActionTalk(string str_id)
@@ -33,6 +34,7 @@ namespace Sceneplay.data
 
         public ActionTalk(ActionTalk at)
         {
+            Name = "talk";
             m_sId = at.m_sId;
             m_sFile = at.m_sFile;
         }

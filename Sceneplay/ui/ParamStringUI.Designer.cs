@@ -28,53 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_btnChangeFile = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.m_btnChangeStr = new System.Windows.Forms.Button();
+            this.m_listFile = new System.Windows.Forms.ComboBox();
             this.m_labString = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // m_btnChangeFile
-            // 
-            this.m_btnChangeFile.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_btnChangeFile.Location = new System.Drawing.Point(0, 0);
-            this.m_btnChangeFile.Name = "m_btnChangeFile";
-            this.m_btnChangeFile.Size = new System.Drawing.Size(88, 29);
-            this.m_btnChangeFile.TabIndex = 3;
-            this.m_btnChangeFile.Text = "File";
-            this.m_btnChangeFile.UseVisualStyleBackColor = true;
-            this.m_btnChangeFile.Click += new System.EventHandler(this.m_btnChangeFile_Click);
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.m_btnChangeStr);
-            this.panel1.Controls.Add(this.m_btnChangeFile);
+            this.panel1.Controls.Add(this.m_listFile);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 29);
+            this.panel1.Size = new System.Drawing.Size(281, 23);
             this.panel1.TabIndex = 1;
             // 
             // m_btnChangeStr
             // 
             this.m_btnChangeStr.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_btnChangeStr.Location = new System.Drawing.Point(88, 0);
+            this.m_btnChangeStr.Location = new System.Drawing.Point(162, 0);
             this.m_btnChangeStr.Name = "m_btnChangeStr";
-            this.m_btnChangeStr.Size = new System.Drawing.Size(75, 29);
+            this.m_btnChangeStr.Size = new System.Drawing.Size(75, 23);
             this.m_btnChangeStr.TabIndex = 1;
             this.m_btnChangeStr.Text = "String";
             this.m_btnChangeStr.UseVisualStyleBackColor = true;
             this.m_btnChangeStr.Click += new System.EventHandler(this.m_btnChangeStr_Click);
             // 
+            // m_listFile
+            // 
+            this.m_listFile.Dock = System.Windows.Forms.DockStyle.Left;
+            this.m_listFile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.m_listFile.FormattingEnabled = true;
+            this.m_listFile.Location = new System.Drawing.Point(0, 0);
+            this.m_listFile.Name = "m_listFile";
+            this.m_listFile.Size = new System.Drawing.Size(162, 20);
+            this.m_listFile.Sorted = true;
+            this.m_listFile.TabIndex = 4;
+            this.m_listFile.SelectedIndexChanged += new System.EventHandler(this.m_ListFile_SelectedIndexChanged);
+            // 
             // m_labString
             // 
             this.m_labString.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_labString.Location = new System.Drawing.Point(0, 29);
+            this.m_labString.Location = new System.Drawing.Point(0, 23);
             this.m_labString.Multiline = true;
             this.m_labString.Name = "m_labString";
             this.m_labString.ReadOnly = true;
-            this.m_labString.Size = new System.Drawing.Size(281, 124);
+            this.m_labString.Size = new System.Drawing.Size(281, 130);
             this.m_labString.TabIndex = 2;
             // 
             // ParamStringUI
@@ -99,8 +100,8 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        protected System.Windows.Forms.Button m_btnChangeFile;
         protected System.Windows.Forms.TextBox m_labString;
         protected System.Windows.Forms.Button m_btnChangeStr;
+        protected System.Windows.Forms.ComboBox m_listFile;
     }
 }

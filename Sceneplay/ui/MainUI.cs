@@ -99,7 +99,8 @@ namespace Sceneplay
         //////////////////////////回调函数/////////////////////////////////////
         private void btnSave_Click(object sender, EventArgs e)
         {
-            FileManager.GetInstance().Save();
+            if (FileManager.GetInstance().Save())
+                MessageBox.Show("保存成功");
         }
 
         private void SceneTreeClickItem(object sender, TreeViewEventArgs e)

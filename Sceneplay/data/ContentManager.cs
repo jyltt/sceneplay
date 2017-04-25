@@ -75,7 +75,7 @@ namespace Sceneplay.data
             }
         }
 
-        public void Save()
+        public bool Save()
         {
             try
             {
@@ -100,10 +100,12 @@ namespace Sceneplay.data
                     }
                 }
                 sw.Close();
+                return true;
             }
             catch (IOException ex)
             {
                 MessageBox.Show("Msg:" + ex.Message,"文件被占用了。(─.─|||");
+                return false;
             }
         }
 
@@ -261,10 +263,12 @@ namespace Sceneplay.data
                     var at = new ActionTalk();
                     at.File = "screenplay";
                     _funcInfo.ActInfo = at;
+                    _funcInfo.ActType = "talk";
                 }
                 else
                 {
                     var funcCfg = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(new_func_name);
+                    _funcInfo.ActType = "func";
                     _funcInfo.ActInfo = new FuncInfo(new_func_name, funcCfg);
                 }
                 if (m_UpdateFunc.ContainsKey(screenplay_id))
