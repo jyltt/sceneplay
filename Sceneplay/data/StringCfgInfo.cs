@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sceneplay.data;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -126,6 +127,57 @@ namespace Sceneplay
                 return m_StringList[file_name];
             else
                 return null;
+        }
+
+        public Dictionary<string, string> GetStringReferenceList(string file_name)
+        {
+            var list = new Dictionary<string, string>();
+            var contentMgr = FileManager.GetInstance().ContentMgr;
+            foreach (var id in contentMgr.GetSceenplayList())
+            {
+                var screenplayList = contentMgr.GetInfoList(id);
+                foreach(var info in screenplayList)
+                {
+                    if(info.ActType == "talk")
+                    {
+                        var talkInfo = (ActionTalk)info.ActInfo;
+                        if(file_name == talkInfo.File)
+                        {
+                            if (!list.ContainsKey(talkInfo.ID))
+                                list[talkInfo.ID] = "";
+                            list[talkInfo.ID] += id.ToString();
+                            list[talkInfo.ID] += "\r\n";
+                        }
+                    }
+                    else if(info.ActType == "func")
+                    {
+                        var funcInfo = (FuncInfo)info.ActInfo;
+                        var funcCfg = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(funcInfo.Name);
+                        foreach(var param in funcCfg.GetParamList())
+                        {
+                            var paramCfg = funcCfg.GetParamInfo(param);
+                            if(paramCfg.Type == "string")
+                            {
+                                var str = funcInfo.GetParamValue(param);
+                                var match = Regex.Match(str, @"gs_([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)");
+                                if (match.Groups.Count > 1)
+                                {
+                                    string file = match.Groups[1].ToString();
+                                    string str_id = match.Groups[2].ToString();
+                                    if (file == file_name)
+                                    {
+                                        if (!list.ContainsKey(str_id))
+                                            list[str_id] = "";
+                                        list[str_id] += id.ToString();
+                                        list[str_id] += "\r\n";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return list;
         }
 
         public bool AddString(string file, string id)

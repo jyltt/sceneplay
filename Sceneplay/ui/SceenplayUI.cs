@@ -17,14 +17,14 @@ namespace Sceneplay.ui
         int m_curSceenplayID;
         TreeNode m_curNode;
 
-        public SceenplayUI(int hurdle_id, int sceenplay_id, TreeNode node)
+        public SceenplayUI(int hurdle_id, int screenplay_id, TreeNode node)
         {
             m_curHurdleID = hurdle_id;
-            m_curSceenplayID = sceenplay_id;
+            m_curSceenplayID = screenplay_id;
             m_curNode = node;
             InitializeComponent();
-            m_labID.Text = sceenplay_id.ToString();
-            var _screenplayInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(hurdle_id, sceenplay_id);
+            m_labID.Text = screenplay_id.ToString();
+            var _screenplayInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(hurdle_id, screenplay_id);
             var _actor = _screenplayInfo.ObjList;
             foreach (var name in _actor)
             {
@@ -32,6 +32,19 @@ namespace Sceneplay.ui
             }
             m_labTriggerID.Text = _screenplayInfo.TriggerID.ToString();
             m_labRemarks.Text = _screenplayInfo.Describe.Replace("\\n","\r\n");
+            UpdateReferenceList();
+        }
+
+        void UpdateReferenceList()
+        {
+            var list = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(m_curSceenplayID);
+            string str = "";
+            foreach(var id in list)
+            {
+                str += id.ToString();
+                str += "\r\n";
+            }
+            m_labReference.Text = str;
         }
 
         private void m_labID_Leave(object sender, EventArgs e)
@@ -55,6 +68,7 @@ namespace Sceneplay.ui
             else
             {
                 m_curSceenplayID = id;
+                UpdateReferenceList();
             }
         }
 

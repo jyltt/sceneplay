@@ -166,7 +166,7 @@ namespace Sceneplay
                         MessageBox.Show("剧情id创建失败⊙︿⊙", "创建失败");
                     break;
                 case 3:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，添加会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)
@@ -205,7 +205,7 @@ namespace Sceneplay
                     FileManager.GetInstance().ConfigMgr.RemoveScreenplay(DataCenter.curHurdleId, sceneplay_id);
                     break;
                 case 4:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)
@@ -237,7 +237,7 @@ namespace Sceneplay
             switch (nodeList.Length)
             { 
                 case 4:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)
@@ -258,7 +258,7 @@ namespace Sceneplay
             switch (nodeList.Length)
             { 
                 case 4:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayCount(DataCenter.curScreenplayId) > 1)
+                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)

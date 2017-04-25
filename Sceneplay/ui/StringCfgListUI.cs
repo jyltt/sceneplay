@@ -24,6 +24,19 @@ namespace Sceneplay.ui
                 m_listStrID.Items.Add(_id);
             }
             m_listStrID.SelectedItem = def_item;
+            UpdateReferenceList();
+        }
+
+        void UpdateReferenceList()
+        {
+            if (m_listStrID.SelectedItem == null)
+                return;
+            var list = FileManager.GetInstance().StringCfg.GetStringReferenceList(m_strFileName);
+            var select = (string)m_listStrID.SelectedItem;
+            if (list.ContainsKey(select))
+                m_labReference.Text = list[select];
+            else
+                m_labReference.Text = "";
         }
 
         public string GetSelectItem()
@@ -64,6 +77,7 @@ namespace Sceneplay.ui
             if (_selectItem == null)
                 return;
             m_labText.Text = FileManager.GetInstance().StringCfg.GetString(m_strFileName, _selectItem);
+            UpdateReferenceList();
         }
 
         private void m_labText_TextChanged(object sender, EventArgs e)

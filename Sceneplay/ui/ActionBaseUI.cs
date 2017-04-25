@@ -29,6 +29,18 @@ namespace Sceneplay.ui
             m_labFuncRemarks.Text = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(_funcInfo.ActInfo.Name).Describe;
         }
 
+        void UpdateReferenceList()
+        {
+            var list = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(m_curScreenplayID);
+            string str = "";
+            foreach(var id in list)
+            {
+                str += id.ToString();
+                str += "\r\n";
+            }
+            m_labReference.Text = str;
+        }
+
         private void CreateFuncList()
         {
             foreach (var dic in FileManager.GetInstance().FuncCfgMgr.FileList)

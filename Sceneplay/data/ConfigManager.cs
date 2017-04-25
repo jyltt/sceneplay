@@ -203,17 +203,17 @@ namespace Sceneplay.data
             return true;
         }
 
-        public int GetSceenplayCount(int sceenplay_id)
+        public List<int> GetSceenplayReferenceList(int sceenplay_id)
         {
-            int count = 0;
+            var _referenceList = new List<int>();
             var _hurdleList = GetHurdleList();
             foreach(var _hurdle_id in _hurdleList)
             {
                 var _hurdleInfo = FileManager.GetInstance().ConfigMgr.GetContList(_hurdle_id);
                 if (_hurdleInfo.ContainsKey(sceenplay_id))
-                    ++count;
+                    _referenceList.Add(_hurdle_id);
             }
-            return count;
+            return _referenceList;
         }
 
         public bool AddActor(int hurdle_id, int screenplay_id, string name)

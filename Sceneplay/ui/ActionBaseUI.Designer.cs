@@ -36,11 +36,16 @@
             this.m_listFunc = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.m_Node = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.m_labReference = new System.Windows.Forms.TextBox();
             m_Node1 = new System.Windows.Forms.Panel();
             m_Node1.SuspendLayout();
             this.groupFuncRemarks.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_Node1
@@ -50,7 +55,7 @@
             m_Node1.Dock = System.Windows.Forms.DockStyle.Top;
             m_Node1.Location = new System.Drawing.Point(0, 41);
             m_Node1.Name = "m_Node1";
-            m_Node1.Size = new System.Drawing.Size(441, 151);
+            m_Node1.Size = new System.Drawing.Size(443, 151);
             m_Node1.TabIndex = 26;
             // 
             // groupFuncRemarks
@@ -90,6 +95,7 @@
             this.m_labRemarks.Location = new System.Drawing.Point(3, 17);
             this.m_labRemarks.Multiline = true;
             this.m_labRemarks.Name = "m_labRemarks";
+            this.m_labRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.m_labRemarks.Size = new System.Drawing.Size(259, 125);
             this.m_labRemarks.TabIndex = 8;
             this.m_labRemarks.TextChanged += new System.EventHandler(this.m_labRemarks_TextChanged);
@@ -101,7 +107,7 @@
             this.m_listFunc.FormattingEnabled = true;
             this.m_listFunc.Location = new System.Drawing.Point(3, 17);
             this.m_listFunc.Name = "m_listFunc";
-            this.m_listFunc.Size = new System.Drawing.Size(435, 20);
+            this.m_listFunc.Size = new System.Drawing.Size(437, 20);
             this.m_listFunc.TabIndex = 1;
             this.m_listFunc.SelectedIndexChanged += new System.EventHandler(this.m_listFunc_SelectedIndexChanged);
             // 
@@ -111,7 +117,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(441, 41);
+            this.groupBox1.Size = new System.Drawing.Size(443, 41);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "操作列表";
@@ -121,18 +127,49 @@
             this.m_Node.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_Node.Location = new System.Drawing.Point(0, 192);
             this.m_Node.Name = "m_Node";
-            this.m_Node.Size = new System.Drawing.Size(441, 200);
+            this.m_Node.Size = new System.Drawing.Size(443, 200);
             this.m_Node.TabIndex = 27;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.m_Node);
+            this.panel1.Controls.Add(m_Node1);
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(443, 392);
+            this.panel1.TabIndex = 28;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.m_labReference);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox5.Location = new System.Drawing.Point(451, 0);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(111, 392);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "引用列表";
+            // 
+            // m_labReference
+            // 
+            this.m_labReference.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_labReference.Location = new System.Drawing.Point(3, 17);
+            this.m_labReference.Multiline = true;
+            this.m_labReference.Name = "m_labReference";
+            this.m_labReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.m_labReference.Size = new System.Drawing.Size(105, 372);
+            this.m_labReference.TabIndex = 0;
             // 
             // ActionBaseUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(441, 392);
+            this.ClientSize = new System.Drawing.Size(562, 392);
             this.ControlBox = false;
-            this.Controls.Add(this.m_Node);
-            this.Controls.Add(m_Node1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox5);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -145,6 +182,9 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -158,5 +198,8 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox m_labRemarks;
         private System.Windows.Forms.Panel m_Node;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox m_labReference;
     }
 }

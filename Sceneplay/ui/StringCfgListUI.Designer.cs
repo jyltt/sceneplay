@@ -35,17 +35,25 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.m_btnSure = new System.Windows.Forms.Button();
             this.m_labAdd = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.m_labSearch = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.m_labReference = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_listStrID
             // 
-            this.m_listStrID.Dock = System.Windows.Forms.DockStyle.Left;
+            this.m_listStrID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_listStrID.FormattingEnabled = true;
             this.m_listStrID.ItemHeight = 12;
             this.m_listStrID.Location = new System.Drawing.Point(0, 0);
             this.m_listStrID.Name = "m_listStrID";
-            this.m_listStrID.Size = new System.Drawing.Size(120, 492);
+            this.m_listStrID.Size = new System.Drawing.Size(130, 480);
             this.m_listStrID.TabIndex = 0;
             this.m_listStrID.SelectedIndexChanged += new System.EventHandler(this.m_listStrID_SelectedIndexChanged);
             this.m_listStrID.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.m_listStrID_MouseDoubleClick);
@@ -75,10 +83,11 @@
             // m_labText
             // 
             this.m_labText.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_labText.Location = new System.Drawing.Point(120, 0);
+            this.m_labText.Location = new System.Drawing.Point(0, 0);
             this.m_labText.Multiline = true;
             this.m_labText.Name = "m_labText";
-            this.m_labText.Size = new System.Drawing.Size(356, 492);
+            this.m_labText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.m_labText.Size = new System.Drawing.Size(342, 457);
             this.m_labText.TabIndex = 3;
             this.m_labText.TextChanged += new System.EventHandler(this.m_labText_TextChanged);
             // 
@@ -89,15 +98,15 @@
             this.panel1.Controls.Add(this.m_btnAdd);
             this.panel1.Controls.Add(this.m_labAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(120, 469);
+            this.panel1.Location = new System.Drawing.Point(130, 457);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(356, 23);
+            this.panel1.Size = new System.Drawing.Size(342, 23);
             this.panel1.TabIndex = 4;
             // 
             // m_btnSure
             // 
             this.m_btnSure.Dock = System.Windows.Forms.DockStyle.Right;
-            this.m_btnSure.Location = new System.Drawing.Point(281, 0);
+            this.m_btnSure.Location = new System.Drawing.Point(267, 0);
             this.m_btnSure.Name = "m_btnSure";
             this.m_btnSure.Size = new System.Drawing.Size(75, 23);
             this.m_btnSure.TabIndex = 3;
@@ -113,20 +122,74 @@
             this.m_labAdd.Size = new System.Drawing.Size(100, 21);
             this.m_labAdd.TabIndex = 4;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.m_labSearch);
+            this.panel2.Controls.Add(this.m_listStrID);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(130, 480);
+            this.panel2.TabIndex = 5;
+            // 
+            // m_labSearch
+            // 
+            this.m_labSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.m_labSearch.Location = new System.Drawing.Point(0, 0);
+            this.m_labSearch.Name = "m_labSearch";
+            this.m_labSearch.Size = new System.Drawing.Size(130, 21);
+            this.m_labSearch.TabIndex = 1;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.groupBox5);
+            this.panel3.Controls.Add(this.m_labText);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(130, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(342, 457);
+            this.panel3.TabIndex = 6;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.m_labReference);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox5.Location = new System.Drawing.Point(231, 0);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(111, 457);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "引用列表";
+            // 
+            // m_labReference
+            // 
+            this.m_labReference.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_labReference.Location = new System.Drawing.Point(3, 17);
+            this.m_labReference.Multiline = true;
+            this.m_labReference.Name = "m_labReference";
+            this.m_labReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.m_labReference.Size = new System.Drawing.Size(105, 437);
+            this.m_labReference.TabIndex = 0;
+            // 
             // StringCfgListUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 492);
+            this.ClientSize = new System.Drawing.Size(472, 480);
+            this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.m_labText);
-            this.Controls.Add(this.m_listStrID);
+            this.Controls.Add(this.panel2);
             this.Name = "StringCfgListUI";
             this.Text = "字符串表";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -139,5 +202,10 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button m_btnSure;
         private System.Windows.Forms.TextBox m_labAdd;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox m_labSearch;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox m_labReference;
     }
 }

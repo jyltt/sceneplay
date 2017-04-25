@@ -160,7 +160,7 @@ namespace Sceneplay.data
 
         public void RemoveSceenplay(int id)
         {
-            int count = FileManager.GetInstance().ConfigMgr.GetSceenplayCount(id);
+            int count = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(id).Count;
             if (count == 0)
             {
                 m_play.Remove(id);
@@ -190,7 +190,7 @@ namespace Sceneplay.data
             }
             else
             {
-                int count = FileManager.GetInstance().ConfigMgr.GetSceenplayCount(old_id);
+                int count = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(old_id).Count;
                 if (count >= 2)
                 {
                     var ret = MessageBox.Show("是否复制~>_<~", "该id被多个地方引用了", MessageBoxButtons.YesNo);

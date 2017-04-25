@@ -40,12 +40,16 @@
             this.m_btnAddActor = new System.Windows.Forms.Button();
             this.m_labActor = new System.Windows.Forms.TextBox();
             this.m_listActor = new System.Windows.Forms.ListBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.m_labReference = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -75,6 +79,7 @@
             this.m_labRemarks.Location = new System.Drawing.Point(3, 17);
             this.m_labRemarks.Multiline = true;
             this.m_labRemarks.Name = "m_labRemarks";
+            this.m_labRemarks.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.m_labRemarks.Size = new System.Drawing.Size(234, 195);
             this.m_labRemarks.TabIndex = 0;
             this.m_labRemarks.TextChanged += new System.EventHandler(this.m_labRemarks_TextChanged);
@@ -170,11 +175,41 @@
             this.m_listActor.TabIndex = 0;
             this.m_listActor.SelectedIndexChanged += new System.EventHandler(this.m_listActor_SelectedIndexChanged);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.m_labReference);
+            this.groupBox5.Location = new System.Drawing.Point(388, 12);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(111, 270);
+            this.groupBox5.TabIndex = 1;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "引用列表";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 17);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(105, 250);
+            this.textBox1.TabIndex = 0;
+            // 
+            // m_labReference
+            // 
+            this.m_labReference.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_labReference.Location = new System.Drawing.Point(3, 17);
+            this.m_labReference.Multiline = true;
+            this.m_labReference.Name = "m_labReference";
+            this.m_labReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.m_labReference.Size = new System.Drawing.Size(105, 250);
+            this.m_labReference.TabIndex = 0;
+            // 
             // SceenplayUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 294);
+            this.ClientSize = new System.Drawing.Size(509, 294);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
@@ -193,6 +228,8 @@
             this.groupBox1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -211,5 +248,8 @@
         private System.Windows.Forms.TextBox m_labTriggerID;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox m_labRemarks;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox m_labReference;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
