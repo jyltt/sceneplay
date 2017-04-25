@@ -58,5 +58,30 @@ namespace Sceneplay.ui
             func.ID = select;
             m_labString.Text = FileManager.GetInstance().StringCfg.GetString(func.File, func.ID);
         }
+
+        private void pos_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void m_listActor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void m_labAudioID_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void m_switchList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void m_labHeadIconPath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

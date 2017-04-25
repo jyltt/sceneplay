@@ -14,9 +14,9 @@ namespace Sceneplay.ui
 {
     public partial class ParamStringUI : Form
     {
-        protected int m_curScreenplayID;
-        protected int m_curFuncIndex;
-        protected string m_paramName;
+        int m_curScreenplayID;
+        int m_curFuncIndex;
+        string m_paramName;
         public ParamStringUI(int screenplay_id, int index, string param_name)
         {
             m_curScreenplayID = screenplay_id;
@@ -31,7 +31,7 @@ namespace Sceneplay.ui
             InitUI();
         }
 
-        virtual protected void InitUI()
+        void InitUI()
         {
             var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
@@ -55,7 +55,7 @@ namespace Sceneplay.ui
             m_labString.Text = FileManager.GetInstance().StringCfg.GetString(file, id);
         }
 
-        virtual protected void m_btnChangeStr_Click(object sender, EventArgs e)
+        private void m_btnChangeStr_Click(object sender, EventArgs e)
         {
             var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
@@ -82,7 +82,7 @@ namespace Sceneplay.ui
             m_labString.Text = FileManager.GetInstance().StringCfg.GetString(file, id);
         }
 
-        virtual protected void m_ListFile_SelectedIndexChanged(object sender, EventArgs e)
+        private void m_ListFile_SelectedIndexChanged(object sender, EventArgs e)
         {
             var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)

@@ -75,6 +75,7 @@
             this.m_labHeadIconPath.Name = "m_labHeadIconPath";
             this.m_labHeadIconPath.Size = new System.Drawing.Size(435, 21);
             this.m_labHeadIconPath.TabIndex = 8;
+            this.m_labHeadIconPath.TextChanged += new System.EventHandler(this.m_labHeadIconPath_TextChanged);
             // 
             // m_listFile
             // 
@@ -118,6 +119,7 @@
             this.m_pos1.TabStop = true;
             this.m_pos1.Text = "中间";
             this.m_pos1.UseVisualStyleBackColor = true;
+            this.m_pos1.CheckedChanged += new System.EventHandler(this.pos_CheckedChanged);
             // 
             // m_pos2
             // 
@@ -169,6 +171,7 @@
             this.m_switchList.Name = "m_switchList";
             this.m_switchList.Size = new System.Drawing.Size(101, 85);
             this.m_switchList.TabIndex = 20;
+            this.m_switchList.SelectedIndexChanged += new System.EventHandler(this.m_switchList_SelectedIndexChanged);
             // 
             // m_labAudioID
             // 
@@ -177,6 +180,7 @@
             this.m_labAudioID.Name = "m_labAudioID";
             this.m_labAudioID.Size = new System.Drawing.Size(113, 21);
             this.m_labAudioID.TabIndex = 7;
+            this.m_labAudioID.TextChanged += new System.EventHandler(this.m_labAudioID_TextChanged);
             // 
             // groupBox3
             // 
@@ -198,6 +202,7 @@
             this.m_listActor.Name = "m_listActor";
             this.m_listActor.Size = new System.Drawing.Size(142, 20);
             this.m_listActor.TabIndex = 6;
+            this.m_listActor.SelectedIndexChanged += new System.EventHandler(this.m_listActor_SelectedIndexChanged);
             // 
             // groupBox4
             // 
