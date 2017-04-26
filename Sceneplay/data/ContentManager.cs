@@ -287,6 +287,8 @@ namespace Sceneplay.data
         public void ChangeFuncRemark(int screenplay_id, int index, string text)
         {
             var _funcInfo = GetFuncInfo(screenplay_id, index);
+            if (_funcInfo.Describe == text)
+                return;
             _funcInfo.Describe = text;
             if (m_UpdateFunc.ContainsKey(screenplay_id))
                 m_UpdateFunc[screenplay_id](index);

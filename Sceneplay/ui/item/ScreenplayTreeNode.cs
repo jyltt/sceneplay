@@ -12,11 +12,13 @@ namespace Sceneplay.ui.item
     {
         int m_screenplayId;
         int m_hurdleId;
+        List<SceneplayInfo> m_ScreenplayInfoList;
         public ScreenplayTreeNode(int screenplay_id, int hurdle_id):base(screenplay_id.ToString())
         {
             m_screenplayId = screenplay_id;
             SetCallFunc(m_screenplayId);
             m_hurdleId = hurdle_id;
+            m_ScreenplayInfoList = FileManager.GetInstance().ContentMgr.GetInfoList(m_screenplayId);
         }
         public void CreateSceneplayTree(int screenplay_id, int hurdle_id = -1)
         {
@@ -24,24 +26,24 @@ namespace Sceneplay.ui.item
             {
                 SetCallFunc(screenplay_id, m_screenplayId);
                 m_screenplayId = screenplay_id;
+                m_ScreenplayInfoList = FileManager.GetInstance().ContentMgr.GetInfoList(m_screenplayId);
                 Text = m_screenplayId.ToString();
             }
             CreateSceneplayTree();
         }
         public void UpdateFunc(int index)
         {
-            var list = FileManager.GetInstance().ContentMgr.GetInfoList(m_screenplayId);
-            if (list == null)
+            if (m_ScreenplayInfoList == null)
                 return;
-            if (list.Count <= index)
+            if (m_ScreenplayInfoList.Count <= index)
                 return;
-            var func = list[index];
+            var func = m_ScreenplayInfoList[index];
             var obj = func.ActInfo;
             string name = obj.Name;
             string text = obj.Name + "(" + func.Describe + ")";
             TreeNode nodeFuncName = Nodes[index];
             nodeFuncName.Tag = name;
-            nodeFuncName.Text = text;
+            nodeFuncName.Name = text;
         }
         private void SetCallFunc(int new_id,int old_id=-1)
         {
@@ -66,13 +68,12 @@ namespace Sceneplay.ui.item
             if (IsExpanded)
                 _bExpanded = IsExpanded;
             Nodes.Clear();
-            var list = FileManager.GetInstance().ContentMgr.GetInfoList(m_screenplayId);
-            if (list == null)
+            if (m_ScreenplayInfoList == null)
                 return;
             var isSelect = (m_hurdleId == DataCenter.curHurdleId && m_screenplayId == DataCenter.curScreenplayId);
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < m_ScreenplayInfoList.Count; i++)
             {
-                var func = list[i];
+                var func = m_ScreenplayInfoList[i];
                 var obj = func.ActInfo;
                 string name = obj.Name;
                 string text = obj.Name + "(" + func.Describe + ")";
@@ -86,10 +87,6 @@ namespace Sceneplay.ui.item
                 Expand();
             else
                 Collapse();
-        }
-
-        private void ChangeFunc()
-        {
         }
 
         ~ScreenplayTreeNode()

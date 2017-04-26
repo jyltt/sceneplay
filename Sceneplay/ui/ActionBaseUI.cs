@@ -27,6 +27,7 @@ namespace Sceneplay.ui
             m_listFunc.SelectedIndex = FindIndexInFuncList(_funcInfo.ActInfo.Name);
             m_labRemarks.Text = _funcInfo.Describe.Replace("\\n", "\r\n");
             m_labFuncRemarks.Text = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(_funcInfo.ActInfo.Name).Describe;
+            UpdateReferenceList();
         }
 
         void UpdateReferenceList()

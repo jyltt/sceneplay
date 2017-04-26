@@ -71,12 +71,6 @@
     <Compile Include="data\ContentManager.cs" />
     <Compile Include="data\FileManager.cs" />
     <Compile Include="data\FuncCfgManager.cs" />
-    <Compile Include="Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="data\FuncCfgInfo.cs" />
     <Compile Include="data\FuncInfo.cs" />
     <Compile Include="data\HurdleInfo.cs" />
@@ -137,12 +131,8 @@
     <Compile Include="ui\StringCfgListUI.Designer.cs">
       <DependentUpon>StringCfgListUI.cs</DependentUpon>
     </Compile>
-    <Content Include="ReadFile.cs" />
     <Compile Include="data\SceneplayInfo.cs" />
     <Compile Include="data\StringCfgInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
