@@ -53,6 +53,7 @@
             this.SceneTree.PathSeparator = ".";
             this.SceneTree.Size = new System.Drawing.Size(271, 450);
             this.SceneTree.TabIndex = 0;
+            this.SceneTree.BeforeExpand += new System.Windows.Forms.TreeViewCancelEventHandler(this.SceneTree_BeforeExpand);
             this.SceneTree.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.SceneTree_DrawNode);
             this.SceneTree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.SceneTreeClickItem);
             // 

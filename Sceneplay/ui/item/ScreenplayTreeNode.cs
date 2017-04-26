@@ -13,6 +13,8 @@ namespace Sceneplay.ui.item
         int m_screenplayId;
         int m_hurdleId;
         List<SceneplayInfo> m_ScreenplayInfoList;
+
+        Dictionary<int, string> _needUpdateNode = new Dictionary<int,string>();
         public ScreenplayTreeNode(int screenplay_id, int hurdle_id):base(screenplay_id.ToString())
         {
             m_screenplayId = screenplay_id;
@@ -42,8 +44,29 @@ namespace Sceneplay.ui.item
             string name = obj.Name;
             string text = obj.Name + "(" + func.Describe + ")";
             TreeNode nodeFuncName = Nodes[index];
+            if (text == nodeFuncName.Text)
+                return;
             nodeFuncName.Tag = name;
-            nodeFuncName.Name = text;
+            if(IsExpanded)
+            {
+                _needUpdateNode[index] = text;
+                UpdateUI();
+            }
+            else
+            {
+                _needUpdateNode[index] = text;
+            }
+        }
+        public void UpdateUI()
+        {
+            foreach (var info in _needUpdateNode)
+            {
+                var index = info.Key;
+                var text = info.Value;
+                TreeNode nodeFuncName = Nodes[index];
+                nodeFuncName.Text = text;
+            }
+            _needUpdateNode.Clear();
         }
         private void SetCallFunc(int new_id,int old_id=-1)
         {

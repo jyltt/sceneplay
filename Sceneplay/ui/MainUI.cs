@@ -282,5 +282,17 @@ namespace Sceneplay
                     break;
             }
         }
+
+        private void SceneTree_BeforeExpand(object sender, TreeViewCancelEventArgs e)
+        {
+            var nodeList = e.Node.FullPath.Split('.');
+            switch (nodeList.Length)
+            {
+                case 3:
+                    var screenplayNode = e.Node as ScreenplayTreeNode;
+                    screenplayNode.UpdateUI();
+                    break;
+            }
+        }
     }
 }
