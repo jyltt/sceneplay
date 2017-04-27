@@ -23,7 +23,7 @@ namespace Sceneplay.ui
             m_curFuncIndex = index;
             m_paramName = param_name;
             InitializeComponent();
-            var list = FileManager.GetInstance().StringCfg.GetFileList();
+            var list = FileManager.StringCfg.GetFileList();
             foreach(var file in list)
             {
                 m_listFile.Items.Add(file);
@@ -33,7 +33,7 @@ namespace Sceneplay.ui
 
         void InitUI()
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (FuncInfo)screenplay.ActInfo;
@@ -52,12 +52,12 @@ namespace Sceneplay.ui
             }
             m_listFile.SelectedItem = file;
             m_btnChangeStr.Text = id;
-            m_labString.Text = FileManager.GetInstance().StringCfg.GetString(file, id);
+            m_labString.Text = FileManager.StringCfg.GetString(file, id);
         }
 
         private void m_btnChangeStr_Click(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (FuncInfo)screenplay.ActInfo;
@@ -79,12 +79,12 @@ namespace Sceneplay.ui
             var select = w.GetSelectItem();
             m_btnChangeStr.Text = select;
             func.ChangeParam(m_paramName, "gs_" + file + "." + select);
-            m_labString.Text = FileManager.GetInstance().StringCfg.GetString(file, id);
+            m_labString.Text = FileManager.StringCfg.GetString(file, id);
         }
 
         private void m_ListFile_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (FuncInfo)screenplay.ActInfo;

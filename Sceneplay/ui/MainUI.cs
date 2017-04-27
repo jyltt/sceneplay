@@ -40,7 +40,7 @@ namespace Sceneplay
 
         private void CreateTree()
         {
-            foreach (var hurdle_id in FileManager.GetInstance().ConfigMgr.GetHurdleList())
+            foreach (var hurdle_id in FileManager.ConfigMgr.GetHurdleList())
             {
                 TreeNode nodeHurdle = new TreeNode(hurdle_id.ToString());
                 m_RootNode.Nodes.Add(nodeHurdle);
@@ -53,7 +53,7 @@ namespace Sceneplay
 
         private void CreateHurdleTree(TreeNode node, int hurdle_id)
         {
-            var hurdleList = FileManager.GetInstance().ConfigMgr.GetContList(hurdle_id);
+            var hurdleList = FileManager.ConfigMgr.GetContList(hurdle_id);
             foreach (var hurdle in hurdleList.Values)
             {
                 var sceneplay_id = hurdle.SceneplayID;
@@ -90,7 +90,7 @@ namespace Sceneplay
         {
             if (refresh_file)
             {
-                FileManager.GetInstance().ReadFile();
+                FileManager.Instance.ReadFile();
             }
             m_RootNode.Nodes.Clear();
             CreateTree();
@@ -99,7 +99,7 @@ namespace Sceneplay
         //////////////////////////回调函数/////////////////////////////////////
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (FileManager.GetInstance().Save())
+            if (FileManager.Instance.Save())
                 MessageBox.Show("保存成功");
         }
 
@@ -149,14 +149,14 @@ namespace Sceneplay
             { 
                 case 1:
                     var name = 1;
-                    if (FileManager.GetInstance().ConfigMgr.CreateNewHurdle(name))
+                    if (FileManager.ConfigMgr.CreateNewHurdle(name))
                         curTreeNode.Nodes.Add(name.ToString());
                     else
                         MessageBox.Show("关卡id已存在d(╯﹏╰)b", "创建失败");
                     break;
                 case 2:
                     var playsceneid = 1;
-                    var res = FileManager.GetInstance().ConfigMgr.CreateNewScreenplay(DataCenter.curHurdleId, playsceneid);
+                    var res = FileManager.ConfigMgr.CreateNewScreenplay(DataCenter.curHurdleId, playsceneid);
                     if(res)
                     {
                         ScreenplayTreeNode nodeSceneplay = new ScreenplayTreeNode(playsceneid, DataCenter.curHurdleId );
@@ -166,7 +166,7 @@ namespace Sceneplay
                         MessageBox.Show("剧情id创建失败⊙︿⊙", "创建失败");
                     break;
                 case 3:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
+                    if (FileManager.ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，添加会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)
@@ -175,7 +175,7 @@ namespace Sceneplay
                                 return;
                         }
                     }
-                    FileManager.GetInstance().ContentMgr.CreateNewAction(DataCenter.curScreenplayId);
+                    FileManager.ContentMgr.CreateNewAction(DataCenter.curScreenplayId);
                     break;
                 default:
                     MessageBox.Show("该节点不能创建子节点(─.─|||)");
@@ -194,7 +194,7 @@ namespace Sceneplay
                     bool result = Int32.TryParse(nodeName, out hurdle_id); // return bool value hint y/n
                     if (!result)
                         return;
-                    FileManager.GetInstance().ConfigMgr.RemoveHurdle(hurdle_id);
+                    FileManager.ConfigMgr.RemoveHurdle(hurdle_id);
                     break;
                 case 3:
                     nodeName = curTreeNode.Text;
@@ -202,10 +202,10 @@ namespace Sceneplay
                     result = Int32.TryParse(nodeName, out sceneplay_id); // return bool value hint y/n
                     if (!result)
                         return;
-                    FileManager.GetInstance().ConfigMgr.RemoveScreenplay(DataCenter.curHurdleId, sceneplay_id);
+                    FileManager.ConfigMgr.RemoveScreenplay(DataCenter.curHurdleId, sceneplay_id);
                     break;
                 case 4:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
+                    if (FileManager.ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)
@@ -214,7 +214,7 @@ namespace Sceneplay
                                 return;
                         }
                     }
-                    FileManager.GetInstance().ContentMgr.RemoveAction(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+                    FileManager.ContentMgr.RemoveAction(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
                     DataCenter.curFuncIndex -= 1;
                     break;
                 default:
@@ -237,7 +237,7 @@ namespace Sceneplay
             switch (nodeList.Length)
             { 
                 case 4:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
+                    if (FileManager.ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)
@@ -246,7 +246,7 @@ namespace Sceneplay
                                 return;
                         }
                     }
-                    FileManager.GetInstance().ContentMgr.MoveDownFunc(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+                    FileManager.ContentMgr.MoveDownFunc(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
                     break;
             }
         }
@@ -258,7 +258,7 @@ namespace Sceneplay
             switch (nodeList.Length)
             { 
                 case 4:
-                    if (FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
+                    if (FileManager.ConfigMgr.GetSceenplayReferenceList(DataCenter.curScreenplayId).Count > 1)
                     {
                         var ret = MessageBox.Show("该剧情有多个关卡引用，删除会影响其他关卡的该剧情信息\n是否继续？((‵□′))", "有多个引用", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         switch (ret)
@@ -267,7 +267,7 @@ namespace Sceneplay
                                 return;
                         }
                     }
-                    FileManager.GetInstance().ContentMgr.MoveUpFunc(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
+                    FileManager.ContentMgr.MoveUpFunc(DataCenter.curScreenplayId, DataCenter.curFuncIndex);
                     break;
             }
         }

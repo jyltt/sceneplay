@@ -22,17 +22,17 @@ namespace Sceneplay.ui
             m_curScreenplayID = screenplay_id;
             m_curFuncIndex = index;
             InitializeComponent();
-            var _funcInfo = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var _funcInfo = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             CreateFuncList();
             m_listFunc.SelectedIndex = FindIndexInFuncList(_funcInfo.ActInfo.Name);
             m_labRemarks.Text = _funcInfo.Describe.Replace("\\n", "\r\n");
-            m_labFuncRemarks.Text = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(_funcInfo.ActInfo.Name).Describe;
+            m_labFuncRemarks.Text = FileManager.FuncCfgMgr.GetFuncCfg(_funcInfo.ActInfo.Name).Describe;
             UpdateReferenceList();
         }
 
         void UpdateReferenceList()
         {
-            var list = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(m_curScreenplayID);
+            var list = FileManager.ConfigMgr.GetSceenplayReferenceList(m_curScreenplayID);
             string str = "";
             foreach(var id in list)
             {
@@ -44,9 +44,9 @@ namespace Sceneplay.ui
 
         private void CreateFuncList()
         {
-            foreach (var dic in FileManager.GetInstance().FuncCfgMgr.FileList)
+            foreach (var dic in FileManager.FuncCfgMgr.FileList)
             {
-                var info = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(dic);
+                var info = FileManager.FuncCfgMgr.GetFuncCfg(dic);
                 BoxItem item = new BoxItem();
                 item.Text = info.Name + info.DescribeSimple;
                 item.Value = info.Name;
@@ -85,8 +85,8 @@ namespace Sceneplay.ui
         {
             var item = (BoxItem)m_listFunc.SelectedItem;
             var curFuncName = (string)item.Value;
-            FileManager.GetInstance().ContentMgr.ChangeFunc(m_curScreenplayID, m_curFuncIndex, curFuncName);
-            var _funcInfo = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            FileManager.ContentMgr.ChangeFunc(m_curScreenplayID, m_curFuncIndex, curFuncName);
+            var _funcInfo = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             Form w1 = null;
             if (_funcInfo.ActType == "func")
             {
@@ -101,7 +101,7 @@ namespace Sceneplay.ui
 
         private void m_labRemarks_TextChanged(object sender, EventArgs e)
         {
-            FileManager.GetInstance().ContentMgr.ChangeFuncRemark(m_curScreenplayID, m_curFuncIndex, m_labRemarks.Text.Replace("\r\n", "\\n"));
+            FileManager.ContentMgr.ChangeFuncRemark(m_curScreenplayID, m_curFuncIndex, m_labRemarks.Text.Replace("\r\n", "\\n"));
         }
     }
 }

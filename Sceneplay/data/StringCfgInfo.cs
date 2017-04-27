@@ -132,7 +132,7 @@ namespace Sceneplay
         public Dictionary<string, string> GetStringReferenceList(string file_name)
         {
             var list = new Dictionary<string, string>();
-            var contentMgr = FileManager.GetInstance().ContentMgr;
+            var contentMgr = FileManager.ContentMgr;
             foreach (var id in contentMgr.GetSceenplayList())
             {
                 var screenplayList = contentMgr.GetInfoList(id);
@@ -152,7 +152,7 @@ namespace Sceneplay
                     else if(info.ActType == "func")
                     {
                         var funcInfo = (FuncInfo)info.ActInfo;
-                        var funcCfg = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(funcInfo.Name);
+                        var funcCfg = FileManager.FuncCfgMgr.GetFuncCfg(funcInfo.Name);
                         foreach(var param in funcCfg.GetParamList())
                         {
                             var paramCfg = funcCfg.GetParamInfo(param);

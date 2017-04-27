@@ -51,9 +51,9 @@
             this.m_listStrID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_listStrID.FormattingEnabled = true;
             this.m_listStrID.ItemHeight = 12;
-            this.m_listStrID.Location = new System.Drawing.Point(0, 0);
+            this.m_listStrID.Location = new System.Drawing.Point(0, 21);
             this.m_listStrID.Name = "m_listStrID";
-            this.m_listStrID.Size = new System.Drawing.Size(130, 480);
+            this.m_listStrID.Size = new System.Drawing.Size(130, 459);
             this.m_listStrID.TabIndex = 0;
             this.m_listStrID.SelectedIndexChanged += new System.EventHandler(this.m_listStrID_SelectedIndexChanged);
             this.m_listStrID.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.m_listStrID_MouseDoubleClick);
@@ -124,8 +124,8 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.m_labSearch);
             this.panel2.Controls.Add(this.m_listStrID);
+            this.panel2.Controls.Add(this.m_labSearch);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";

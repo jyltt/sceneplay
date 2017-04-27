@@ -22,11 +22,11 @@ namespace Sceneplay.ui
             m_curFuncIndex = index;
             m_paramName = param_name;
             InitializeComponent();
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (FuncInfo)screenplay.ActInfo;
-            var funcCfg = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(func.Name);
+            var funcCfg = FileManager.FuncCfgMgr.GetFuncCfg(func.Name);
             if (funcCfg == null)
                 return;
             m_labParam.Text = func.GetParamValue(param_name);
@@ -35,7 +35,7 @@ namespace Sceneplay.ui
 
         private void m_labParam_TextChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (FuncInfo)screenplay.ActInfo;

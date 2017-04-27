@@ -18,7 +18,7 @@ namespace Sceneplay.ui
         {
             m_strFileName = file_name;
             InitializeComponent();
-            var _fileList = FileManager.GetInstance().StringCfg.GetStringListByFile(file_name);
+            var _fileList = FileManager.StringCfg.GetStringListByFile(file_name);
             foreach(var _id in _fileList.Keys)
             {
                 m_listStrID.Items.Add(_id);
@@ -31,7 +31,7 @@ namespace Sceneplay.ui
         {
             if (m_listStrID.SelectedItem == null)
                 return;
-            var list = FileManager.GetInstance().StringCfg.GetStringReferenceList(m_strFileName);
+            var list = FileManager.StringCfg.GetStringReferenceList(m_strFileName);
             var select = (string)m_listStrID.SelectedItem;
             if (list.ContainsKey(select))
                 m_labReference.Text = list[select];
@@ -48,7 +48,7 @@ namespace Sceneplay.ui
         {
             if (m_labAdd.Text == "")
                 return;
-            var ret = FileManager.GetInstance().StringCfg.AddString(m_strFileName, m_labAdd.Text);
+            var ret = FileManager.StringCfg.AddString(m_strFileName, m_labAdd.Text);
             if (ret)
             {
                 m_listStrID.Items.Add(m_labAdd.Text);
@@ -64,7 +64,7 @@ namespace Sceneplay.ui
             string _selectItem = (string)m_listStrID.SelectedItem;
             if (_selectItem == null)
                 return;
-            var ret = FileManager.GetInstance().StringCfg.DelString(m_strFileName, _selectItem);
+            var ret = FileManager.StringCfg.DelString(m_strFileName, _selectItem);
             if (ret)
             {
                 m_listStrID.Items.Remove(_selectItem);
@@ -76,7 +76,7 @@ namespace Sceneplay.ui
             string _selectItem = (string)m_listStrID.SelectedItem;
             if (_selectItem == null)
                 return;
-            m_labText.Text = FileManager.GetInstance().StringCfg.GetString(m_strFileName, _selectItem);
+            m_labText.Text = FileManager.StringCfg.GetString(m_strFileName, _selectItem);
             UpdateReferenceList();
         }
 
@@ -85,7 +85,7 @@ namespace Sceneplay.ui
             string _selectItem = (string)m_listStrID.SelectedItem;
             if (_selectItem == null)
                 return;
-            FileManager.GetInstance().StringCfg.ChangeString(m_strFileName, _selectItem, m_labText.Text);
+            FileManager.StringCfg.ChangeString(m_strFileName, _selectItem, m_labText.Text);
         }
 
         private void m_btnSure_Click(object sender, EventArgs e)

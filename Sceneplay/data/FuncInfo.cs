@@ -68,7 +68,7 @@ namespace Sceneplay
         }
         override public string ToString()
         {
-            FuncCfgManager fciList = FileManager.GetInstance().FuncCfgMgr;
+            FuncCfgManager fciList = FileManager.FuncCfgMgr;
             var funcName = Name;
             var str = string.Format("{0};", funcName);
             if (fciList.GetFuncCfg(funcName) == null)

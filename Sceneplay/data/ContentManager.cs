@@ -160,7 +160,7 @@ namespace Sceneplay.data
 
         public void RemoveSceenplay(int id)
         {
-            int count = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(id).Count;
+            int count = FileManager.ConfigMgr.GetSceenplayReferenceList(id).Count;
             if (count == 0)
             {
                 m_play.Remove(id);
@@ -190,7 +190,7 @@ namespace Sceneplay.data
             }
             else
             {
-                int count = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(old_id).Count;
+                int count = FileManager.ConfigMgr.GetSceenplayReferenceList(old_id).Count;
                 if (count >= 2)
                 {
                     var ret = MessageBox.Show("是否复制~>_<~", "该id被多个地方引用了", MessageBoxButtons.YesNo);
@@ -216,7 +216,7 @@ namespace Sceneplay.data
                         m_play[new_id] = m_play[old_id];
                 }
             }
-            var ret1 = FileManager.GetInstance().ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
+            var ret1 = FileManager.ConfigMgr.ChangeSceenplay(hurdle_id, old_id, new_id);
             if (ret1)
             {
                 RemoveSceenplay(old_id);
@@ -275,7 +275,7 @@ namespace Sceneplay.data
                 }
                 else
                 {
-                    var funcCfg = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(new_func_name);
+                    var funcCfg = FileManager.FuncCfgMgr.GetFuncCfg(new_func_name);
                     _funcInfo.ActType = "func";
                     _funcInfo.ActInfo = new FuncInfo(new_func_name, funcCfg);
                 }
@@ -287,7 +287,7 @@ namespace Sceneplay.data
         public void ChangeFuncRemark(int screenplay_id, int index, string text)
         {
             var _funcInfo = GetFuncInfo(screenplay_id, index);
-            if (_funcInfo.Describe == text)
+            if(_funcInfo.Describe == text)
                 return;
             _funcInfo.Describe = text;
             if (m_UpdateFunc.ContainsKey(screenplay_id))

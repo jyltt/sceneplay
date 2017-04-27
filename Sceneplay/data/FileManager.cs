@@ -9,45 +9,64 @@ namespace Sceneplay.data
     class FileManager
     {
         private static FileManager _instance = null;
-        public static FileManager GetInstance()
+        public static FileManager Instance
         {
-            if (_instance == null)
+            get
             {
-                _instance = new FileManager();
+                if (_instance == null)
+                {
+                    _instance = new FileManager();
+                }
+                return _instance;
             }
-            return _instance;
         }
         private FileManager()
         {
         }
 
-        StringCfgInfo m_StringCfg;
-        public StringCfgInfo StringCfg
+        StringCfgInfo m_StringCfg = null;
+        public static StringCfgInfo StringCfg
         {
-            get { return m_StringCfg; }
+            get {
+                if (Instance.m_StringCfg == null)
+                    Instance.m_StringCfg = new StringCfgInfo("string/");
+                return Instance.m_StringCfg; 
+            }
         }
-        FuncCfgManager m_FuncCfgMgr;
-        public FuncCfgManager FuncCfgMgr
+        FuncCfgManager m_FuncCfgMgr = null;
+        public static FuncCfgManager FuncCfgMgr
         {
-            get { return m_FuncCfgMgr; }
+            get { 
+                if (Instance.m_FuncCfgMgr == null)
+                    Instance.m_FuncCfgMgr = new FuncCfgManager("func_info.txt");
+                return Instance.m_FuncCfgMgr;
+            }
         }
-        ContentManager m_ContentMgr;
-        public ContentManager ContentMgr
+        ContentManager m_ContentMgr = null;
+        public static ContentManager ContentMgr
         {
-            get { return m_ContentMgr; }
+            get { 
+                if(Instance.m_ContentMgr == null)
+                    Instance.m_ContentMgr = new ContentManager("config/hurdle/hurdle_screenplay/screenplay_content.txt");
+                return Instance.m_ContentMgr;
+            }
         }
-        ConfigManager m_ConfigMgr;
-        public ConfigManager ConfigMgr
+        ConfigManager m_ConfigMgr = null;
+        public static ConfigManager ConfigMgr
         {
-            get { return m_ConfigMgr; }
+            get {
+                if(Instance.m_ConfigMgr == null)
+                    Instance.m_ConfigMgr = new ConfigManager("config/hurdle/hurdle_screenplay/screenplay_config.txt");
+                return Instance.m_ConfigMgr;
+            }
         }
 
         public void ReadFile()
         {
-            m_StringCfg = new StringCfgInfo("string/");
-            m_FuncCfgMgr = new FuncCfgManager("func_info.txt");
-            m_ContentMgr = new ContentManager("config/hurdle/hurdle_screenplay/screenplay_content.txt");
-            m_ConfigMgr = new ConfigManager("config/hurdle/hurdle_screenplay/screenplay_config.txt");
+            m_StringCfg = null;
+            m_FuncCfgMgr = null;
+            m_ContentMgr = null;
+            m_ConfigMgr = null;
         }
 
         public bool Save()

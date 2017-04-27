@@ -21,19 +21,19 @@ namespace Sceneplay.ui
             m_curFuncIndex = index;
             InitializeComponent();
             // init ui
-            var list = FileManager.GetInstance().StringCfg.GetFileList();
+            var list = FileManager.StringCfg.GetFileList();
             foreach (var file in list)
             {
                 m_listFile.Items.Add(file);
             }
-            var hurdleInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(DataCenter.curHurdleId, m_curScreenplayID);
+            var hurdleInfo = FileManager.ConfigMgr.GetScreenplayInfo(DataCenter.curHurdleId, m_curScreenplayID);
             for (int i = 0; i < hurdleInfo.ObjList.Count; i++)
             {
                 m_listActor.Items.Add(hurdleInfo.ObjList[i]);
             }
 
             // set ui;
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             m_labAudioID.Text = screenplay.Audio.ToString();
@@ -72,12 +72,12 @@ namespace Sceneplay.ui
             var func = (ActionTalk)screenplay.ActInfo;
             m_btnChangeStr.Text = func.ID;
             m_listFile.SelectedItem = func.File;
-            m_labString.Text = FileManager.GetInstance().StringCfg.GetString(func.File, func.ID);
+            m_labString.Text = FileManager.StringCfg.GetString(func.File, func.ID);
         }
 
         private void m_listFile_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (ActionTalk)screenplay.ActInfo;
@@ -86,7 +86,7 @@ namespace Sceneplay.ui
 
         private void m_btnChangeStr_Click(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (ActionTalk)screenplay.ActInfo;
@@ -97,12 +97,12 @@ namespace Sceneplay.ui
                 return;
             m_btnChangeStr.Text = select;
             func.ID = select;
-            m_labString.Text = FileManager.GetInstance().StringCfg.GetString(func.File, func.ID);
+            m_labString.Text = FileManager.StringCfg.GetString(func.File, func.ID);
         }
 
         private void pos_CheckedChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             if (m_pos1.Checked)
@@ -115,11 +115,11 @@ namespace Sceneplay.ui
 
         private void m_listActor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var name = m_listActor.SelectedItem.ToString();
-            var screenplayInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(DataCenter.curHurdleId,m_curScreenplayID);
+            var screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(DataCenter.curHurdleId,m_curScreenplayID);
             var actorList = screenplayInfo.ObjList;
             var index = actorList.IndexOf(name);
             screenplay.ActorID = index + 1;
@@ -127,7 +127,7 @@ namespace Sceneplay.ui
 
         private void m_labAudioID_TextChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var newId = m_labAudioID.Text;
@@ -144,7 +144,7 @@ namespace Sceneplay.ui
 
         private void m_switchList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var i = m_switchList.SelectedIndex;
@@ -155,7 +155,7 @@ namespace Sceneplay.ui
 
         private void m_labHeadIconPath_TextChanged(object sender, EventArgs e)
         {
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             screenplay.IconPath = m_labHeadIconPath.Text;

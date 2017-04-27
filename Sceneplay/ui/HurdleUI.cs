@@ -36,7 +36,7 @@ namespace Sceneplay.ui
                 m_labID.Text = m_curHurdleID.ToString();
                 return;
             }
-            if (FileManager.GetInstance().ConfigMgr.ExchangeHurdleID(m_curHurdleID, id))
+            if (FileManager.ConfigMgr.ExchangeHurdleID(m_curHurdleID, id))
             {
                 m_curHurdleID = id;
                 m_curNode.Text = newName;

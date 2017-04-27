@@ -24,7 +24,7 @@ namespace Sceneplay.ui
             m_curNode = node;
             InitializeComponent();
             m_labID.Text = screenplay_id.ToString();
-            var _screenplayInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(hurdle_id, screenplay_id);
+            var _screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(hurdle_id, screenplay_id);
             var _actor = _screenplayInfo.ObjList;
             foreach (var name in _actor)
             {
@@ -37,7 +37,7 @@ namespace Sceneplay.ui
 
         void UpdateReferenceList()
         {
-            var list = FileManager.GetInstance().ConfigMgr.GetSceenplayReferenceList(m_curSceenplayID);
+            var list = FileManager.ConfigMgr.GetSceenplayReferenceList(m_curSceenplayID);
             string str = "";
             foreach(var id in list)
             {
@@ -60,7 +60,7 @@ namespace Sceneplay.ui
             }
             if (id == m_curSceenplayID)
                 return;
-            bool res = FileManager.GetInstance().ContentMgr.ExchangeSceenplayID(m_curHurdleID, id, m_curSceenplayID);
+            bool res = FileManager.ContentMgr.ExchangeSceenplayID(m_curHurdleID, id, m_curSceenplayID);
             if(!res)
             {
                 m_labID.Text = m_curSceenplayID.ToString();
@@ -84,7 +84,7 @@ namespace Sceneplay.ui
 
         private void m_btnAddActor_Click(object sender, EventArgs e)
         {
-            var objList = FileManager.GetInstance().ConfigMgr;
+            var objList = FileManager.ConfigMgr;
             if (m_btnAddActor.Text == "-")
             {
                 if (m_listActor.SelectedItem == null)
@@ -114,7 +114,7 @@ namespace Sceneplay.ui
             var newName = m_labTriggerID.Text;
             int id;
             bool result = Int32.TryParse(newName, out id); // return bool value hint y/n
-            var _screenplayInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
+            var _screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
             if (!result)
             {
                 MessageBox.Show("触发器id必须为数字(￣︶￣)↗");
@@ -126,7 +126,7 @@ namespace Sceneplay.ui
 
         private void m_labRemarks_TextChanged(object sender, EventArgs e)
         {
-            var _screenplayInfo = FileManager.GetInstance().ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
+            var _screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
             _screenplayInfo.Describe = m_labRemarks.Text.Replace("\r\n", "\\n");
         }
     }

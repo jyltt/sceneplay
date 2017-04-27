@@ -27,11 +27,11 @@ namespace Sceneplay.ui
         private void CreateParamTypeList()
         {
             m_listParamType.Items.Clear();
-            var _funcInfo = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var _funcInfo = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (_funcInfo == null)
                 return;
             var func = _funcInfo.ActInfo as FuncInfo;
-            var funcInfo = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(func.Name);
+            var funcInfo = FileManager.FuncCfgMgr.GetFuncCfg(func.Name);
             foreach (var type in funcInfo.GetParamList())
             {
                 var param = funcInfo.GetParamInfo(type);
@@ -63,11 +63,11 @@ namespace Sceneplay.ui
                 return;
             var item = (BoxItem)m_listParamType.SelectedItem;
             var paramName = (string)item.Value;
-            var screenplay = FileManager.GetInstance().ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
+            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
             if (screenplay == null)
                 return;
             var func = (FuncInfo)screenplay.ActInfo;
-            var funcCfg = FileManager.GetInstance().FuncCfgMgr.GetFuncCfg(func.Name);
+            var funcCfg = FileManager.FuncCfgMgr.GetFuncCfg(func.Name);
             if (funcCfg == null)
                 return;
             var paramCfg = funcCfg.GetParamInfo(paramName);

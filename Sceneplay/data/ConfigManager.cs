@@ -136,7 +136,7 @@ namespace Sceneplay.data
         {
             if (m_hurdle.ContainsKey(hurdle_id))
             {
-                if (FileManager.GetInstance().ContentMgr.CreateNewScreenplay(screenplay_id))
+                if (FileManager.ContentMgr.CreateNewScreenplay(screenplay_id))
                 {
                     var hurdle = m_hurdle[hurdle_id];
                     if (!hurdle.ContainsKey(screenplay_id))
@@ -158,7 +158,7 @@ namespace Sceneplay.data
             m_hurdle.Remove(hurdle_id);
             foreach (var v in list.Values)
             {
-                FileManager.GetInstance().ContentMgr.RemoveSceenplay(v.SceneplayID);
+                FileManager.ContentMgr.RemoveSceenplay(v.SceneplayID);
             }
             return true;
         }
@@ -171,7 +171,7 @@ namespace Sceneplay.data
             if (!hurdle.ContainsKey(screenplay_id))
                 return false;
             hurdle.Remove(screenplay_id);
-            FileManager.GetInstance().ContentMgr.RemoveSceenplay(screenplay_id);
+            FileManager.ContentMgr.RemoveSceenplay(screenplay_id);
             return true;
         }
 
@@ -209,7 +209,7 @@ namespace Sceneplay.data
             var _hurdleList = GetHurdleList();
             foreach(var _hurdle_id in _hurdleList)
             {
-                var _hurdleInfo = FileManager.GetInstance().ConfigMgr.GetContList(_hurdle_id);
+                var _hurdleInfo = FileManager.ConfigMgr.GetContList(_hurdle_id);
                 if (_hurdleInfo.ContainsKey(sceenplay_id))
                     _referenceList.Add(_hurdle_id);
             }
