@@ -1,0 +1,510 @@
+﻿o	s	n	s	n	n	s	s
+触发器编号	策划备注(隐藏列)	触发阵营（0全体 1我方 2敌方 3中立）	触发指定角色(说明参见document/design/配置表说明/trigger_config_触发器说明.xls)	触发类型(1.进触发器,2.触发器中,3.出触发器 4进战斗 5出战斗 6属性发生改变 7怪物进战斗触发 8怪物组死亡触发 9过场动画结束触发 10玩家使用道具触发 11进范围启动定时器 12进入触发后区域随机Item 13活动3v3战斗结束,14刷怪波数触发，15添加buff触发)	触发完成次数	触发参数	触发效果
+id	panning_remark	trigger_camp	trigger_role	trigger_type	trigger_count	trigger_param	trigger_effect
+100000	标准碰撞触发	0	0	1	1	distance = 1	scene_entity_collide_trigger=1,
+100001	加血	0	0	1	1	distance = 1	addHp = 12,0
+100001	加攻击强度	0	0	1	1	distance = 1	addPhysicalAttack = 10,0;addSpellAttack = 10,0
+100002	加防御强度	0	0	1	1	distance = 1	addPhysicalDefense = 10,0;addSpellDefense = 10,0
+100003	人物碰撞后摄像机向左旋转	1	0	1	-1	distance = 0	cameraHandle =84000000,
+100004	人物碰撞后摄像机向右旋转	1	0	1	-1	distance = 0	cameraHandle =84000001,
+100005	人物进入后摄像机X轴移动(1移动0停住)	1	0	1	-1	distance = 0	cameraHandle =84000001,
+100005	人物进入后摄像机X轴不移动	1	0	3	-1	distance = 0	cameraMove =1,
+100006	人物进入后摄像机Z轴移动	1	0	1	-1	distance = 0	cameraMoveX =0, 
+100006	人物进入后摄像机Z轴不移动	1	0	3	-1	distance = 0	cameraMoveX =1,
+100007	进入战斗触发	1	0	4	1	0	0
+100008	战斗胜利触发	1	0	5	1	1	0
+100009	场上英雄血量降低到50%以下了	1	0	6	1	cur_hp,-0.5	0
+100010	给对方全体小怪添加冰冻buff	1	0	1	1	distance = 1	add_buff_2_all_monster = 2,1000,1;delete_obj=0,
+100011	给对方全体小怪添加减速buff	1	0	1	1	distance = 1	add_buff_2_all_monster = 2,1000,2;delete_obj=0,
+100012	给对方全体小怪添加伤血50%buff	1	0	1	1	distance = 2	add_buff_2_all_monster = 2,1000,3;delete_obj=0,
+100013	a碰撞到b，a就被删除	2	objType = 2;isCaptain=0;id=31595000,31595001,31595002,31595010,31595011,31595012,31595020,31595021,31595022,31595030,31595031,31595032|	1	-1	distance = 1	delete_target = 50
+100014	人物碰撞后使用新相机	1	isCaptain=1|	1	-1	distance = 0;hideMesh=1	changeToCamera=84205007
+100015	人物碰撞后使用新相机	1	isCaptain=1|	1	-1	distance = 0;hideMesh=1	changeToCamera=84205004
+100016	人物进入触发范围后，出现挂机按钮	1	0	1	-1	distance = 0	ShowHookBtn = 1
+100017	人物出触发范围后，隐藏挂机按钮	1	0	3	-1	distance = 0	HideHookBtn = 1
+100018	我方英雄，踩到眩晕	1	objType = 1|	1	1	distance = 0	Dizziness = 1
+100019	我方英雄，踩到降低防御力	1	objType = 1|	1	1	distance = 0	ReduceDefense = 1
+100020	我方英雄，踩到降低移动速度	1	objType = 1|	1	1	distance = 0	SlowDown = 1
+100021	敌方boss,踩到眩晕	2	objType = 2;id=31000003|	1	1	distance = 0	Dizziness = 1
+100022	敌方boss，踩到降低移动速度	2	objType = 2;id=31000003|	1	1	distance = 0	SlowDown = 1
+100023	通用范围触发UI显示按钮1	1	isCaptain=1;cfgType = 64|	1	-1	distance = 1	show_collect_btn= 1
+100023	通用范围触发UI隐藏按钮1	1	isCaptain=1;cfgType = 64|	3	-1	distance = 1	show_collect_btn= 0
+100024	碰撞持续2秒掉血	1	isCaptain=1;cfgType = 64|	1	-1	0	AddBuff=1232,4;
+100025	通用引导boss光圈，碰到删除	1	isCaptain=1|	1	1	0	0
+100026	亚门刚太郎5-6，踩到降低移动速度	2	objType = 2;id=31003300|	1	1	distance = 0	SlowDown = 1
+100027	指定ID进入时被修改视野范围	2	0	1	1	distance = 0	ChangeViewRadius=31000800,8,31004600,8,31005300,8,31008500,6
+100028	黑磐岩10-5,踩到眩晕	2	objType = 2;id=31006700|	1	1	distance = 0	Dizziness = 1
+100029	黑磐岩10-5，踩到降低移动速度	2	objType = 2;id=31006700|	1	1	distance = 0	SlowDown = 1
+100030	记录怪物或者英雄首次进入的时间	0	0	1	-1	distance = 0	RecordObjectFirstEnterTime=1
+100031	新手关卡进入指定光圈1	0	0	1	1	distance = 1	EnterGuideRegion=1;delete_obj = 0,
+100032	新手关卡进入指定光圈2	0	0	1	1	distance = 1	EnterGuideRegion=2;delete_obj = 0,
+100033	新手关卡进入指定光圈3	0	0	1	1	distance = 1	EnterGuideRegion=3;delete_obj = 0,
+100034	新手关卡进入指定光圈4	0	0	1	1	distance = 1	EnterGuideRegion=4;delete_obj = 0,
+100035	boss逃跑目的地，触发器	2	objType = 2;id=31000260,31000560,31000820,31000560,31001110,31001380|	1	1	distance = 1	on_target_arrive_desination = 0
+100036	玩家逃跑目的地，触发器	1	isCaptain=1|	1	1	distance = 1	on_target_arrive_desination = 0;RecordObjectFirstEnterTime = 1
+100037	主角碰撞，触发剧情	1	isCaptain=1|	1	1	distance = 0	on_touch_screen_play = 1
+100038	四方莲示15-3,踩到眩晕	2	objType = 2;id=31010000|	1	1	distance = 0	Dizziness = 1
+100039	四方莲示15-3，踩到降低移动速度	2	objType = 2;id=31010000|	1	1	distance = 0	SlowDown = 1
+100040	PVP地图触发道具	0	objType = 1|	1	-1	distance = 0	send_trigger_msg = 1
+100041	巅峰展示-壁虎血量降低到90%	2	objType = 2;id=31570003|	6	1	cur_hp,-0.9	OpenSkill = 0,0,0,19,20,21;
+100042	巅峰展示-金木研血量降到20%	1	objType = 2;id=31570002|	6	1	cur_hp,-0.2	0
+100043	巅峰展示-壁虎进场碰撞器	2	objType = 2;id=31570003|	1	1	distance = 1	0
+100044	宝箱触发(米)	0	0	1	-1	distance = 0	treasure_box_triger_enter = 1
+100044	宝箱触发	0	0	3	-1	distance = 0	treasure_box_triger_out = 1
+100045	传送点	1	0	1	-1	distance = 0	Transmit=1
+100046	战斗失败触发	1	0	5	1	2	0
+100047	buff触发	0	objType = 1|cfgType=64|	1	1	distance=0	AddBuff=1208,1;delete_obj=0
+100048	社团boss进入战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1
+290000	0-1进关卡隐藏移动点2、3	0	0	4	1	0	hide_instance=move_2,move_3
+290001	0-1进移动点1刷1怪	1	0	1	1	0	create_monster=re_1,200
+290002	0-1怪1组死亡刷3怪	0	group_name=monster_1|	8	1	0	create_monster=re_2,200,re_3,200,re_4,200
+290003	0-1怪2组死亡显示移动点2	0	group_name=monster_2|	8	1	0	show_instance=move_2
+290004	0-1进移动点2刷3怪	1	0	1	1	0	create_monster=re_5,200,re_6,200,re_7,200
+290005	0-1怪3组死亡刷3怪	0	group_name=monster_3|	8	1	0	create_monster=re_8,200,re_9,200,re_10,200
+290006	0-1怪4组死亡显示移动点3	0	group_name=monster_4|	8	1	0	show_instance=move_3
+290007	0-1进移动点3刷出boss	1	0	1	1	0	create_monster=boss
+290008	0-1BOSS血量20%触发	2	objType = 2;id=33000121|	6	1	cur_hp,-0.2	0
+290101	0-2boss血量20%触发剧情	2	objType = 2;id=33000221|	6	1	cur_hp,-0.2	0
+200000	1-1进范围1刷3个小怪	1	0	1	1	0	create_monster=re_1,600,re_2,200,re_3,1000
+200001	1-1进范围2刷2个小怪	1	0	1	1	0	create_monster=re_4,400,re_5,600
+200002	1-1进范围3刷7个小怪	1	0	1	1	0	create_monster=re_6,re_7,200,re_8,800,re_9,1000,re_10,2000,re_11,2200,re_12,2600
+200100	1-2进范围1刷3个小怪	1	0	1	1	0	create_monster=re_1,2000,re_2,2200,re_3,2800
+200101	1-2进范围2刷8个小怪	1	0	1	1	0	create_monster=re_4,200,re_5,800,re_6,1000,re_7,3600,re_8,4000,re_9,5000,re_10,5400,re_11,5600
+200102	1-2boss血量50%触发剧情	2	objType = 2;id=33001321|	6	1	cur_hp,-0.5	0
+200103	1-2进范围获得加血buff	1	0	1	1	0	AddBuff=1208,5;delete_obj=0
+200104	1-2刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1,npc_2
+200200	1-3刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1,npc_2
+200300	2-1进范围1刷4个小怪	1	objType = 2;id=33002131|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_1,1800,re_2,1000,re_3,1300,re_4,1600;post_dangerous_event=husong,100
+200301	2-1进范围2刷4小怪1精英	1	objType = 2;id=33002131|	1	1	0	speak_bubble = 1,2000,husong;create_monster=jingying_1,3000,re_5,re_6,1000,re_7,1300,re_8,400;post_dangerous_event=husong,100
+200302	2-1怪组2进战斗刷4个小怪	0	group_name=monster_2|	7	1	0	create_monster=re_9,5700,re_10,5000,re_11,5300,re_12,6000
+200303	2-1进范围3刷4个小怪	1	objType = 2;id=33002131|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_13,re_14,700,re_15,400,re_16,1000;post_dangerous_event=husong,100
+200304	2-1进范围4刷boss	1	objType = 2;id=33002131|	1	1	0	create_monster=boss
+200305	2-1怪组4进战斗刷4个小怪	0	group_name=monster_4|	7	1	0	create_monster=re_17,re_18,700,re_19,1000,re_20,400
+200400	2-2进范围1刷6个小怪	1	0	1	1	0	create_monster=re_1,2000,re_2,1800,re_3,1500,re_4,400,re_5,800,re_6
+200401	2-2怪组2进战斗刷8个小怪	0	group_name=monster_2|	7	1	0	create_monster=re_7,re_8,1000,re_9,700,re_10,400,re_11,3000,re_12,3700,re_13,4000,re_14,3400
+200403	2-2进范围2刷3个小怪	1	0	1	1	0	create_monster=re_15,1400,re_16,1000,re_17
+200404	2-2怪组5死亡刷4个小怪	0	group_name=monster_5|	8	1	0	create_monster=re_18,700,re_19,re_20,300,re_21,1000
+200405	2-2进范围3刷6个小怪	1	0	1	1	0	create_monster=re_22,300,re_23,re_24,1000,re_25,1300,re_26,2400,re_27,2000
+200406	2-2刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1
+200500	2-3刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1
+200800	3-1精英1进战斗刷3怪	1	group_name=monster_1|	7	1	0	create_monster=re_1,3200,re_2,3400,re_3,3000
+200801	3-1进范围刷6怪	1	0	1	1	0	create_monster=re_4,700,re_5,re_6,300,re_7,3500,re_8,3200,re_9,3000
+200802	3-1进关卡刷出空气墙	1	0	4	1	0	create_obstacle=wall_1,wall_2
+200803	3-1进范围刷6怪	1	0	1	1	0	create_monster=re_10,1000,re_11,re_12,300,re_13,700,re_14,2800,re_15,2500
+200804	3-1进范围刷精英2	1	0	1	1	0	create_monster=jingying_2
+200805	3-1怪5组进战斗刷出4怪	0	group_name=monster_5|	7	1	0	create_monster=re_16,3000,re_17,3300,re_18,3300,re_28,3000
+200806	3-1进范围刷9怪	1	0	1	1	0	create_monster=re_19,2000,re_20,2800,re_21,2600,re_22,re_23,800,re_24,300,re_25,2600,re_26,2800,re_27,2000
+200807	3-1怪1组死亡清除空气墙1	0	group_name=monster_1|	8	1	0	delete_instance=wall_1,
+200808	3-1怪6组死亡清除空气墙2	0	group_name=monster_6|	8	1	0	delete_instance=wall_2,
+200809	3-1刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1,npc_2
+201000	3-3进关卡刷出空气墙	1	0	4	1	0	create_obstacle=wall_1
+201101	3-4碰撞到就被删除	2	objType = 2;isCaptain=0;id=33003401,33003402,33003403,33003411|	1	-1	distance = 1	delete_target = 50
+201301	3-6敌方boss,踩到陷阱眩晕1秒	2	objType = 2;id=33003621|	1	1	distance = 0	AddBuff=1000,8;
+201302	3-6玩家加速buff提速2秒至8	1	isCaptain=1|	1	1	0	AddBuff=1000,6;
+201303	3-6boss触发陷阱2和3提速6秒至7	2	objType = 2;id=33003621|	1	1	0	AddBuff=1000,7;
+201400	3-7boss血量50%触发剧情	2	objType = 2;id=33003721|	6	1	cur_hp,-0.5	0
+201500	4-1刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1
+201600	4-2进范围1刷3小怪	1	0	1	1	0	create_monster=re_1_1,400,re_1_2,re_1_3,600
+201601	4-2进范围2刷7小怪	1	0	1	1	0	create_monster=re_1,1000,re_2,400,re_3,600,re_4,re_5,5000,re_6,4700,re_7,4300
+201602	4-2进范围3刷4小怪	1	0	1	1	0	create_monster=re_8,600,re_9,800,re_10,1400,re_11,1600
+201603	4-2进范围4刷3小怪	1	0	1	1	0	create_monster=re_12,re_13,200,re_14,600
+201604	4-2进范围5刷2小怪	1	0	1	1	0	create_monster=re_14_1,700,re_14_2,500
+201605	4-2怪6组进战斗刷7小怪	1	group_name=monster_6|	7	1	0	create_monster=re_15,2400,re_16,2200,re_17,2000,re_18,2000,re_19,2400,re_20,2600,re_20_1,2800
+201606	4-2怪8组进战斗刷2小怪	1	group_name=monster_8|	7	1	0	create_monster=re_21,re_22,400
+201800	4-4进范围1刷2小怪	1	0	1	1	0	create_monster=re_1,600,re_2,800
+201801	4-4进范围2刷6小怪	1	0	1	1	0	create_monster=re_3,800,re_4,600,re_5,1600,re_6,1800,re_7,2000,re_8,400
+201802	4-4进范围3刷5小怪1精英	1	0	1	1	0	create_monster=jingying_1,2600,re_9,600,re_10,800,re_11,1000,re_12,2000,re_13,2200
+201803	4-4进范围4刷6小怪	1	0	1	1	0	create_monster=re_14,1000,re_15,800,re_16,1300,re_17,1500,re_18,600,re_19,1000
+201804	4-4进范围5刷3小怪	1	0	1	1	0	create_monster=re_20,200,re_21,400,re_22,600
+201805	4-4进范围6刷2小怪	1	0	1	1	0	create_monster=re_23,800,re_24,400
+201806	4-4进范围7刷2小怪	1	0	1	1	0	create_monster=re_25,300,re_26,300
+201807	4-4进范围8刷3小怪	1	0	1	1	0	create_monster=re_27,200,re_28,400,re_29,800
+201808	4-4进范围9刷boss	1	0	1	1	0	create_monster=boss
+201809	4-4进范围获得加血buff	1	isCaptain=1;cfgType = 64|	1	1	0	AddBuff=1208,1;delete_obj=0
+201900	4-5进入范围1激活boss逃跑逻辑1	2	objType = 2;id=33004520|	1	1	0	post_enter_fight_event=boss,2000,0
+201901	4-5进入范围1激活boss逃跑逻辑2	2	objType = 2;id=33004520|	1	1	0	post_enter_fight_event=boss,10000,0,monster_2,3;create_monster=re_1,800,re_2,1000,re_3,1200
+201902	4-5进入范围2激活boss逃跑逻辑3	2	objType = 2;id=33004520|	1	1	0	post_enter_fight_event=boss,10000,0,monster_3,5;create_monster=re_4,200,re_5,400,re_6,600,re_7,1000,re_8,1200,re_9,1400
+201903	4-5进入范围3激活boss逻辑4	2	objType = 2;id=33004520|	1	1	0	post_enter_fight_event=boss,;create_monster=re_13,800,re_14,1000,re_15,200,re_16,400;RecordObjectFirstEnterTime = 1
+201904	4-5进入范围刷3个怪	1	0	1	1	0	create_monster=re_10,re_11,200,re_12,400
+201905	4-5boss触发提速2秒由5至5.5	2	objType = 2;id=33004520|	1	1	0	AddBuff=1000,9;
+201906	4-5玩家触发提速2秒由5至5.5	1	isCaptain=1;cfgType = 64|	1	1	0	AddBuff=1000,9;
+202000	4-6进范围1刷3小怪	1	0	1	1	0	create_monster=re_1,re_2,400,re_3,600
+202001	4-6精英进战斗刷新3个怪	1	group_name=monster_2|	7	1	0	create_monster=re_4,300,re_5,500,re_6,700
+202002	4-6进范围2刷4小怪	1	0	1	1	0	create_monster=re_7,800,re_8,1200,re_9,800,re_10,1000
+202003	4-6进范围3刷3小怪	1	0	1	1	0	create_monster=re_11,200,re_12,500,re_13,600,re_14,2400,re_15,2600
+202004	4-6进范围4刷6小怪	1	0	1	1	0	create_monster=re_16,200,re_17,400,re_18,600,re_19,800
+202005	4-6怪6组死亡刷怪6组	1	group_name=monster_6|	8	1	0	create_monster=boss,re_20,200,re_21,400
+202100	4-7进游戏刷精英1	1	0	4	1	0	create_monster=jingying_1,2000
+202101	4-7怪1组进战斗刷5小怪	1	group_name=monster_1|	7	1	0	create_monster=re_1,500,re_2,800,re_3,3200,re_4,3400,re_5,3600
+202102	4-7怪3组进战斗刷5小怪	1	group_name=monster_3|	7	1	0	create_monster=re_6,2400,re_7,2600,re_8,3200,re_9,3400,re_10,3600
+202103	4-7怪3组死亡刷5小怪	1	group_name=monster_3|	8	1	0	create_monster=re_11,200,re_12,400,re_13,600,re_14,2400,re_15,2600
+202104	4-7怪6组进战斗刷5小怪	1	group_name=monster_6|	7	1	0	create_monster=re_16,400,re_17,600,re_18,2400,re_19,2600,re_20,2800
+202105	4-7刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_2
+202200	5-1进范围1刷6个小怪	1	0	1	1	0	create_monster=re_1,re_2,300,re_3,500,re_4,2000,re_5,1500,re_6,1800
+202201	5-1怪3组进战斗刷6个小怪	0	group_name=monster_3|	7	1	0	create_monster=re_7,2500,re_8,2700,re_9,1000,re_10,1300,re_11,2000,re_12,1700
+202202	5-1进范围2刷6个小怪	1	0	1	1	0	create_monster=re_13,1500,re_14,1800,re_15,2000,re_16,re_17,700,re_18,300
+202400	5-3怪1组进战斗刷3怪	2	group_name=monster_1|	7	1	0	create_monster=re_1,1300,re_2,1000,re_3,1500
+202401	5-3怪3组进战斗刷8怪	2	group_name=monster_3|	7	1	0	create_monster=re_4,3000,re_5,3700,re_6,900,re_7,300,re_8,3300,re_9,4000,re_10,re_11,500
+202402	5-3进范围1刷3个小怪	1	0	1	1	0	create_monster=re_12,re_13,300,re_14,700
+202403	5-3进范围2刷3个小怪	1	0	1	1	0	create_monster=re_15,re_16,700,re_17,400
+202404	5-3进范围3刷3个小怪	1	0	1	1	0	create_monster=re_18,re_19,700,re_20,400
+202405	5-3怪8组进战斗刷4怪	2	group_name=monster_8|	7	1	0	create_monster=re_21,1800,re_22,1000,re_23,1200,re_24,1500
+202406	5-3怪11组进战斗刷10怪	2	group_name=monster_11|	7	1	0	create_monster=re_25,2000,re_26,2300,re_27,800,re_28,re_29,500,re_30,2200,re_31,2000,re_32,800,re_33,re_34,500
+202600	5-5进关卡刷出空气墙1、2、3	1	0	4	1	0	create_obstacle=wall_1,wall_2,wall_3
+202601	5-5进范围1刷3个小怪1精英	1	0	1	1	0	create_monster=jingying_1,re_1,700,re_2,re_3,300
+202602	5-5怪物组1死亡触发路障1清除	0	group_name=monster_1|	8	1	0	delete_instance=wall_1,
+202603	5-5进范围2刷8个小怪	1	0	1	1	0	create_monster=re_4,re_5,300,re_6,2300,re_7,2000,re_8,800,re_9,500,re_10,2800,re_11,2500
+202604	5-5怪物组2死亡触发路障2清除	0	group_name=monster_2|	8	1	0	delete_instance=wall_2,
+202605	5-5进范围3刷10个小怪，并创建路障2	1	0	1	1	0	create_monster=re_12,re_13,300,re_14,500,re_15,1000,re_16,1200,re_17,2000,re_18,2200,re_19,2500,re_20,3000,re_21,3200;create_obstacle=wall_2
+202606	5-5怪物组3死亡刷6小怪1精英	0	group_name=monster_3|	8	1	0	create_monster=jingying_2,3000,re_22,1000,re_23,1400,re_24,1800,re_25,1200,re_26,1500,re_27,1900
+202607	5-5怪物组4死亡触发路障2、3清除	0	group_name=monster_4|	8	1	0	delete_instance=wall_2,wall_3,
+202608	5-5进范围4刷6个小怪	1	0	1	1	0	create_monster=re_28,re_29,300,re_30,500,re_31,1500,re_32,1800,re_33,2000
+202609	5-5怪7组进战斗刷出6怪	2	group_name=monster_7|	7	1	0	create_monster=re_34,2000,re_35,5000,re_36,8000,re_37,2000,re_38,5000,re_39,8000
+202900	6-1NPC停留点1	1	objType = 2;id=33006130|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_1,200,re_2,400,re_3,600,re_4,400,re_5,600,re_6,800;post_dangerous_event=husong,0,100000
+202901	6-1NPC停留点2	1	objType = 2;id=33006130|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_7,re_8,200,re_9,400,re_10,600,re_11,800;post_dangerous_event=husong,0,3000
+202902	6-1进入范围刷3只怪	1	0	1	1	0	create_monster=re_12,re_13,re_14
+202903	6-1NPC停留点3	1	objType = 2;id=33006130|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_15,re_16,200,re_17,400,re_18,1400,re_19,1600,re_20,600,re_21,800,re_22,1000,re_23,1200;post_dangerous_event=husong,0,10000
+202905	6-1NPC停留点5	1	objType = 2;id=33006130|	1	1	0	create_monster=re_24,1200,re_25,1400,re_26,1600,re_27,1800,re_28,200,re_29,400,re_30,600,re_31,200,re_32,1400,re_33,1600
+203000	6-2进范围1刷3个小怪	1	0	1	1	0	create_monster=re_1,300,re_2,500,re_3,700
+203001	6-2进范围2刷5个小怪	1	0	1	1	0	create_monster=re_4,2300,re_5,2300,re_6,2500,re_7,2700
+203002	6-2进范围3刷4个小怪	1	0	1	1	0	create_monster=re_10,1200,re_11,1400,re_12,1600
+203003	6-2进范围4刷3个小怪	1	0	1	1	0	create_monster=re_13,800,re_14,1000,re_15,600
+203004	6-2进范围5刷3个小怪	1	0	1	1	0	create_monster=re_16,re_17,200,re_18,600,re_21,1000,re_22,1200
+203005	6-2进范围6刷2个小怪	1	0	1	1	0	create_monster=re_19,600,re_20,800
+203006	6-2怪3进战斗刷2个小怪	1	group_name=monster_3|	7	1	0	create_monster=re_4_1,re_4_2,200
+203100	6-3怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=33006301,33006302,33006303,33006310|	1	-1	distance = 1	delete_target = 50;RecordObjectFirstEnterTime = 1
+203200	6-4进范围1刷5个小怪	1	0	1	1	0	create_monster=re_1,re_2,200,re_3,3300,re_4,3500,re_5,3800
+203201	6-4进范围2刷5个小怪	1	0	1	1	0	create_monster=re_6,200,re_9,1600,re_10,1800,re_7,2000,re_8,2200
+203202	6-4进范围3刷5个小怪	1	0	1	1	0	create_monster=re_11,re_12,200,re_13,800,re_14,1000,re_15,1200
+203203	6-4进范围4刷8个小怪	1	0	1	1	0	create_monster=re_16,2200,boss_1,5800,re_17,2400,re_18,3300,re_19,3600,re_20,3800,re_21,6800,re_22,6800
+203204	6-5关卡开始1秒刷6怪	1	0	4	1	0	create_monster=re_1,5200,re_2,5400,re_3,5400,re_4,5600,re_5,5600,re_6,5800,
+203205	6-5第1波死1秒刷8怪	1	group_name=monster_1|	8	1	0	create_monster=re_2_1,3000,re_2_2,3200,re_2_3,3400,re_2_4,3600,re_2_5,3400,re_2_6,3600,re_2_7,3800,re_2_8,4000,
+203206	6-5第2波死1秒刷9怪	1	group_name=monster_2|	8	1	0	create_monster=re_3_1,3200,re_3_2,3400,re_3_3,3600,re_3_4,3400,re_3_5,3600,re_3_6,3800,re_3_7,3000,re_3_8,3400,re_3_8,3600,re_3_8,3800,
+203207	6-5第3波死1秒刷10怪	1	group_name=monster_3|	8	1	0	create_monster=re_4_1,3000,re_4_2,3200,re_4_3,3400,re_4_4,3000,re_4_5,3200,re_4_6,3400,re_4_7,3600,re_4_8,3800,
+203208	6-5第4波死1秒刷11怪	1	group_name=monster_4|	8	1	0	create_monster=re_5_1,3200,re_5_2,3400,re_5_3,3400,re_5_4,3600,re_5_5,3800,re_5_6,4200,
+203209	6-5第5波死1秒刷12怪	1	group_name=monster_5|	8	1	0	create_monster=boss_6_1,3000,boss_6_2,3200,re_6_3,3600,re_6_4,3800,
+203400	6-6进范围1刷3个小怪	1	0	1	1	0	create_monster=re_1,1000,re_2,1200,re_3,1600
+203401	6-6进范围2刷4个小怪	1	0	1	1	0	create_monster=re_4,200,re_5,400,re_6,400,re_7,600
+203402	6-6进范围3刷4个小怪	1	0	1	1	0	create_monster=re_8,3200,re_9,3400,re_10,3400,re_11,3600
+203403	6-6进范围4刷3个小怪	1	0	1	1	0	create_monster=re_12,3000,re_13,3200,re_14,3400
+203404	6-6组5进战斗刷2个小怪	1	group_name=monster_5|	7	1	0	create_monster=re_15,2200,re_16,2400
+203405	6-6组7进战斗刷3个小怪	1	group_name=monster_7|	7	1	0	create_monster=re_17,re_18,200,re_19,400
+203406	6-6进范围5刷1个boss	1	0	1	1	0	create_monster=re_20
+203407	6-6组9进战斗刷3个小怪	1	group_name=monster_9|	7	1	0	create_monster=re_21,1200,re_22,1400,re_23,1400,re_24,1600
+203600	7-1进范围后刷6怪	1	0	1	1	0	create_monster=re_1,re_2,re_3,2000,re_4,2000,re_5,4000,re_6,4000
+203601	7-1精英1进战斗后刷4怪	1	group_name=monster_4|	7	1	0	create_monster=re_7,re_8,600,re_9,400,re_10,900
+203602	7-1进范围后刷8怪	1	0	1	1	0	create_monster=re_11,re_12,600,re_13,400,re_14,900,re_15,3000,re_16,3600,re_17,3400,re_18,3900
+203603	7-1boss进战斗后刷4怪	1	group_name=monster_8|	7	1	0	create_monster=re_19,re_20,600,re_21,400,re_22,900
+203604	7-1刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_2
+203700	7-2敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+203701	7-2我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+203900	7-4怪1组进战斗刷出2怪	0	group_name=monster_1|	7	1	0	create_monster=re_1,1000,re_2,1000
+203901	7-4怪3组进战斗刷出4怪	0	group_name=monster_3|	7	1	0	create_monster=re_3,re_4,600,re_5,400,re_6,900
+203902	7-4怪6组进战斗刷出4怪	0	group_name=monster_6|	7	1	0	create_monster=re_7,1000,re_8,1000,re_9,1000,re_10,1000
+203903	7-4怪8组进战斗刷出4怪	0	group_name=monster_8|	7	1	0	create_monster=re_11,1500,re_12,1700,re_13,2200,re_14,2000
+204100	7-6进范围刷3怪	1	0	1	1	0	create_monster=re_1,re_2,200,re_3,600
+204101	7-6进范围刷8怪	1	0	1	1	0	create_monster=re_4,re_5,600,re_6,2000,re_7,3000,re_8,200,re_9,800,re_10,2300,re_11,2800
+204102	7-6怪3组进战斗刷出6怪	0	group_name=monster_3|	7	1	0	create_monster=re_12,400,re_13,900,re_14,1300,re_15,re_16,600,re_17,1100
+204103	7-6进范围刷3怪	1	0	1	1	0	create_monster=re_18,re_19,200,re_20,600
+204104	7-6进范围刷3怪	1	0	1	1	0	create_monster=re_21,3000,re_22,3400,re_23,3600
+204105	7-6怪8组进战斗刷出4怪	0	group_name=monster_8|	7	1	0	create_monster=re_24,2000,re_25,2800,re_26,2200,re_27,2600
+204106	7-6刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1
+204200	7-7进入战斗刷新协助雏实	0	group_name=monster_1|	7	1	0	create_monster=re_1
+204201	7-7刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1
+204400	8-2进战斗创建空气墙	1	0	4	1	0	create_obstacle=wall_1
+204401	8-2怪2组进战斗后刷4怪	1	group_name=monster_2|	7	1	0	create_monster=re_1,1500,re_2,2100,re_3,1900,re_4,2400
+204402	8-2进范围刷8怪	1	0	1	1	0	create_monster=re_5,3000,re_6,3500,re_7,re_8,500,re_9,700,re_10,1000,re_11,3700,re_12,3200
+204403	8-2怪5组进战斗后刷4怪	1	group_name=monster_5|	7	1	0	create_monster=re_13,2000,re_14,2600,re_15,2900,re_16,2400
+204404	8-2进范围刷4怪	1	0	1	1	0	create_monster=re_17,re_18,600,re_19,900,re_20,400
+204405	8-2怪9组进战斗后刷8怪	1	group_name=monster_9|	7	1	0	create_monster=re_21,2000,re_22,2500,re_23,3700,re_24,3500,re_25,2200,re_26,2900,re_27,4000,re_28,3200
+204600	8-4刷新气氛怪	1	0	4	1	0	create_obstacle=1,npc_1
+204700	8-5怪1组进战斗刷出2怪	0	group_name=monster_1|	7	1	0	create_monster=re_1,1200,re_2,1500
+204701	8-5进范围刷12怪	1	0	1	1	0	create_monster=re_3,800,re_4,1500,re_5,3500,re_6,4100,re_7,6100,re_8,6800,re_9,1000,re_10,1300,re_11,3700,re_12,3900,re_13,6300,re_14,6600
+204702	8-5怪4组进战斗刷出16怪	0	group_name=monster_4|	7	1	0	create_monster=re_15,200,re_16,1300,re_17,500,re_18,1000,re_19,re_20,1600,re_21,1800,re_22,800,re_23,4600,re_24,5500,re_25,4800,re_26,4100,re_27,5300,re_28,4300,re_29,5100,re_30,3800
+204703	8-5进范围刷4怪	1	0	1	1	0	create_monster=re_31,500,re_32,re_33,800,re_34,1200
+204704	8-5怪8组进战斗刷出4怪	0	group_name=monster_8|	7	1	0	create_monster=re_35,re_36,800,re_37,300,re_38,500
+204800	8-6进入范围1激活boss逃跑逻辑1	2	objType = 2;id=33008620|	1	1	0	post_enter_fight_event=boss,0,0.9
+204801	8-6进入范围1激活boss逃跑逻辑2	2	objType = 2;id=33008620|	1	1	0	post_enter_fight_event=boss,10000,0.8,monster_2,3;create_monster=re_1,800,re_2,800,re_3,800,re_17,1200,re_18,1200
+204802	8-6进入范围2激活boss逃跑逻辑3	2	objType = 2;id=33008620|	1	1	0	post_enter_fight_event=boss,10000,0.5,monster_3,5;create_monster=re_4,200,re_5,200,re_6,200,re_7,1000,re_8,1000,re_9,1000
+204803	8-6进入范围3激活boss逻辑4	2	objType = 2;id=33008620|	1	1	0	post_enter_fight_event=boss,;create_monster=re_13,800,re_14,800,re_15,200,re_16,200;RecordObjectFirstEnterTime = 1
+204804	8-6进入范围刷3个怪	1	0	1	1	0	create_monster=re_10,re_11,re_12
+204805	8-6boss触发提速2秒由5至5.5	2	objType = 2;id=33008620|	1	1	0	AddBuff=1000,9;
+204806	8-6玩家触发提速2秒由5至5.5	1	isCaptain=1;cfgType = 64|	1	1	0	AddBuff=1000,9;
+205300	9-4NPC停留点1	1	objType = 2;id=33009430|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_1,600,re_2,800,re_3,1600,re_4,1800;post_dangerous_event=husong,100
+205301	9-4NPC停留点2	1	objType = 2;id=33009430|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_5,200,re_6,400,re_7,1600,re_8,1800,re_9,1000;post_dangerous_event=husong,100
+205302	9-4NPC停留点3	1	objType = 2;id=33009430|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_10,800,re_11,1200,re_12,1600;post_dangerous_event=husong,100
+205303	9-4NPC停留点4	1	objType = 2;id=33009430|	1	1	0	speak_bubble = 1,2000,husong;create_monster=re_13,600,re_14,800,re_15,2000,re_16,4000
+205500	9-6进战斗创建空气墙	1	0	4	1	0	create_obstacle=wall_1
+205501	9-6进范围刷4怪	1	0	1	1	0	create_monster=re_1,re_2,500,re_3,700,re_4,300
+205502	9-6进范围刷4怪	1	0	1	1	0	create_monster=re_5,re_6,500,re_7,700,re_8,300
+205503	9-6进范围刷6怪	1	0	1	1	0	create_monster=re_9,re_10,300,re_11,500,re_12,700,re_13,1000,re_14,1300
+205504	9-6怪7组进战斗后刷6怪	1	group_name=monster_7|	7	1	0	create_monster=re_15,2000,re_16,2700,re_17,3200,re_18,2200,re_18,3000,re_18,2400
+205505	9-6怪10组进战斗后刷6怪	1	group_name=monster_10|	7	1	0	create_monster=re_21,3100,re_22,3400,re_23,1700,re_24,1000,re_25,1300,re_26,1500
+205700	10-1z1进游戏刷空气墙	1	0	4	1	0	create_obstacle=wall_1
+205701	10-1z2进范围刷2怪	1	0	1	1	0	create_monster=re_1_1,200,re_1_2,400
+205702	10-1z3进范围刷2怪	1	0	1	1	0	create_monster=re_2_1,2200,re_2_1,2400
+205703	10-1z4进战斗刷6怪	1	group_name=monster_4|	7	1	0	create_monster=re_6,2000,re_7,2200,re_8,1000,re_9,1200,re_10,3200,re_11,3400,re_11_1,3600
+205704	10-1z5进战斗刷5怪	1	group_name=monster_6|	7	1	0	create_monster=re_12,200,re_13,400,re_14,2000,re_15,2000,re_16,2000
+205705	10-1z6进范围刷5怪	1	0	1	1	0	create_monster=re_17,re_18,200,re_19,2000,re_20,2200,re_21,2400
+205706	10-1z7进范围刷9怪	1	0	1	1	0	create_monster=re_22,3000,re_23,3200,re_24,3400,re_25,re_26,200,re_27,400,re_28,600,re_29,2000,re_30,2200,
+205707	10-1z8进范围刷BOSS&空气墙	1	0	1	1	0	create_monster=boss
+205900	10-3敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+205901	10-3我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+206000	10-4进范围刷4怪	1	0	1	1	0	create_monster=re_1,re_2,200,re_3,400,re_4,600
+206001	10-4进范围刷5怪	1	0	1	1	0	create_monster=re_5,re_6,200,re_7,400,re_8,1000,re_9,1200
+206002	10-4进范围刷2怪	1	0	1	1	0	create_monster=re_10,1800,re_11,2000
+206003	10-4进范围刷4怪	1	0	1	1	0	create_monster=re_16,re_17,re_18,2000,re_19,2200
+206004	10-4进范围刷3怪	1	0	1	1	0	create_monster=re_20,800,re_21,1000,boss_1
+206005	10-4怪3组进战斗刷4怪	1	group_name=monster_3|	7	1	0	create_monster=re_12,re_13,200,re_14,3000,re_15,3200
+206100	10-5进战斗刷1怪1	0	0	4	1	0	create_monster=re_1,5000
+206101	10-5进战斗刷3怪2	0	0	4	1	0	create_monster=re_2,10000,re_3,10200,re_4,10400
+206102	10-5进战斗刷3怪3	0	0	4	1	0	create_monster=re_5,15000,re_6,15200,re_7,15400
+206200	10-6进范围1刷2怪	1	0	1	1	0	create_monster=re_1,200,re_2,400
+206201	10-6进范围2刷3怪	1	0	1	1	0	create_monster=re_3,1500,re_4,1700,re_5,2000
+206202	10-6进范围3刷1精英	1	0	1	1	0	create_monster=jy_1,1800
+206203	10-6组4进战斗刷5怪	1	group_name=monster_4|	7	1	0	create_monster=re_6,1000,re_7,1200,re_8,1400,re_9,1600,re_10,1800
+206204	10-6进范围4刷3怪	1	0	1	1	0	create_monster=re_11,re_12,200,re_13,400
+206205	10-6进范围5刷5怪	1	0	1	1	0	create_monster=re_14,re_15,200,re_16,400,re_17,2200,re_18,2400
+206206	10-6进范围6刷9怪	1	0	1	1	0	create_monster=re_19,3600,re_20,3800,jy_2,1800,re_21,6600,re_22,6800,re_23,4600,re_24,4800,re_25,re_26,200
+206207	10-6组9死亡刷boss	1	group_name=monster_9|	8	1	0	create_monster=boss_1
+200640	11-1打碎指定木箱后刷出2小怪	1	group_name=box_2|	7	1	0	create_monster=re_1,re_2,
+200660	11-3击杀怪物1组刷3个小怪	0	group_name=monster_1|	8	1	0	create_monster=re_1,re_2,re_3
+200661	11-3击杀怪物3组刷3个小怪	0	group_name=monster_3|	8	1	0	create_monster=re_4,re_5,re_6
+200662	11-3击杀怪物5组刷3个小怪	0	group_name=monster_5|	8	1	0	create_monster=re_7,re_8,re_9
+200663	11-3击杀怪物7组刷6个怪+boss	0	group_name=monster_7|	8	1	0	create_monster=re_10,re_11,re_12,re_13,re_14,re_15,re_16
+200680	11-5击杀箱子1刷出2小怪	1	group_name=box_1|	8	1	0	create_monster=re_1,re_2
+200690	11-6进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1
+207000	11-7小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31000700,31000701,31000702|	1	-1	distance = 1	delete_target = 50
+200710	12-1敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+200711	12-1我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+200730	12-3进战斗创建开关器	1	0	4	1	0	create_monster=switch_1,switch_2,switch_3
+200730	12-3进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1,area_2,area_3
+200731	12-3怪物2组死亡刷出开关触发器1	0	group_name=monster_2|	8	1	0	show_instance=area_1
+200732	12-3进入范围触发UI显示按钮1	1	objType = 1|	1	-1	0	player_enter=switch_1,roadblock_1
+200732	12-3离开范围触发UI隐藏按钮1	1	objType = 1|	3	-1	0	player_leave=switch_1
+200733	12-3怪物5组死亡刷出开关触发器2	0	group_name=monster_5|	8	1	0	show_instance=area_2
+200734	12-3进入范围触发UI显示按钮2	1	objType = 1|	1	-1	0	player_enter=switch_2,roadblock_2
+200734	12-3离开范围触发UI隐藏按钮2	1	objType = 1|	3	-1	0	player_leave=switch_2
+200735	12-3怪物10组死亡刷出开关触发器3	0	group_name=monster_10|	8	1	0	show_instance=area_3
+200736	12-3进入范围触发UI显示按钮3	1	objType = 1|	1	-1	0	player_enter=switch_3,roadblock_3
+200736	12-3离开范围触发UI隐藏按钮3	1	objType = 1|	3	-1	0	player_leave=switch_3
+200737	12-3击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_1,re_2,re_3
+200740	12-4敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+200741	12-4我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+200760	12-6进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1
+200785	13-1击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+200786	13-1击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_4,re_5,re_6
+200787	13-1击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_7,re_8,re_9
+208000	13-3击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+208001	13-3靠近刷出小怪	1	0	1	1	0	create_monster=re_4,re_5,re_6,
+208002	13-3靠近刷出小怪	1	0	1	1	0	create_monster=re_7,re_8,re_9
+200840	13-7进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1,roadblock_3
+200841	13-7靠近刷出小怪	1	0	1	1	0	create_monster=re_1,re_2
+200842	13-7怪物2死亡触发路障1可攻击清除	0	group_name=monster_2|	8	1	0	can_be_attack=roadblock_1
+200843	13-7击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_3,re_4,re_5
+200844	13-7击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_6,re_7,re_8
+200845	13-7怪物5组死亡掉落扳手	0	group_name=monster_5|	8	1	0	create_monster_around_target=banshou_1
+200846	13-7怪物8死亡触发路障可攻击清除	0	group_name=monster_8|	8	1	0	can_be_attack=roadblock_3
+200847	13-7进入范围触发UI按钮高亮	1	objType = 1|	1	-1	0	enter_use_position=200848
+200847	13-7离开范围触发UI按钮灰暗	1	objType = 1|	3	-1	0	leave_use_position=1
+200848	13-7点击按钮1后触发打开路障	1	0	10	1	0	send_switch_open_msg=roadblock_2;delete_trigger_by_ids=200847
+200849	13-7进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1
+200850	14-1进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1,roadblock_3
+200851	14-1靠近刷出小怪	1	0	1	1	0	create_monster=re_1,re_2
+200852	14-1怪物2死亡触发路障1可攻击清除	0	group_name=monster_2|	8	1	0	can_be_attack=roadblock_1
+200853	14-1击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_3,re_4,re_5
+200854	14-1击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_6,re_7,re_8
+200855	14-1怪物5组死亡掉落扳手	0	group_name=monster_5|	8	1	0	create_monster_around_target=banshou_1
+200856	14-1怪物8死亡触发路障可攻击清除	0	group_name=monster_8|	8	1	0	can_be_attack=roadblock_3
+200857	14-1进入范围触发UI按钮高亮	1	objType = 1|	1	-1	0	enter_use_position=200858
+200857	14-1离开范围触发UI按钮灰暗	1	objType = 1|	3	-1	0	leave_use_position=1
+200858	14-1点击按钮1后触发打开路障	1	0	10	1	0	send_switch_open_msg=roadblock_2;delete_trigger_by_ids=200857
+200859	14-1进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1
+200879	14-3击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_1,re_2,re_3
+200880	14-4敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+200881	14-4我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+200900	14-6进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1
+200901	14-6进范围刷3小怪	1	0	1	1	0	create_monster=re_1,400,re_2,700,re_3,
+200902	14-6进范围刷3小怪	1	0	1	1	0	create_monster=re_4,400,re_5,800,re_6,
+200903	14-6进范围刷3小怪	1	0	1	1	0	create_monster=re_7,800,re_8,1100,re_9,re_10,300
+200940	15-3击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+200941	15-3击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_4,re_5,re_6
+200942	15-3靠近刷出小怪	1	0	1	1	0	create_monster=re_7,re_8,re_9
+200943	15-3靠近刷出小怪	1	0	1	1	0	create_monster=re_10,re_11,re_12
+200960	15-5小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31000960,31000961,31000962|	1	-1	distance = 1	delete_target = 50
+200970	15-6进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1
+200980	15-7敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+200981	15-7我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+200990	16-1击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_1,re_2,re_3
+200991	16-1击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_4,re_5,re_6
+200992	16-1攻击小怪刷boss	0	group_name=monster_7|	7	1	0	create_monster=re_7
+201015	16-3击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+201016	16-3击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_4,re_5,re_6
+201017	16-3击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_7,re_8,re_9
+201020	16-4敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+201021	16-4我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+201040	16-6进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1
+201060	17-1靠近刷出小怪	1	0	1	1	0	create_monster=re_4,re_5,re_6,re_7
+201061	17-1靠近刷出小怪	1	0	1	1	0	create_monster=re_8,re_9,re_10,re_11
+201062	17-1击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+201090	17-4进战斗创建开关器	1	0	4	1	0	create_monster=switch_1
+201090	17-4进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1
+201091	17-4怪物8组死亡触发刷出开关触发器1	0	group_name=monster_7|	8	1	0	show_instance=area_1
+201092	17-4进入范围触发UI显示按钮1	1	objType = 1|	1	-1	0	player_enter=switch_1,roadblock_1
+201092	17-4离开范围触发UI隐藏按钮1	1	objType = 1|	3	-1	0	player_leave=switch_1
+201093	17-4击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+201094	17-4击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_4,re_5,re_6
+201100	17-5进入后创建路障	0	0	4	1	0	create_obstacle=roadblock_1
+201110	17-6敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+201111	17-6我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+201120	17-7进关卡创建路障	0	0	4	1	0	create_obstacle=roadblock_1
+201139	18-1靠近箱子后刷出3怪	0	group_name=box_2|	8	1	0	create_monster=re_1,re_2,re_3
+201150	18-3进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1,roadblock_3
+201151	18-3击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2
+201152	18-3怪物2死亡触发路障1可攻击清除	0	group_name=monster_2|	8	1	0	can_be_attack=roadblock_1
+201153	18-3靠近怪物6刷新小怪	0	group_name=monster_6|	7	1	0	create_monster=re_3,re_4,re_5
+201154	18-3击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_6,re_7,re_8
+201155	18-3怪物5组死亡掉落扳手	0	group_name=monster_5|	8	1	0	create_monster_around_target=banshou_1
+201156	18-3怪物9死亡触发路障可攻击清除	0	group_name=monster_9|	8	1	0	can_be_attack=roadblock_3
+201157	18-3进入范围触发UI按钮高亮	1	objType = 1|	1	-1	0	enter_use_position=201158
+201157	18-3离开范围触发UI按钮灰暗	1	objType = 1|	3	-1	0	leave_use_position=1
+201158	18-3点击按钮1后触发打开路障	1	0	10	1	0	send_switch_open_msg=roadblock_2;delete_trigger_by_ids=201157
+201159	18-3进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1
+201160	18-4敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+201161	18-4我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+201200	19-1击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+201201	19-1击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_4,re_5,re_6
+201202	19-1击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_7,re_8,re_9
+201203	19-1攻击boss刷新小怪	0	group_name=monster_8|	7	1	0	create_monster=re_10,re_11,re_12
+201220	19-3敌方英雄血量降低到80%以下了	1	objType = 2;id=31001220|	6	1	cur_hp,-0.8	create_monster=re_1,re_2,re_3,re_4,re_5,re_6
+201221	19-3敌方英雄血量降低到60%以下了	1	objType = 2;id=31001220|	6	1	cur_hp,-0.6	create_monster=re_7,re_8,re_9,re_10,re_11,re_12
+201222	19-3敌方英雄血量降低到40%以下了	1	objType = 2;id=31001220|	6	1	cur_hp,-0.4	create_monster=re_12,re_13,re_14,re_15,re_15,re_17,re_18
+201240	19-5小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31001240,31001241,31001242|	1	-1	distance = 1	delete_target = 50
+201260	19-7敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+201261	19-7我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+201275	20-1靠近刷出3怪物	1	0	1	1	0	create_monster=re_1,re_2,re_3
+201276	20-1靠近刷出3怪物	1	0	1	1	0	create_monster=re_4,re_5,re_6
+201277	20-1击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_7,re_8,re_9
+201278	20-1击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_10,re_11,re_12
+201290	20-3击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+201291	20-3靠近陷阱后刷出怪物	1	0	1	1	0	create_monster=re_4,re_5,re_6
+201292	20-3靠近陷阱后刷出怪物	1	0	1	1	0	create_monster=re_7,re_8,re_9
+201293	20-3击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_10,re_11,re_12
+201294	20-3击杀箱子3刷新小怪	0	group_name=box_3|	8	1	0	create_monster=re_13,re_14,re_15
+213000	20-4敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+213001	20-4我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+201320	20-6进关卡创建路障	1	0	4	1	0	create_obstacle=roadblock_1
+201340	21-1进入后创建路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2
+201341	21-1进入触发器刷出怪物	1	0	1	1	0	create_monster=re_1,re_2,re_3
+201342	21-1击杀指定怪物后打开路障A	0	group_name=monster_3|	8	1	0	disable_obstacle=roadblock_1
+201343	21-1击杀指定怪物后打开路障B	0	group_name=monster_9|	8	1	0	disable_obstacle=roadblock_2
+201360	21-3靠近宝箱A刷出3小怪	1	0	1	1	0	create_monster=re_4,re_5,re_6
+201361	21-3靠近宝箱B刷出3小怪	1	0	1	1	0	create_monster=re_10,re_11,re_12
+201362	21-3击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+201363	21-3击杀箱子2刷新小怪	0	group_name=box_2|	8	1	0	create_monster=re_7,re_8,re_9
+201380	21-5进入关卡创建路障	0	0	4	1	0	create_obstacle=roadblock_1
+214000	21-7敌方基地死亡触发	0	group_name=jidi_2|	8	1	0	0
+214001	21-7我方基地死亡触发	0	group_name=jidi_1|	8	1	0	0
+201410	22-1进战斗创建路障	1	0	4	1	0	create_obstacle=roadblock_1,roadblock_2
+201411	22-1攻击怪物组1刷新钥匙	0	group_name=monster_1|	8	1	0	create_monster_around_target=yaoshi_1
+201413	22-1进入门框触发UI按钮高亮	1	objType = 1|	1	-1	0	enter_use_position=201414
+201413	22-1离开门框触发UI按钮灰暗	1	objType = 1|	3	-1	0	leave_use_position=1
+201414	22-1点击按钮1后触发打开路障1	1	0	10	1	0	disable_obstacle=roadblock_1;delete_trigger_by_ids=201413
+201415	22-1攻击怪物组7刷新火把	1	group_name=monster_7|	8	1	0	create_monster_around_target=dahuoji_1
+201417	22-1进入油桶触发UI按钮高亮	1	objType = 1|	1	-1	0	enter_use_position=201418
+201417	22-1离开油桶触发UI按钮灰暗	1	objType = 1|	3	-1	0	leave_use_position=1
+201418	22-1点击按钮2后触发清除路障2	1	0	10	1	0	kill_instance=roadblock_2;delete_trigger_by_ids=201417
+201419	22-1击杀箱子1刷新小怪	0	group_name=box_1|	8	1	0	create_monster=re_1,re_2,re_3
+220003	22-1击杀箱子2刷新小怪（ID特殊组）	0	group_name=box_2|	8	1	0	create_monster=re_4,re_5,re_6
+220004	22-1靠近刷出3怪物（ID特殊组）	1	0	1	1	0	create_monster=re_7,re_8,re_9
+220005	22-1靠近刷出3怪物（ID特殊组）	1	0	1	1	0	create_monster=re_10,re_11,re_12
+220010	22-1进战斗隐藏开关触发器（ID特殊组）	1	0	4	1	0	hide_instance=area_1,area_2
+210000	精英1-1靠近刷出3小怪	1	0	1	1	0	create_monster=re_1,re_2,re_3
+210001	精英1-1靠近刷出3小怪	1	0	1	1	0	create_monster=re_4,re_5,re_6
+210002	精英1-1靠近刷出3小怪	1	0	1	1	0	create_monster=re_7,re_8,re_9
+210020	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2
+210021	怪物1组死亡触发路障1清除	0	group_name=monster_1|	8	1	0	kill_instance=roadblock_1
+210040	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2
+210041	怪物1组死亡触发路障1清除	0	group_name=monster_1|	8	1	0	kill_instance=roadblock_1
+210090	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2
+210100	精英3-3击杀怪1组刷出怪2组	0	group_name=monster_1|	8	1	0	create_monster=re_1,re_2,re_3
+210101	精英3-3击杀怪2组刷出怪3组	0	group_name=monster_1|	8	1	0	create_monster=re_4,re_5,re_6
+210102	精英3-3击杀怪3组刷出怪4组	0	group_name=monster_1|	8	1	0	create_monster=re_7,re_8,re_9
+210120	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2,roadblock_3
+210121	怪物1组死亡触发路障1清除	0	group_name=monster_1|	8	1	0	kill_instance=roadblock_1
+210122	怪物2组死亡触发路障2清除	0	group_name=monster_2|	8	1	0	kill_instance=roadblock_2
+210130	[精英]4-2进入范围刷出3怪（A组）	1	0	1	1	0	create_monster=re_1,re_2,re_3,
+210131	[精英]4-2进入范围刷出3怪（B组）	1	0	1	1	0	create_monster=re_4,re_5,re_6,
+210180	精英5-3进战斗创建开关器	1	0	4	1	0	create_monster=switch_1
+210180	精英5-3进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1
+210181	精英5-3怪物6组死亡触发刷出开关触发器1	0	group_name=monster_6|	8	1	0	show_instance=area_1
+210182	精英5-3进入范围触发UI显示按钮1	1	objType = 1|	1	-1	0	player_enter=switch_1,roadblock_1
+210182	精英5-3离开范围触发UI隐藏按钮1	1	objType = 1|	3	-1	0	player_leave=switch_1
+210200	[精英]6-1进入范围刷出3怪（A组）	1	0	1	1	0	create_monster=re_1,re_2,re_3,
+210201	[精英]6-1进入范围刷出3怪（B组）	1	0	1	1	0	create_monster=re_4,re_5,re_6,
+210202	怪物2组死亡触发路障2清除	0	group_name=monster_2|	8	1	0	kill_instance=roadblock_2
+210220	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2,roadblock_3
+210221	怪物1组死亡触发路障1清除	0	group_name=monster_1|	8	1	0	kill_instance=roadblock_1
+210222	怪物2组死亡触发路障2清除	0	group_name=monster_2|	8	1	0	kill_instance=roadblock_2
+210223	怪物3组死亡触发路障3清除	0	group_name=monster_3|	8	1	0	kill_instance=roadblock_3
+210260	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2,roadblock_3
+210261	怪物1组死亡触发路障1清除	0	group_name=monster_1|	8	1	0	kill_instance=roadblock_1
+210262	怪物2组死亡触发路障2清除	0	group_name=monster_2|	8	1	0	kill_instance=roadblock_2
+210270	[精英]7-4击杀A组怪物后刷出B组	1	group_name=monster_3|	8	1	0	create_monster=re_1,re_2,re_3,
+210271	[精英]7-4击杀B组怪物后刷出C组	1	group_name=monster_4|	8	1	0	create_monster=re_4,re_5,re_6,
+210272	[精英]7-4击杀C组怪物后刷出boss	1	group_name=monster_5|	8	1	0	create_monster=re_7,
+210290	[精英]8-2击杀A组怪物后刷出B组	1	group_name=monster_2|	8	1	0	create_monster=re_1,re_2,re_3,
+210291	[精英]8-2击杀B组怪物后刷出C组	1	group_name=monster_4|	8	1	0	create_monster=re_4,re_5,re_6,
+210320	精英9-1进入刷出2小怪	1	0	1	1	0	create_monster=re_1,re_2
+210321	精英9-1击杀怪4组刷出4小怪	0	group_name=monster_4|	8	1	0	create_monster=re_3,re_4,re_5,re_6,
+210340	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1,roadblock_2,roadblock_3
+210341	怪物1组死亡触发路障1清除	0	group_name=monster_1|	8	1	0	kill_instance=roadblock_1
+210342	怪物2组死亡触发路障2清除	0	group_name=monster_2|	8	1	0	kill_instance=roadblock_2
+210380	精英10-3进范围刷出6小怪	1	0	1	1	0	create_monster=re_1,re_2,re_3,re_4,re_5,re_6
+210430	精英11-4进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1
+210460	精英12-3进战斗创建开关器	1	0	4	1	0	create_monster=switch_1
+210460	精英12-3进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1
+210461	精英12-3怪物6组死亡触发刷出开关触发器1	0	group_name=monster_6|	8	1	0	show_instance=area_1
+210462	精英12-3进入范围触发UI显示按钮1	1	objType = 1|	1	-1	0	player_enter=switch_1,roadblock_1
+210462	精英12-3离开范围触发UI隐藏按钮1	1	objType = 1|	3	-1	0	player_leave=switch_1
+210470	[精英]12-4击杀A组怪物后刷出B组	1	group_name=monster_1|	8	1	0	create_monster=re_1,re_2,re_3,re_4,
+210471	[精英]12-4击杀B组怪物后刷出C组	1	group_name=monster_3|	8	1	0	create_monster=re_5,re_6,re_7,
+210480	[精英]13-1进入后刷出A组怪	1	0	1	1	0	create_monster=re_1,re_2,re_3,re_4,
+210481	[精英]13-1进入后刷出B组怪	1	0	1	1	0	create_monster=re_5,re_6,re_7,
+210482	[精英]13-1进入后刷出C组怪	1	0	1	1	0	create_monster=re_8,re_9,re_10,
+210530	[精英]14-2击杀A组后刷出B组怪物	1	group_name=monster_3|	8	1	0	create_monster=re_1,re_2,re_3,
+210531	[精英]14-2击杀B组后刷出C组怪物	1	group_name=monster_4|	8	1	0	create_monster=re_4,re_5,re_6,
+210532	[精英]14-2击杀C组后刷出D组怪物	1	group_name=monster_5|	8	1	0	create_monster=re_7,re_8,re_9,
+210533	[精英]14-2击杀D组后刷出E组怪物	1	group_name=monster_6|	8	1	0	create_monster=re_10,
+210550	进关卡刷出路障	0	0	4	1	0	create_obstacle=roadblock_1
+210650	精英17-2进入刷出3小怪	1	0	1	1	0	create_monster=re_1,re_2,re_3
+210651	精英17-2进入刷出3小怪	1	0	1	1	0	create_monster=re_4,re_5,re_6
+210660	精英17-3进入刷出2小怪	1	0	1	1	0	create_monster=re_1,re_2
+210661	精英17-3进入刷出3小怪	1	0	1	1	0	create_monster=re_3,re_4,re_5
+210710	[精英]18-4击杀A组怪物后刷出其余怪物	1	group_name=monster_1|	8	1	0	create_monster=re_1,re_2,re_3,re_4,re_5,re_6,re_7,re_8,re_9,
+210740	精英19-3进战斗创建开关器	1	0	4	1	0	create_monster=switch_1
+210740	精英19-3进战斗隐藏开关触发器	1	0	4	1	0	hide_instance=area_1
+210741	精英19-3怪物6组死亡触发刷出开关触发器1	0	group_name=monster_6|	8	1	0	show_instance=area_1
+210742	精英19-3进入范围触发UI显示按钮1	1	objType = 1|	1	-1	0	player_enter=switch_1,roadblock_1
+210742	精英19-3离开范围触发UI隐藏按钮1	1	objType = 1|	3	-1	0	player_leave=switch_1
+210780	[精英]20-3进入触发器刷出A波怪物	1	0	1	1	0	create_monster=re_1,re_2,re_3,
+210781	[精英]20-3进入触发器刷出B波怪物	1	0	1	1	0	create_monster=re_4,re_5,re_6,
+210782	[精英]20-3进入触发器刷出C波怪物	1	0	1	1	0	create_monster=re_7,re_8,re_9,
+400000	高速阻击D难度小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31595000,31595001,31595002,31595003,31595004|	1	-1	distance = 1	delete_target = 50
+400001	高速阻击C难度小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31595100,31595101,31595102,31595103,31595104|	1	-1	distance = 1	delete_target = 50
+400002	高速阻击B难度小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31595200,31595201,31595202,31595203,31595204|	1	-1	distance = 1	delete_target = 50
+400003	高速阻击A难度小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31595300,31595301,31595302,31595303,31595304|	1	-1	distance = 1	delete_target = 50
+400004	高速阻击S难度小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31595400,31595401,31595402,31595403,31595404|	1	-1	distance = 1	delete_target = 50
+400005	高速阻击SS难度小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31595500,31595501,31595502,31595503,31595504|	1	-1	distance = 1	delete_target = 50
+400006	高速阻击SSS难度小怪触碰逃跑触发器	2	objType = 2;isCaptain=0;id=31595600,31595601,31595602,31595603,31595604|	1	-1	distance = 1	delete_target = 50
+401000	巅峰-切换场景刷出变身金木并隐藏	1	0	4	1	0	create_monster=jinmu_2,boss_1;hide_instance=jinmu_2,boss_1
+401001	巅峰-趣味屋杰森变身结束刷出变身杰森、显示金木	1	id=60041001	9	1	0	show_instance=jinmu_2,boss_1;look_at_pos=camera_lead
+401003	巅峰-趣味屋主角出触发器后挂镜头	1	0	3	1	0	look_at_captain=1
+402000	3V3战斗胜利触发	0	0	13	1	1	0
+402001	3V3战斗失败触发	0	0	13	1	0	0
+500000	定时炸弹进入范围触发	1	0	11	1	0	time_bomb=3
+500001	区域多个手雷	1	0	12	1	count=4;delay_time=1,3,5,7;radius=0.9	area_grenade=3
+500002	我方英雄，踩到掉血（油桶）	1	objType = 1|	1	-1	distance = 0	oil_drum=1
+500003	我方英雄，踩到沉默（电网）	1	objType = 1|	1	-1	distance = 0	power_grid=1
+500004	进关卡刷出陷阱	0	0	4	1	0	create_obstacle=cover
+500005	进范围触发井盖	1	0	1	1	0	disable_obstacle=cover
