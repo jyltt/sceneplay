@@ -23,11 +23,6 @@ namespace Sceneplay.ui
             m_curFuncIndex = index;
             m_paramName = param_name;
             InitializeComponent();
-            var list = FileManager.StringCfg.GetFileList();
-            foreach(var file in list)
-            {
-                m_listFile.Items.Add(file);
-            }
             InitUI();
         }
 
@@ -50,8 +45,7 @@ namespace Sceneplay.ui
                 file = "screenplay";
                 id = "";
             }
-            m_listFile.SelectedItem = file;
-            m_btnChangeStr.Text = id;
+            m_btnChangeStr.Text = "gs_"+file+"."+id;
             m_labString.Text = FileManager.StringCfg.GetString(file, id);
         }
 
@@ -76,21 +70,12 @@ namespace Sceneplay.ui
             }
             var w = new StringCfgListUI(file, id);
             w.ShowDialog();
-            var select = w.GetSelectItem();
-            m_btnChangeStr.Text = select;
-            func.ChangeParam(m_paramName, "gs_" + file + "." + select);
-            m_labString.Text = FileManager.StringCfg.GetString(file, id);
-        }
-
-        private void m_ListFile_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
-            if (screenplay == null)
-                return;
-            var func = (FuncInfo)screenplay.ActInfo;
-            var file = (string)m_listFile.SelectedItem;
-            var select = m_btnChangeStr.Text;
-            func.ChangeParam(m_paramName, "gs_" + file + "." + select);
+            var selectID = w.GetSelectItem();
+            var selectFile = w.GetSelectFile();
+            var str = "gs_" + selectFile + "." + selectID;
+            m_btnChangeStr.Text = str;
+            func.ChangeParam(m_paramName, str);
+            m_labString.Text = FileManager.StringCfg.GetString(selectFile, selectID);
         }
     }
 }

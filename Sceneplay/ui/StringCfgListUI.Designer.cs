@@ -40,10 +40,13 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.m_labReference = new System.Windows.Forms.TextBox();
+            this.m_listFile = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_listStrID
@@ -87,7 +90,7 @@
             this.m_labText.Multiline = true;
             this.m_labText.Name = "m_labText";
             this.m_labText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.m_labText.Size = new System.Drawing.Size(342, 457);
+            this.m_labText.Size = new System.Drawing.Size(386, 457);
             this.m_labText.TabIndex = 3;
             this.m_labText.TextChanged += new System.EventHandler(this.m_labText_TextChanged);
             // 
@@ -98,15 +101,15 @@
             this.panel1.Controls.Add(this.m_btnAdd);
             this.panel1.Controls.Add(this.m_labAdd);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(130, 457);
+            this.panel1.Location = new System.Drawing.Point(249, 457);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(342, 23);
+            this.panel1.Size = new System.Drawing.Size(386, 23);
             this.panel1.TabIndex = 4;
             // 
             // m_btnSure
             // 
             this.m_btnSure.Dock = System.Windows.Forms.DockStyle.Right;
-            this.m_btnSure.Location = new System.Drawing.Point(267, 0);
+            this.m_btnSure.Location = new System.Drawing.Point(311, 0);
             this.m_btnSure.Name = "m_btnSure";
             this.m_btnSure.Size = new System.Drawing.Size(75, 23);
             this.m_btnSure.TabIndex = 3;
@@ -127,7 +130,7 @@
             this.panel2.Controls.Add(this.m_listStrID);
             this.panel2.Controls.Add(this.m_labSearch);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Location = new System.Drawing.Point(119, 0);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(130, 480);
             this.panel2.TabIndex = 5;
@@ -139,22 +142,23 @@
             this.m_labSearch.Name = "m_labSearch";
             this.m_labSearch.Size = new System.Drawing.Size(130, 21);
             this.m_labSearch.TabIndex = 1;
+            this.m_labSearch.TextChanged += new System.EventHandler(this.m_labSearch_TextChanged);
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.groupBox5);
             this.panel3.Controls.Add(this.m_labText);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(130, 0);
+            this.panel3.Location = new System.Drawing.Point(249, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(342, 457);
+            this.panel3.Size = new System.Drawing.Size(386, 457);
             this.panel3.TabIndex = 6;
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.m_labReference);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox5.Location = new System.Drawing.Point(231, 0);
+            this.groupBox5.Location = new System.Drawing.Point(275, 0);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(111, 457);
             this.groupBox5.TabIndex = 1;
@@ -171,14 +175,37 @@
             this.m_labReference.Size = new System.Drawing.Size(105, 437);
             this.m_labReference.TabIndex = 0;
             // 
+            // m_listFile
+            // 
+            this.m_listFile.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_listFile.FormattingEnabled = true;
+            this.m_listFile.ItemHeight = 12;
+            this.m_listFile.Location = new System.Drawing.Point(3, 17);
+            this.m_listFile.Name = "m_listFile";
+            this.m_listFile.Size = new System.Drawing.Size(113, 460);
+            this.m_listFile.TabIndex = 7;
+            this.m_listFile.SelectedIndexChanged += new System.EventHandler(this.m_listFile_SelectedIndexChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.m_listFile);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(119, 480);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "文件列表";
+            // 
             // StringCfgListUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(472, 480);
+            this.ClientSize = new System.Drawing.Size(635, 480);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
+            this.Controls.Add(this.groupBox1);
             this.Name = "StringCfgListUI";
             this.Text = "字符串表";
             this.panel1.ResumeLayout(false);
@@ -189,6 +216,7 @@
             this.panel3.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -207,5 +235,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox m_labReference;
+        private System.Windows.Forms.ListBox m_listFile;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

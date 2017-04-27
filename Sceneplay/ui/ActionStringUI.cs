@@ -21,11 +21,6 @@ namespace Sceneplay.ui
             m_curFuncIndex = index;
             InitializeComponent();
             // init ui
-            var list = FileManager.StringCfg.GetFileList();
-            foreach (var file in list)
-            {
-                m_listFile.Items.Add(file);
-            }
             var hurdleInfo = FileManager.ConfigMgr.GetScreenplayInfo(DataCenter.curHurdleId, m_curScreenplayID);
             for (int i = 0; i < hurdleInfo.ObjList.Count; i++)
             {
@@ -70,18 +65,8 @@ namespace Sceneplay.ui
             else
                 MessageBox.Show("你把登场角色列表里的角色删了，我找不到之前的角色了ψ(╰_╯)");
             var func = (ActionTalk)screenplay.ActInfo;
-            m_btnChangeStr.Text = func.ID;
-            m_listFile.SelectedItem = func.File;
+            m_btnChangeStr.Text = "gs_" + func.File + "." + func.ID;
             m_labString.Text = FileManager.StringCfg.GetString(func.File, func.ID);
-        }
-
-        private void m_listFile_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var screenplay = FileManager.ContentMgr.GetFuncInfo(m_curScreenplayID, m_curFuncIndex);
-            if (screenplay == null)
-                return;
-            var func = (ActionTalk)screenplay.ActInfo;
-            func.File = (string)m_listFile.SelectedItem;
         }
 
         private void m_btnChangeStr_Click(object sender, EventArgs e)
@@ -92,11 +77,15 @@ namespace Sceneplay.ui
             var func = (ActionTalk)screenplay.ActInfo;
             var w = new StringCfgListUI(func.File, func.ID);
             w.ShowDialog();
-            var select = w.GetSelectItem();
-            if (select == null)
+            var selectID = w.GetSelectItem();
+            if (selectID == null)
                 return;
-            m_btnChangeStr.Text = select;
-            func.ID = select;
+            var selectFile = w.GetSelectFile();
+            if (selectFile == null)
+                return;
+            func.File = selectFile;
+            func.ID = selectID;
+            m_btnChangeStr.Text = "gs_" + func.File + "." + func.ID;;
             m_labString.Text = FileManager.StringCfg.GetString(func.File, func.ID);
         }
 

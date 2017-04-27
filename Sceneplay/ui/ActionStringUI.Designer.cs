@@ -30,7 +30,6 @@
         {
             System.Windows.Forms.GroupBox groupBox1;
             this.m_labHeadIconPath = new System.Windows.Forms.TextBox();
-            this.m_listFile = new System.Windows.Forms.ComboBox();
             this.m_btnChangeStr = new System.Windows.Forms.Button();
             this.m_labString = new System.Windows.Forms.TextBox();
             this.m_pos1 = new System.Windows.Forms.RadioButton();
@@ -77,23 +76,12 @@
             this.m_labHeadIconPath.TabIndex = 8;
             this.m_labHeadIconPath.TextChanged += new System.EventHandler(this.m_labHeadIconPath_TextChanged);
             // 
-            // m_listFile
-            // 
-            this.m_listFile.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_listFile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.m_listFile.FormattingEnabled = true;
-            this.m_listFile.Location = new System.Drawing.Point(0, 0);
-            this.m_listFile.Name = "m_listFile";
-            this.m_listFile.Size = new System.Drawing.Size(121, 20);
-            this.m_listFile.TabIndex = 0;
-            this.m_listFile.SelectedIndexChanged += new System.EventHandler(this.m_listFile_SelectedIndexChanged);
-            // 
             // m_btnChangeStr
             // 
             this.m_btnChangeStr.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_btnChangeStr.Location = new System.Drawing.Point(121, 0);
+            this.m_btnChangeStr.Location = new System.Drawing.Point(0, 0);
             this.m_btnChangeStr.Name = "m_btnChangeStr";
-            this.m_btnChangeStr.Size = new System.Drawing.Size(75, 23);
+            this.m_btnChangeStr.Size = new System.Drawing.Size(188, 23);
             this.m_btnChangeStr.TabIndex = 1;
             this.m_btnChangeStr.Text = "String";
             this.m_btnChangeStr.UseVisualStyleBackColor = true;
@@ -239,7 +227,6 @@
             // panel3
             // 
             this.panel3.Controls.Add(this.m_btnChangeStr);
-            this.panel3.Controls.Add(this.m_listFile);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel3.Location = new System.Drawing.Point(0, 62);
             this.panel3.Name = "panel3";
@@ -289,8 +276,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox m_listFile;
         private System.Windows.Forms.Button m_btnChangeStr;
         private System.Windows.Forms.TextBox m_labString;
         private System.Windows.Forms.RadioButton m_pos1;

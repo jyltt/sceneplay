@@ -41,8 +41,8 @@
             this.m_labActor = new System.Windows.Forms.TextBox();
             this.m_listActor = new System.Windows.Forms.ListBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.m_labReference = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -185,15 +185,6 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "引用列表";
             // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(3, 17);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(105, 250);
-            this.textBox1.TabIndex = 0;
-            // 
             // m_labReference
             // 
             this.m_labReference.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -203,6 +194,15 @@
             this.m_labReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.m_labReference.Size = new System.Drawing.Size(105, 250);
             this.m_labReference.TabIndex = 0;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 17);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(105, 250);
+            this.textBox1.TabIndex = 0;
             // 
             // SceenplayUI
             // 

@@ -30,7 +30,6 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.m_btnChangeStr = new System.Windows.Forms.Button();
-            this.m_listFile = new System.Windows.Forms.ComboBox();
             this.m_labString = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -38,7 +37,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.m_btnChangeStr);
-            this.panel1.Controls.Add(this.m_listFile);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -48,25 +46,13 @@
             // m_btnChangeStr
             // 
             this.m_btnChangeStr.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_btnChangeStr.Location = new System.Drawing.Point(162, 0);
+            this.m_btnChangeStr.Location = new System.Drawing.Point(0, 0);
             this.m_btnChangeStr.Name = "m_btnChangeStr";
-            this.m_btnChangeStr.Size = new System.Drawing.Size(75, 23);
+            this.m_btnChangeStr.Size = new System.Drawing.Size(215, 23);
             this.m_btnChangeStr.TabIndex = 1;
             this.m_btnChangeStr.Text = "String";
             this.m_btnChangeStr.UseVisualStyleBackColor = true;
             this.m_btnChangeStr.Click += new System.EventHandler(this.m_btnChangeStr_Click);
-            // 
-            // m_listFile
-            // 
-            this.m_listFile.Dock = System.Windows.Forms.DockStyle.Left;
-            this.m_listFile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.m_listFile.FormattingEnabled = true;
-            this.m_listFile.Location = new System.Drawing.Point(0, 0);
-            this.m_listFile.Name = "m_listFile";
-            this.m_listFile.Size = new System.Drawing.Size(162, 20);
-            this.m_listFile.Sorted = true;
-            this.m_listFile.TabIndex = 4;
-            this.m_listFile.SelectedIndexChanged += new System.EventHandler(this.m_ListFile_SelectedIndexChanged);
             // 
             // m_labString
             // 
@@ -102,6 +88,5 @@
         private System.Windows.Forms.Panel panel1;
         protected System.Windows.Forms.TextBox m_labString;
         protected System.Windows.Forms.Button m_btnChangeStr;
-        protected System.Windows.Forms.ComboBox m_listFile;
     }
 }
