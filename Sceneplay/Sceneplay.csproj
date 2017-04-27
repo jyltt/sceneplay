@@ -74,6 +74,8 @@
     <Compile Include="data\FuncCfgInfo.cs" />
     <Compile Include="data\FuncInfo.cs" />
     <Compile Include="data\HurdleInfo.cs" />
+    <Compile Include="data\TriggerCfg.cs" />
+    <Compile Include="data\TriggerCfgManager.cs" />
     <Compile Include="ui\ActionBaseUI.cs">
       <SubType>Form</SubType>
     </Compile>

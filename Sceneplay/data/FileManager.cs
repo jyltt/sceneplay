@@ -61,12 +61,22 @@ namespace Sceneplay.data
             }
         }
 
+        TriggerCfgManager m_TriggerCfgMgr = null;
+        public static TriggerCfgManager TriggerCfgMgr
+        {
+            get {
+                if(Instance.m_TriggerCfgMgr == null)
+                    Instance.m_TriggerCfgMgr = new TriggerCfgManager("config/trigger_config.txt");
+                return Instance.m_TriggerCfgMgr;
+            }
+        }
         public void ReadFile()
         {
             m_StringCfg = null;
             m_FuncCfgMgr = null;
             m_ContentMgr = null;
             m_ConfigMgr = null;
+            m_TriggerCfgMgr = null;
         }
 
         public bool Save()

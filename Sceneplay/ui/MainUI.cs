@@ -23,6 +23,7 @@ namespace Sceneplay
         public MainUI()
         {
             InitializeComponent();
+            var a = FileManager.TriggerCfgMgr;
             m_RootNode = new TreeNode("root");
             SceneTree.Nodes.Add(m_RootNode);
             RefreshAll();
