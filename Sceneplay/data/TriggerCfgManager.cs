@@ -11,11 +11,21 @@ namespace Sceneplay.data
 {
     class TriggerCfgManager
     {
-        private string m_FilePath;
-        private Dictionary<int, List<TriggerCfg>> m_TriggerCfgList = new Dictionary<int, List<TriggerCfg>>();
+        string m_FilePath;
+        Dictionary<int, List<TriggerCfg>> m_TriggerCfgList = new Dictionary<int, List<TriggerCfg>>();
+        Dictionary<string, string> m_TriggerRemarkList = new Dictionary<string,string>();
+        List<string> m_FileTitle = new List<string>();
 
         public TriggerCfgManager(string file_path)
         {
+            m_FileTitle.Add("id");
+            m_FileTitle.Add("panning_remark");
+            m_FileTitle.Add("trigger_camp");
+            m_FileTitle.Add("trigger_role");
+            m_FileTitle.Add("trigger_type");
+            m_FileTitle.Add("trigger_count");
+            m_FileTitle.Add("trigger_param");
+            m_FileTitle.Add("trigger_effect");
             m_FilePath = file_path;
             ReadFile(m_FilePath);
         }
@@ -27,8 +37,14 @@ namespace Sceneplay.data
                 StreamReader sr = new StreamReader(file_path, Encoding.Default);
                 String line;
                 sr.ReadLine();
-                sr.ReadLine();
-                sr.ReadLine();
+                line = sr.ReadLine();
+                var _remarkList = line.Split('\t');
+                line = sr.ReadLine();
+                var _idList = line.Split('\t');
+                for (int i = 0; i < _idList.Length; ++i)
+                {
+                    m_TriggerRemarkList[_idList[i]] = _remarkList[i];
+                }
                 while ((line = sr.ReadLine()) != null)
                 {
                     var cfg = new TriggerCfg(line);
@@ -50,8 +66,24 @@ namespace Sceneplay.data
             {
                 StreamWriter sw = new StreamWriter(m_FilePath, false, Encoding.UTF8);
                 sw.WriteLine("o\ts\tn\ts\tn\tn\ts\ts");
-                sw.WriteLine("触发器编号\t策划备注(隐藏列)\t触发阵营（0全体 1我方 2敌方 3中立）\t触发指定角色(说明参见document/design/配置表说明/trigger_config_触发器说明.xls)\t触发类型(1.进触发器,2.触发器中,3.出触发器 4进战斗 5出战斗 6属性发生改变 7怪物进战斗触发 8怪物组死亡触发 9过场动画结束触发 10玩家使用道具触发 11进范围启动定时器 12进入触发后区域随机Item 13活动3v3战斗结束,14刷怪波数触发，15添加buff触发)\t触发完成次数\t触发参数\t触发效果");
-                sw.WriteLine("id\tpanning_remark\ttrigger_camp\ttrigger_role\ttrigger_type\ttrigger_count\ttrigger_param\ttrigger_effect");
+                //sw.WriteLine("触发器编号\t策划备注(隐藏列)\t触发阵营（0全体 1我方 2敌方 3中立）\t触发指定角色(说明参见document/design/配置表说明/trigger_config_触发器说明.xls)\t触发类型(1.进触发器,2.触发器中,3.出触发器 4进战斗 5出战斗 6属性发生改变 7怪物进战斗触发 8怪物组死亡触发 9过场动画结束触发 10玩家使用道具触发 11进范围启动定时器 12进入触发后区域随机Item 13活动3v3战斗结束,14刷怪波数触发，15添加buff触发)\t触发完成次数\t触发参数\t触发效果");
+                //sw.WriteLine("id\tpanning_remark\ttrigger_camp\ttrigger_role\ttrigger_type\ttrigger_count\ttrigger_param\ttrigger_effect");
+                string t1 = "";
+                string t2 = "";
+                for (int i = 1; i < m_FileTitle.Count;++i )
+                {
+                    if (i != 1)
+                    {
+                        t1 += '\t';
+                        t2 += '\t';
+                    }
+                    var st = m_TriggerRemarkList[m_FileTitle[i]];
+                    var kt = m_FileTitle[i];
+                    t1 += st;
+                    t2 += kt;
+                }
+                sw.WriteLine(t1);
+                sw.WriteLine(t2);
                 foreach (var id in m_TriggerCfgList.Keys)
                 {
                     var cfgList = m_TriggerCfgList[id];
@@ -78,6 +110,23 @@ namespace Sceneplay.data
                 MessageBox.Show("Msg:" + ex.Message, "文件被占用了。(─.─|||");
                 return false;
             }
+        }
+
+        public string GetTriggerRemark(string key)
+        {
+            if (m_TriggerRemarkList.ContainsKey(key))
+                return m_TriggerRemarkList[key];
+            return "";
+        }
+
+        public bool ChangeTriggerRemark(string key, string str)
+        {
+            if (m_TriggerRemarkList.ContainsKey(key))
+            {
+                m_TriggerRemarkList[key] = str;
+                return true;
+            }
+            return false; 
         }
     }
 }
