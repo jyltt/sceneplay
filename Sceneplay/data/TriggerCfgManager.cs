@@ -112,6 +112,29 @@ namespace Sceneplay.data
             }
         }
 
+        public Dictionary<int, List<TriggerCfg>>.KeyCollection GetAllList()
+        {
+            return m_TriggerCfgList.Keys;
+        }
+
+        public int GetTriggerList(int trigger_id)
+        {
+            if (m_TriggerCfgList.ContainsKey(trigger_id))
+                return m_TriggerCfgList[trigger_id].Count;
+            else
+                return 0;
+        }
+
+        public TriggerCfg GetTriggerInfo(int trigger_id, int index)
+        {
+            if (!m_TriggerCfgList.ContainsKey(trigger_id))
+                return null;
+            var list = m_TriggerCfgList[trigger_id];
+            if (list.Count >= index)
+                return null;
+            return list[index];
+        }
+
         public string GetTriggerRemark(string key)
         {
             if (m_TriggerRemarkList.ContainsKey(key))

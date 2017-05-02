@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.m_listTrigger = new System.Windows.Forms.TreeView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.m_groupID = new System.Windows.Forms.GroupBox();
             this.m_labID = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.m_labRemark = new System.Windows.Forms.TextBox();
@@ -47,7 +47,8 @@
             this.m_labEffect = new System.Windows.Forms.TextBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.m_labSelectRemark = new System.Windows.Forms.TextBox();
-            this.groupBox1.SuspendLayout();
+            this.m_panel = new System.Windows.Forms.Panel();
+            this.m_groupID.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -56,6 +57,7 @@
             this.groupBox7.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.m_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_listTrigger
@@ -67,15 +69,15 @@
             this.m_listTrigger.TabIndex = 0;
             this.m_listTrigger.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.m_listTrigger_AfterSelect);
             // 
-            // groupBox1
+            // m_groupID
             // 
-            this.groupBox1.Controls.Add(this.m_labID);
-            this.groupBox1.Location = new System.Drawing.Point(141, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(91, 45);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "触发器编号";
+            this.m_groupID.Controls.Add(this.m_labID);
+            this.m_groupID.Location = new System.Drawing.Point(137, 12);
+            this.m_groupID.Name = "m_groupID";
+            this.m_groupID.Size = new System.Drawing.Size(91, 45);
+            this.m_groupID.TabIndex = 1;
+            this.m_groupID.TabStop = false;
+            this.m_groupID.Text = "触发器编号";
             // 
             // m_labID
             // 
@@ -111,7 +113,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.m_labCamp);
-            this.groupBox3.Location = new System.Drawing.Point(465, 12);
+            this.groupBox3.Location = new System.Drawing.Point(337, 17);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(91, 45);
             this.groupBox3.TabIndex = 1;
@@ -131,7 +133,7 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.m_labRole);
-            this.groupBox4.Location = new System.Drawing.Point(141, 63);
+            this.groupBox4.Location = new System.Drawing.Point(13, 68);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(199, 45);
             this.groupBox4.TabIndex = 1;
@@ -151,7 +153,7 @@
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.m_labType);
-            this.groupBox5.Location = new System.Drawing.Point(357, 12);
+            this.groupBox5.Location = new System.Drawing.Point(229, 17);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(91, 45);
             this.groupBox5.TabIndex = 1;
@@ -171,7 +173,7 @@
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.m_labCount);
-            this.groupBox6.Location = new System.Drawing.Point(249, 12);
+            this.groupBox6.Location = new System.Drawing.Point(121, 17);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(91, 45);
             this.groupBox6.TabIndex = 1;
@@ -191,7 +193,7 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.m_labParam);
-            this.groupBox7.Location = new System.Drawing.Point(141, 114);
+            this.groupBox7.Location = new System.Drawing.Point(13, 119);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(199, 45);
             this.groupBox7.TabIndex = 1;
@@ -211,7 +213,7 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.m_labEffect);
-            this.groupBox8.Location = new System.Drawing.Point(357, 63);
+            this.groupBox8.Location = new System.Drawing.Point(229, 68);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(199, 45);
             this.groupBox8.TabIndex = 1;
@@ -231,7 +233,7 @@
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.m_labSelectRemark);
-            this.groupBox9.Location = new System.Drawing.Point(141, 165);
+            this.groupBox9.Location = new System.Drawing.Point(13, 170);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(415, 87);
             this.groupBox9.TabIndex = 1;
@@ -248,25 +250,33 @@
             this.m_labSelectRemark.TabIndex = 0;
             this.m_labSelectRemark.TextChanged += new System.EventHandler(this.m_labSelectRemark_TextChanged);
             // 
+            // m_panel
+            // 
+            this.m_panel.Controls.Add(this.groupBox9);
+            this.m_panel.Controls.Add(this.groupBox5);
+            this.m_panel.Controls.Add(this.groupBox8);
+            this.m_panel.Controls.Add(this.groupBox6);
+            this.m_panel.Controls.Add(this.groupBox4);
+            this.m_panel.Controls.Add(this.groupBox3);
+            this.m_panel.Controls.Add(this.groupBox7);
+            this.m_panel.Location = new System.Drawing.Point(121, 0);
+            this.m_panel.Name = "m_panel";
+            this.m_panel.Size = new System.Drawing.Size(440, 271);
+            this.m_panel.TabIndex = 2;
+            // 
             // TriggerCfgListUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(599, 431);
-            this.Controls.Add(this.groupBox9);
-            this.Controls.Add(this.groupBox8);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox7);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.m_groupID);
+            this.Controls.Add(this.m_panel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.m_listTrigger);
             this.Name = "TriggerCfgListUI";
             this.Text = "TriggerCfgListUI";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.m_groupID.ResumeLayout(false);
+            this.m_groupID.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -283,6 +293,7 @@
             this.groupBox8.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.m_panel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -290,7 +301,7 @@
         #endregion
 
         private System.Windows.Forms.TreeView m_listTrigger;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox m_groupID;
         private System.Windows.Forms.TextBox m_labID;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox m_labRemark;
@@ -308,5 +319,6 @@
         private System.Windows.Forms.TextBox m_labEffect;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.TextBox m_labSelectRemark;
+        private System.Windows.Forms.Panel m_panel;
     }
 }
