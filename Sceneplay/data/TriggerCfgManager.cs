@@ -70,9 +70,9 @@ namespace Sceneplay.data
                 //sw.WriteLine("id\tpanning_remark\ttrigger_camp\ttrigger_role\ttrigger_type\ttrigger_count\ttrigger_param\ttrigger_effect");
                 string t1 = "";
                 string t2 = "";
-                for (int i = 1; i < m_FileTitle.Count;++i )
+                for (int i = 0; i < m_FileTitle.Count;++i )
                 {
-                    if (i != 1)
+                    if (i != 0)
                     {
                         t1 += '\t';
                         t2 += '\t';
@@ -97,7 +97,7 @@ namespace Sceneplay.data
                         string str_count = cfg.Count.ToString();
                         string str_param = cfg.Param.ToString();
                         string str_effect = cfg.Effect.ToString();
-                        string str = string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}",
+                        string str = string.Format("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}",
                             str_id, str_remark, str_camp, str_role, str_type, str_count, str_param, str_effect);
                         sw.WriteLine(str);
                     }
@@ -130,7 +130,7 @@ namespace Sceneplay.data
             if (!m_TriggerCfgList.ContainsKey(trigger_id))
                 return null;
             var list = m_TriggerCfgList[trigger_id];
-            if (list.Count >= index)
+            if (list.Count <= index)
                 return null;
             return list[index];
         }

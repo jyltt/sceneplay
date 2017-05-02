@@ -81,10 +81,9 @@ namespace Sceneplay.data
 
         public bool Save()
         {
-            var ret1 = m_StringCfg.Save();
             var ret2 = m_ConfigMgr.Save();
             var ret3 = m_ContentMgr.Save();
-            return ret1 && ret2 && ret3;
+            return ret2 && ret3;
         }
 
     }

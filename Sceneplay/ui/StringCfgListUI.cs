@@ -100,6 +100,7 @@ namespace Sceneplay.ui
             string _selectItem = (string)m_listStrID.SelectedItem;
             if (_selectItem == null)
                 return;
+            FileManager.StringCfg.Save();
             Close();
         }
 
@@ -108,6 +109,7 @@ namespace Sceneplay.ui
             string _selectItem = (string)m_listStrID.SelectedItem;
             if (_selectItem == null)
                 return;
+            FileManager.StringCfg.Save();
             Close();
         }
 

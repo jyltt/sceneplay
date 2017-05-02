@@ -32,7 +32,6 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.m_labRemarks = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.m_labTriggerID = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.m_labID = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -43,6 +42,7 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.m_labReference = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.m_btnTrigger = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -86,22 +86,13 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.m_labTriggerID);
+            this.groupBox3.Controls.Add(this.m_btnTrigger);
             this.groupBox3.Location = new System.Drawing.Point(125, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(117, 43);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "触发器";
-            // 
-            // m_labTriggerID
-            // 
-            this.m_labTriggerID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_labTriggerID.Location = new System.Drawing.Point(3, 17);
-            this.m_labTriggerID.Name = "m_labTriggerID";
-            this.m_labTriggerID.Size = new System.Drawing.Size(111, 21);
-            this.m_labTriggerID.TabIndex = 0;
-            this.m_labTriggerID.TextChanged += new System.EventHandler(this.m_labTriggerID_TextChanged);
             // 
             // groupBox2
             // 
@@ -204,6 +195,17 @@
             this.textBox1.Size = new System.Drawing.Size(105, 250);
             this.textBox1.TabIndex = 0;
             // 
+            // m_btnTrigger
+            // 
+            this.m_btnTrigger.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_btnTrigger.Location = new System.Drawing.Point(3, 17);
+            this.m_btnTrigger.Name = "m_btnTrigger";
+            this.m_btnTrigger.Size = new System.Drawing.Size(111, 23);
+            this.m_btnTrigger.TabIndex = 0;
+            this.m_btnTrigger.Text = "button1";
+            this.m_btnTrigger.UseVisualStyleBackColor = true;
+            this.m_btnTrigger.Click += new System.EventHandler(this.m_btnTrigger_Click);
+            // 
             // SceenplayUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -222,7 +224,6 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -245,11 +246,11 @@
         private System.Windows.Forms.ListBox m_listActor;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox m_labTriggerID;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TextBox m_labRemarks;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TextBox m_labReference;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button m_btnTrigger;
     }
 }

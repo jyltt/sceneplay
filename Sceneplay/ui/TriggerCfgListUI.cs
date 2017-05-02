@@ -64,6 +64,24 @@ namespace Sceneplay.ui
 
         void UpdateTriggerInfoUI(int trigger_id, int index)
         {
+            var info = FileManager.TriggerCfgMgr.GetTriggerInfo(trigger_id, index);
+            if (info == null)
+                return;
+            var param = new indexAndTriggerID(trigger_id, index);
+            m_labCamp.Text = info.Camp.ToString();
+            m_labCamp.Tag = param;
+            m_labCount.Text = info.Count.ToString();
+            m_labCount.Tag = param;
+            m_labEffect.Text = info.Effect;
+            m_labEffect.Tag = param;
+            m_labParam.Text = info.Param;
+            m_labParam.Tag = param;
+            m_labRemark.Text = info.Remark;
+            m_labRemark.Tag = param;
+            m_labRole.Text = info.Role;
+            m_labRole.Tag = param;
+            m_labType.Text = info.Type.ToString();
+            m_labType.Tag = param;
         }
 
         private void m_listTrigger_AfterSelect(object sender, TreeViewEventArgs e)
@@ -87,7 +105,7 @@ namespace Sceneplay.ui
                     break;
                 case 3:
                     m_panel.Visible = true;
-                    m_labID.Visible = true;
+                    m_groupID.Visible = true;
                     var info = (indexAndTriggerID)curNode.Tag;
                     triggerid = info.TriggerID;
                     index = info.Index;
@@ -99,7 +117,11 @@ namespace Sceneplay.ui
 
         private void m_labRemark_TextChanged(object sender, EventArgs e)
         {
-
+            var param = (indexAndTriggerID)m_labRemark.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            cfg.Remark = m_labRemark.Text;
         }
 
         private void m_labSelectRemark_TextChanged(object sender, EventArgs e)
@@ -109,37 +131,100 @@ namespace Sceneplay.ui
 
         private void m_labParam_TextChanged(object sender, EventArgs e)
         {
+            var param = (indexAndTriggerID)m_labParam.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            cfg.Param = m_labParam.Text;
 
         }
 
         private void m_labRole_TextChanged(object sender, EventArgs e)
         {
+            var param = (indexAndTriggerID)m_labRole.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            cfg.Role = m_labRole.Text;
 
         }
 
         private void m_labEffect_TextChanged(object sender, EventArgs e)
         {
+            var param = (indexAndTriggerID)m_labEffect.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            cfg.Effect = m_labEffect.Text;
 
         }
 
         private void m_labCamp_TextChanged(object sender, EventArgs e)
         {
-
+            var param = (indexAndTriggerID)m_labCamp.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            int camp;
+            bool result = Int32.TryParse(m_labCamp.Text, out camp);
+            if (!result)
+            {
+                MessageBox.Show("此处应该是数字");
+                m_labCamp.Text = cfg.Camp.ToString();
+                return;
+            }
+            cfg.Camp = camp;
         }
 
         private void m_labType_TextChanged(object sender, EventArgs e)
         {
-
+            var param = (indexAndTriggerID)m_labType.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            int type;
+            bool result = Int32.TryParse(m_labType.Text, out type);
+            if (!result)
+            {
+                MessageBox.Show("此处应该是数字");
+                m_labType.Text = cfg.Type.ToString();
+                return;
+            }
+            cfg.Type = type;
         }
 
         private void m_labCount_TextChanged(object sender, EventArgs e)
         {
-
+            var param = (indexAndTriggerID)m_labCount.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            int count;
+            bool result = Int32.TryParse(m_labCount.Text, out count);
+            if (!result)
+            {
+                MessageBox.Show("此处应该是数字");
+                m_labCount.Text = cfg.Count.ToString();
+                return;
+            }
+            cfg.Count = count;
         }
 
         private void m_labID_TextChanged(object sender, EventArgs e)
         {
-
+            //var param = (indexAndTriggerID)m_labID.Tag;
+            //if (param == null)
+            //    return;
+            //var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            //int id;
+            //bool result = Int32.TryParse(m_labID.Text, out id);
+            //if (!result)
+            //{
+            //    MessageBox.Show("此处应该是数字");
+            //    m_labID.Text = cfg.ID.ToString();
+            //    return;
+            //}
+            //cfg.ID = id;
         }
 
         private void m_labID_Enter(object sender, EventArgs e)
@@ -189,6 +274,41 @@ namespace Sceneplay.ui
             m_curLab = "trigger_param";
             var str = FileManager.TriggerCfgMgr.GetTriggerRemark(m_curLab);
             m_labSelectRemark.Text = str;
+        }
+
+        private void m_btnSure_Click(object sender, EventArgs e)
+        {
+            FileManager.TriggerCfgMgr.Save();
+            Close();
+        }
+
+        private void m_btnCancel_Click(object sender, EventArgs e)
+        {
+            m_listTrigger.SelectedNode = null;
+            Close();
+        }
+
+        private void m_listTrigger_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            e.DrawDefault = true;
+        }
+
+        public int GetChoseTriggerID()
+        {
+            var curNode = m_listTrigger.SelectedNode;
+            if (curNode == null)
+                return -1;
+            string fullPath = curNode.FullPath;
+            string[] nodeParent = fullPath.Split('\\');
+            switch(nodeParent.Length)
+            {
+                case 2:
+                    return (int)curNode.Tag;
+                case 3:
+                    var info = (indexAndTriggerID)curNode.Tag;
+                    return info.TriggerID;
+            }
+            return -1;
         }
     }
 }

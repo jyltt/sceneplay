@@ -30,7 +30,7 @@ namespace Sceneplay.ui
             {
                 m_listActor.Items.Add(name);
             }
-            m_labTriggerID.Text = _screenplayInfo.TriggerID.ToString();
+            m_btnTrigger.Text = _screenplayInfo.TriggerID.ToString();
             m_labRemarks.Text = _screenplayInfo.Describe.Replace("\\n","\r\n");
             UpdateReferenceList();
         }
@@ -109,25 +109,37 @@ namespace Sceneplay.ui
             }
         }
 
-        private void m_labTriggerID_TextChanged(object sender, EventArgs e)
-        {
-            var newName = m_labTriggerID.Text;
-            int id;
-            bool result = Int32.TryParse(newName, out id); // return bool value hint y/n
-            var _screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
-            if (!result)
-            {
-                MessageBox.Show("触发器id必须为数字(￣︶￣)↗");
-                m_labTriggerID.Text = _screenplayInfo.TriggerID.ToString();
-                return;
-            }
-            _screenplayInfo.TriggerID = id;
-        }
+        //private void m_labTriggerID_TextChanged(object sender, EventArgs e)
+        //{
+        //    var newName = m_labTriggerID.Text;
+        //    int id;
+        //    bool result = Int32.TryParse(newName, out id); // return bool value hint y/n
+        //    var _screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
+        //    if (!result)
+        //    {
+        //        MessageBox.Show("触发器id必须为数字(￣︶￣)↗");
+        //        m_labTriggerID.Text = _screenplayInfo.TriggerID.ToString();
+        //        return;
+        //    }
+        //    _screenplayInfo.TriggerID = id;
+        //}
 
         private void m_labRemarks_TextChanged(object sender, EventArgs e)
         {
             var _screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(m_curHurdleID,m_curSceenplayID);
             _screenplayInfo.Describe = m_labRemarks.Text.Replace("\r\n", "\\n");
+        }
+
+        private void m_btnTrigger_Click(object sender, EventArgs e)
+        {
+            var w = new TriggerCfgListUI();
+            w.ShowDialog();
+            var id = w.GetChoseTriggerID();
+            if (id == -1)
+                return;
+            var _screenplayInfo = FileManager.ConfigMgr.GetScreenplayInfo(m_curHurdleID, m_curSceenplayID);
+            m_btnTrigger.Text = id.ToString();
+            _screenplayInfo.TriggerID = id;
         }
     }
 }

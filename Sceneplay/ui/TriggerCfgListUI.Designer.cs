@@ -48,6 +48,9 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.m_labSelectRemark = new System.Windows.Forms.TextBox();
             this.m_panel = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.m_btnSure = new System.Windows.Forms.Button();
+            this.m_btnCancel = new System.Windows.Forms.Button();
             this.m_groupID.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -58,15 +61,20 @@
             this.groupBox8.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.m_panel.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_listTrigger
             // 
             this.m_listTrigger.Dock = System.Windows.Forms.DockStyle.Left;
+            this.m_listTrigger.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.m_listTrigger.FullRowSelect = true;
+            this.m_listTrigger.HideSelection = false;
             this.m_listTrigger.Location = new System.Drawing.Point(0, 0);
             this.m_listTrigger.Name = "m_listTrigger";
             this.m_listTrigger.Size = new System.Drawing.Size(121, 431);
             this.m_listTrigger.TabIndex = 0;
+            this.m_listTrigger.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.m_listTrigger_DrawNode);
             this.m_listTrigger.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.m_listTrigger_AfterSelect);
             // 
             // m_groupID
@@ -84,6 +92,7 @@
             this.m_labID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_labID.Location = new System.Drawing.Point(3, 17);
             this.m_labID.Name = "m_labID";
+            this.m_labID.ReadOnly = true;
             this.m_labID.Size = new System.Drawing.Size(85, 21);
             this.m_labID.TabIndex = 0;
             this.m_labID.TextChanged += new System.EventHandler(this.m_labID_TextChanged);
@@ -93,7 +102,7 @@
             // 
             this.groupBox2.Controls.Add(this.m_labRemark);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(121, 319);
+            this.groupBox2.Location = new System.Drawing.Point(121, 283);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(478, 112);
             this.groupBox2.TabIndex = 1;
@@ -264,6 +273,40 @@
             this.m_panel.Size = new System.Drawing.Size(440, 271);
             this.m_panel.TabIndex = 2;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.m_btnSure);
+            this.panel1.Controls.Add(this.m_btnCancel);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(121, 395);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(478, 36);
+            this.panel1.TabIndex = 3;
+            // 
+            // m_btnSure
+            // 
+            this.m_btnSure.Dock = System.Windows.Forms.DockStyle.Right;
+            this.m_btnSure.Location = new System.Drawing.Point(328, 0);
+            this.m_btnSure.Margin = new System.Windows.Forms.Padding(10);
+            this.m_btnSure.Name = "m_btnSure";
+            this.m_btnSure.Size = new System.Drawing.Size(75, 36);
+            this.m_btnSure.TabIndex = 0;
+            this.m_btnSure.Text = "确定";
+            this.m_btnSure.UseVisualStyleBackColor = true;
+            this.m_btnSure.Click += new System.EventHandler(this.m_btnSure_Click);
+            // 
+            // m_btnCancel
+            // 
+            this.m_btnCancel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.m_btnCancel.Location = new System.Drawing.Point(403, 0);
+            this.m_btnCancel.Margin = new System.Windows.Forms.Padding(10);
+            this.m_btnCancel.Name = "m_btnCancel";
+            this.m_btnCancel.Size = new System.Drawing.Size(75, 36);
+            this.m_btnCancel.TabIndex = 0;
+            this.m_btnCancel.Text = "取消";
+            this.m_btnCancel.UseVisualStyleBackColor = true;
+            this.m_btnCancel.Click += new System.EventHandler(this.m_btnCancel_Click);
+            // 
             // TriggerCfgListUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -272,9 +315,10 @@
             this.Controls.Add(this.m_groupID);
             this.Controls.Add(this.m_panel);
             this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.m_listTrigger);
             this.Name = "TriggerCfgListUI";
-            this.Text = "TriggerCfgListUI";
+            this.Text = "触发器编辑器";
             this.m_groupID.ResumeLayout(false);
             this.m_groupID.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -294,6 +338,7 @@
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.m_panel.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -320,5 +365,8 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.TextBox m_labSelectRemark;
         private System.Windows.Forms.Panel m_panel;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button m_btnSure;
+        private System.Windows.Forms.Button m_btnCancel;
     }
 }
