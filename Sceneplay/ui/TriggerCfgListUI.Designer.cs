@@ -51,6 +51,9 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.m_btnSure = new System.Windows.Forms.Button();
             this.m_btnCancel = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.m_btnAdd = new System.Windows.Forms.Button();
+            this.m_btnDelete = new System.Windows.Forms.Button();
             this.m_groupID.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -62,17 +65,18 @@
             this.groupBox9.SuspendLayout();
             this.m_panel.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // m_listTrigger
             // 
-            this.m_listTrigger.Dock = System.Windows.Forms.DockStyle.Left;
+            this.m_listTrigger.Dock = System.Windows.Forms.DockStyle.Top;
             this.m_listTrigger.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.m_listTrigger.FullRowSelect = true;
             this.m_listTrigger.HideSelection = false;
             this.m_listTrigger.Location = new System.Drawing.Point(0, 0);
             this.m_listTrigger.Name = "m_listTrigger";
-            this.m_listTrigger.Size = new System.Drawing.Size(121, 431);
+            this.m_listTrigger.Size = new System.Drawing.Size(122, 411);
             this.m_listTrigger.TabIndex = 0;
             this.m_listTrigger.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.m_listTrigger_DrawNode);
             this.m_listTrigger.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.m_listTrigger_AfterSelect);
@@ -92,7 +96,6 @@
             this.m_labID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.m_labID.Location = new System.Drawing.Point(3, 17);
             this.m_labID.Name = "m_labID";
-            this.m_labID.ReadOnly = true;
             this.m_labID.Size = new System.Drawing.Size(85, 21);
             this.m_labID.TabIndex = 0;
             this.m_labID.TextChanged += new System.EventHandler(this.m_labID_TextChanged);
@@ -102,9 +105,9 @@
             // 
             this.groupBox2.Controls.Add(this.m_labRemark);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupBox2.Location = new System.Drawing.Point(121, 283);
+            this.groupBox2.Location = new System.Drawing.Point(122, 290);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(478, 112);
+            this.groupBox2.Size = new System.Drawing.Size(525, 112);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "备注";
@@ -115,7 +118,7 @@
             this.m_labRemark.Location = new System.Drawing.Point(3, 17);
             this.m_labRemark.Multiline = true;
             this.m_labRemark.Name = "m_labRemark";
-            this.m_labRemark.Size = new System.Drawing.Size(472, 92);
+            this.m_labRemark.Size = new System.Drawing.Size(519, 92);
             this.m_labRemark.TabIndex = 0;
             this.m_labRemark.TextChanged += new System.EventHandler(this.m_labRemark_TextChanged);
             // 
@@ -268,9 +271,10 @@
             this.m_panel.Controls.Add(this.groupBox4);
             this.m_panel.Controls.Add(this.groupBox3);
             this.m_panel.Controls.Add(this.groupBox7);
-            this.m_panel.Location = new System.Drawing.Point(121, 0);
+            this.m_panel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_panel.Location = new System.Drawing.Point(122, 0);
             this.m_panel.Name = "m_panel";
-            this.m_panel.Size = new System.Drawing.Size(440, 271);
+            this.m_panel.Size = new System.Drawing.Size(525, 290);
             this.m_panel.TabIndex = 2;
             // 
             // panel1
@@ -278,15 +282,15 @@
             this.panel1.Controls.Add(this.m_btnSure);
             this.panel1.Controls.Add(this.m_btnCancel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(121, 395);
+            this.panel1.Location = new System.Drawing.Point(122, 402);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(478, 36);
+            this.panel1.Size = new System.Drawing.Size(525, 36);
             this.panel1.TabIndex = 3;
             // 
             // m_btnSure
             // 
             this.m_btnSure.Dock = System.Windows.Forms.DockStyle.Right;
-            this.m_btnSure.Location = new System.Drawing.Point(328, 0);
+            this.m_btnSure.Location = new System.Drawing.Point(375, 0);
             this.m_btnSure.Margin = new System.Windows.Forms.Padding(10);
             this.m_btnSure.Name = "m_btnSure";
             this.m_btnSure.Size = new System.Drawing.Size(75, 36);
@@ -298,7 +302,7 @@
             // m_btnCancel
             // 
             this.m_btnCancel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.m_btnCancel.Location = new System.Drawing.Point(403, 0);
+            this.m_btnCancel.Location = new System.Drawing.Point(450, 0);
             this.m_btnCancel.Margin = new System.Windows.Forms.Padding(10);
             this.m_btnCancel.Name = "m_btnCancel";
             this.m_btnCancel.Size = new System.Drawing.Size(75, 36);
@@ -307,16 +311,45 @@
             this.m_btnCancel.UseVisualStyleBackColor = true;
             this.m_btnCancel.Click += new System.EventHandler(this.m_btnCancel_Click);
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.m_btnDelete);
+            this.panel2.Controls.Add(this.m_btnAdd);
+            this.panel2.Controls.Add(this.m_listTrigger);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(122, 438);
+            this.panel2.TabIndex = 4;
+            // 
+            // m_btnAdd
+            // 
+            this.m_btnAdd.Location = new System.Drawing.Point(96, 412);
+            this.m_btnAdd.Name = "m_btnAdd";
+            this.m_btnAdd.Size = new System.Drawing.Size(20, 23);
+            this.m_btnAdd.TabIndex = 1;
+            this.m_btnAdd.Text = "+";
+            this.m_btnAdd.UseVisualStyleBackColor = true;
+            // 
+            // m_btnDelete
+            // 
+            this.m_btnDelete.Location = new System.Drawing.Point(70, 412);
+            this.m_btnDelete.Name = "m_btnDelete";
+            this.m_btnDelete.Size = new System.Drawing.Size(20, 23);
+            this.m_btnDelete.TabIndex = 1;
+            this.m_btnDelete.Text = "-";
+            this.m_btnDelete.UseVisualStyleBackColor = true;
+            // 
             // TriggerCfgListUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(599, 431);
+            this.ClientSize = new System.Drawing.Size(647, 438);
             this.Controls.Add(this.m_groupID);
             this.Controls.Add(this.m_panel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.m_listTrigger);
+            this.Controls.Add(this.panel2);
             this.Name = "TriggerCfgListUI";
             this.Text = "触发器编辑器";
             this.m_groupID.ResumeLayout(false);
@@ -339,6 +372,7 @@
             this.groupBox9.PerformLayout();
             this.m_panel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -368,5 +402,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button m_btnSure;
         private System.Windows.Forms.Button m_btnCancel;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button m_btnDelete;
+        private System.Windows.Forms.Button m_btnAdd;
     }
 }

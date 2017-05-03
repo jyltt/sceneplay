@@ -36,6 +36,7 @@ namespace Sceneplay.ui
 
         void CreateTriggerList()
         {
+            m_RootNode.Nodes.Clear();
             var list = FileManager.TriggerCfgMgr.GetAllList();
             foreach(var id in list)
             {
@@ -48,6 +49,7 @@ namespace Sceneplay.ui
 
         void CreateTriggerInfoList(int trigger_id, TreeNode parent_node)
         {
+            parent_node.Nodes.Clear();
             var _infoListCount = FileManager.TriggerCfgMgr.GetTriggerList(trigger_id);
             for(int i=0;i<_infoListCount;++i)
             {
@@ -60,6 +62,7 @@ namespace Sceneplay.ui
         void UpdateTriggerIDUI(int trigger_id)
         {
             m_labID.Text = trigger_id.ToString();
+            m_labID.Tag = new indexAndTriggerID(trigger_id, -1);
         }
 
         void UpdateTriggerInfoUI(int trigger_id, int index)
@@ -82,6 +85,7 @@ namespace Sceneplay.ui
             m_labRole.Tag = param;
             m_labType.Text = info.Type.ToString();
             m_labType.Tag = param;
+            m_labID.Tag = param;
         }
 
         private void m_listTrigger_AfterSelect(object sender, TreeViewEventArgs e)
@@ -212,19 +216,55 @@ namespace Sceneplay.ui
 
         private void m_labID_TextChanged(object sender, EventArgs e)
         {
-            //var param = (indexAndTriggerID)m_labID.Tag;
-            //if (param == null)
-            //    return;
-            //var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
-            //int id;
-            //bool result = Int32.TryParse(m_labID.Text, out id);
-            //if (!result)
-            //{
-            //    MessageBox.Show("此处应该是数字");
-            //    m_labID.Text = cfg.ID.ToString();
-            //    return;
-            //}
-            //cfg.ID = id;
+            var param = (indexAndTriggerID)m_labID.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            int id;
+            bool result = Int32.TryParse(m_labID.Text, out id);
+            if (!result)
+            {
+                MessageBox.Show("此处应该是数字");
+                m_labID.Text = cfg.ID.ToString();
+                return;
+            }
+            var vRet = FileManager.TriggerCfgMgr.ChangeTriggerID(param.Index, param.TriggerID, id);
+            if(vRet)
+            {
+                m_labID.Text = id.ToString();
+                if (param.Index >= 0)
+                {
+                    TreeNode newNode = null;
+                    foreach (var obj in m_RootNode.Nodes)
+                    {
+                        var node = (TreeNode)obj;
+                        if((int)node.Tag == id)
+                        {
+                            newNode = node;
+                            break;
+                        }
+                    }
+                    var changeNode = m_listTrigger.SelectedNode;
+                    CreateTriggerInfoList(param.TriggerID, changeNode.Parent);
+                    CreateTriggerInfoList(id, newNode);
+                }
+                else
+                {
+                    TreeNode newNode = null;
+                    foreach (var obj in m_RootNode.Nodes)
+                    {
+                        var node = (TreeNode)obj;
+                        var tag = (indexAndTriggerID)node.Tag;
+                        if(tag.TriggerID == id)
+                        {
+                            newNode = node;
+                            break;
+                        }
+                    }
+                    CreateTriggerInfoList(param.TriggerID, newNode);
+                    m_listTrigger.Nodes.Remove(m_listTrigger.SelectedNode);
+                }
+            }
         }
 
         private void m_labID_Enter(object sender, EventArgs e)

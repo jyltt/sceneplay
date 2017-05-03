@@ -132,6 +132,8 @@ namespace Sceneplay.data
             var list = m_TriggerCfgList[trigger_id];
             if (list.Count <= index)
                 return null;
+            if (index < 0)
+                return list[0];
             return list[index];
         }
 
@@ -150,6 +152,44 @@ namespace Sceneplay.data
                 return true;
             }
             return false; 
+        }
+
+        public bool ChangeTriggerID(int index, int old_id, int new_id)
+        {
+            if (!m_TriggerCfgList.ContainsKey(old_id))
+                return false;
+            var cfgList = m_TriggerCfgList[old_id];
+            if (cfgList.Count <= index)
+                return false;
+            if (m_TriggerCfgList.ContainsKey(new_id))
+            {
+                var ret = MessageBox.Show("新触发器id(" + new_id.ToString() + ")已存在,是否合并", "触发器id冲突", MessageBoxButtons.YesNo);
+                if (ret == DialogResult.No)
+                    return false;
+            }
+            else
+            {
+                m_TriggerCfgList[new_id] = new List<TriggerCfg>();
+            }
+            if (index < 0)
+            {
+                foreach(var cfg in cfgList)
+                {
+                    cfg.ID = new_id;
+                    m_TriggerCfgList[new_id].Add(cfg);
+                }
+                m_TriggerCfgList.Remove(old_id);
+            }
+            else
+            {
+                var cfg = cfgList[index];
+                cfg.ID = new_id;
+                m_TriggerCfgList[new_id].Add(cfg);
+                m_TriggerCfgList[old_id].RemoveAt(index);
+                if (m_TriggerCfgList[old_id].Count == 0)
+                    m_TriggerCfgList.Remove(old_id);
+            }
+            return true;
         }
     }
 }
