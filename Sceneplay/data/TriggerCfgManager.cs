@@ -191,5 +191,40 @@ namespace Sceneplay.data
             }
             return true;
         }
+
+        public void CreateNewTrigger(int new_id)
+        {
+            List<TriggerCfg> _cfgList;
+            if (m_TriggerCfgList.ContainsKey(new_id))
+            {
+                _cfgList = m_TriggerCfgList[new_id];
+            }
+            else
+            {
+                _cfgList = new List<TriggerCfg>();
+                m_TriggerCfgList[new_id] = _cfgList;
+            }
+            _cfgList.Add(new TriggerCfg(new_id));
+        }
+
+        public bool DeleteTrigger(int trigger_id, int index)
+        {
+            if (!m_TriggerCfgList.ContainsKey(trigger_id))
+                return false;
+            var _cfgList = m_TriggerCfgList[trigger_id];
+            if (index >= _cfgList.Count)
+                return false;
+            if (index < 0)
+            {
+                m_TriggerCfgList.Remove(trigger_id);
+            }
+            else
+            {
+                _cfgList.RemoveAt(index);
+                if (_cfgList.Count == 0)
+                    m_TriggerCfgList.Remove(trigger_id);
+            }
+            return true;
+        }
     }
 }

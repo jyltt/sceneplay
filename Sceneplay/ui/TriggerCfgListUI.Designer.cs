@@ -52,8 +52,8 @@
             this.m_btnSure = new System.Windows.Forms.Button();
             this.m_btnCancel = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.m_btnAdd = new System.Windows.Forms.Button();
             this.m_btnDelete = new System.Windows.Forms.Button();
+            this.m_btnAdd = new System.Windows.Forms.Button();
             this.m_groupID.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -77,7 +77,7 @@
             this.m_listTrigger.Location = new System.Drawing.Point(0, 0);
             this.m_listTrigger.Name = "m_listTrigger";
             this.m_listTrigger.Size = new System.Drawing.Size(122, 411);
-            this.m_listTrigger.TabIndex = 0;
+            this.m_listTrigger.TabIndex = 1;
             this.m_listTrigger.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.m_listTrigger_DrawNode);
             this.m_listTrigger.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.m_listTrigger_AfterSelect);
             // 
@@ -98,8 +98,8 @@
             this.m_labID.Name = "m_labID";
             this.m_labID.Size = new System.Drawing.Size(85, 21);
             this.m_labID.TabIndex = 0;
-            this.m_labID.TextChanged += new System.EventHandler(this.m_labID_TextChanged);
             this.m_labID.Enter += new System.EventHandler(this.m_labID_Enter);
+            this.m_labID.Leave += new System.EventHandler(this.m_labID_Leave);
             // 
             // groupBox2
             // 
@@ -248,7 +248,7 @@
             this.groupBox9.Location = new System.Drawing.Point(13, 170);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(415, 87);
-            this.groupBox9.TabIndex = 1;
+            this.groupBox9.TabIndex = 0;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "选项备注";
             // 
@@ -275,7 +275,7 @@
             this.m_panel.Location = new System.Drawing.Point(122, 0);
             this.m_panel.Name = "m_panel";
             this.m_panel.Size = new System.Drawing.Size(525, 290);
-            this.m_panel.TabIndex = 2;
+            this.m_panel.TabIndex = 0;
             // 
             // panel1
             // 
@@ -306,7 +306,7 @@
             this.m_btnCancel.Margin = new System.Windows.Forms.Padding(10);
             this.m_btnCancel.Name = "m_btnCancel";
             this.m_btnCancel.Size = new System.Drawing.Size(75, 36);
-            this.m_btnCancel.TabIndex = 0;
+            this.m_btnCancel.TabIndex = 1;
             this.m_btnCancel.Text = "取消";
             this.m_btnCancel.UseVisualStyleBackColor = true;
             this.m_btnCancel.Click += new System.EventHandler(this.m_btnCancel_Click);
@@ -322,15 +322,6 @@
             this.panel2.Size = new System.Drawing.Size(122, 438);
             this.panel2.TabIndex = 4;
             // 
-            // m_btnAdd
-            // 
-            this.m_btnAdd.Location = new System.Drawing.Point(96, 412);
-            this.m_btnAdd.Name = "m_btnAdd";
-            this.m_btnAdd.Size = new System.Drawing.Size(20, 23);
-            this.m_btnAdd.TabIndex = 1;
-            this.m_btnAdd.Text = "+";
-            this.m_btnAdd.UseVisualStyleBackColor = true;
-            // 
             // m_btnDelete
             // 
             this.m_btnDelete.Location = new System.Drawing.Point(70, 412);
@@ -339,6 +330,17 @@
             this.m_btnDelete.TabIndex = 1;
             this.m_btnDelete.Text = "-";
             this.m_btnDelete.UseVisualStyleBackColor = true;
+            this.m_btnDelete.Click += new System.EventHandler(this.m_btnDelete_Click);
+            // 
+            // m_btnAdd
+            // 
+            this.m_btnAdd.Location = new System.Drawing.Point(96, 412);
+            this.m_btnAdd.Name = "m_btnAdd";
+            this.m_btnAdd.Size = new System.Drawing.Size(20, 23);
+            this.m_btnAdd.TabIndex = 1;
+            this.m_btnAdd.Text = "+";
+            this.m_btnAdd.UseVisualStyleBackColor = true;
+            this.m_btnAdd.Click += new System.EventHandler(this.m_btnAdd_Click);
             // 
             // TriggerCfgListUI
             // 

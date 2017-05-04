@@ -16,7 +16,7 @@ namespace Sceneplay
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ui.TriggerCfgListUI());
+            Application.Run(new MainUI());
         }
     }
 }

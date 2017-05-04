@@ -69,5 +69,16 @@ namespace Sceneplay.data
             m_strParam = _info_list[6];
             m_strEffect = _info_list[7];
         }
+        public TriggerCfg(int trigger_id)
+        {
+            m_nID = trigger_id;
+            m_strEffect = "0";
+            m_strParam = "0";
+            m_strRemark = "0";
+            m_strRole = "0";
+            m_nCamp = 0;
+            m_nCount = 0;
+            m_nType = 0;
+        }
     }
 }

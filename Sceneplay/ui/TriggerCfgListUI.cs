@@ -25,12 +25,15 @@ namespace Sceneplay.ui
         }
         string m_curLab="";
         TreeNode m_RootNode;
+        int m_curTriggerid;
+        int m_curIndex;
         public TriggerCfgListUI()
         {
             InitializeComponent();
             m_RootNode = new TreeNode("root");
             m_listTrigger.Nodes.Add(m_RootNode);
             m_RootNode.Expand();
+            m_listTrigger.SelectedNode = m_RootNode;
             CreateTriggerList();
         }
 
@@ -49,6 +52,8 @@ namespace Sceneplay.ui
 
         void CreateTriggerInfoList(int trigger_id, TreeNode parent_node)
         {
+            if (m_curTriggerid == trigger_id)
+                m_listTrigger.SelectedNode = parent_node;
             parent_node.Nodes.Clear();
             var _infoListCount = FileManager.TriggerCfgMgr.GetTriggerList(trigger_id);
             for(int i=0;i<_infoListCount;++i)
@@ -56,13 +61,21 @@ namespace Sceneplay.ui
                 var node = new TreeNode(i.ToString());
                 node.Tag = new indexAndTriggerID(trigger_id, i);
                 parent_node.Nodes.Add(node);
+                if (m_curTriggerid == trigger_id && i == m_curIndex)
+                    m_listTrigger.SelectedNode = node;
+            }
+            if (parent_node.Nodes.Count <= 0)
+            {
+                parent_node.Remove();
+                if (parent_node == m_listTrigger.SelectedNode)
+                    m_listTrigger.SelectedNode = m_RootNode;
             }
         }
 
-        void UpdateTriggerIDUI(int trigger_id)
+        void UpdateTriggerIDUI(int trigger_id, int index = -1)
         {
+            m_labID.Tag = new indexAndTriggerID(trigger_id, index);
             m_labID.Text = trigger_id.ToString();
-            m_labID.Tag = new indexAndTriggerID(trigger_id, -1);
         }
 
         void UpdateTriggerInfoUI(int trigger_id, int index)
@@ -71,21 +84,20 @@ namespace Sceneplay.ui
             if (info == null)
                 return;
             var param = new indexAndTriggerID(trigger_id, index);
-            m_labCamp.Text = info.Camp.ToString();
             m_labCamp.Tag = param;
-            m_labCount.Text = info.Count.ToString();
+            m_labCamp.Text = info.Camp.ToString();
             m_labCount.Tag = param;
-            m_labEffect.Text = info.Effect;
+            m_labCount.Text = info.Count.ToString();
             m_labEffect.Tag = param;
-            m_labParam.Text = info.Param;
+            m_labEffect.Text = info.Effect;
             m_labParam.Tag = param;
-            m_labRemark.Text = info.Remark;
+            m_labParam.Text = info.Param;
             m_labRemark.Tag = param;
-            m_labRole.Text = info.Role;
+            m_labRemark.Text = info.Remark;
             m_labRole.Tag = param;
-            m_labType.Text = info.Type.ToString();
+            m_labRole.Text = info.Role;
             m_labType.Tag = param;
-            m_labID.Tag = param;
+            m_labType.Text = info.Type.ToString();
         }
 
         private void m_listTrigger_AfterSelect(object sender, TreeViewEventArgs e)
@@ -97,14 +109,12 @@ namespace Sceneplay.ui
             int index;
             switch(nodeParent.Length)
             {
-                case 1:
-                    m_panel.Visible = false;
-                    m_groupID.Visible = false;
-                    break;
                 case 2:
                     m_panel.Visible = false;
                     m_groupID.Visible = true;
                     triggerid = (int)curNode.Tag;
+                    m_curIndex = -1;
+                    m_curTriggerid = triggerid;
                     UpdateTriggerIDUI(triggerid);
                     break;
                 case 3:
@@ -113,8 +123,16 @@ namespace Sceneplay.ui
                     var info = (indexAndTriggerID)curNode.Tag;
                     triggerid = info.TriggerID;
                     index = info.Index;
-                    UpdateTriggerIDUI(triggerid);
+                    m_curIndex = index;
+                    m_curTriggerid = triggerid ;
+                    UpdateTriggerIDUI(triggerid, index);
                     UpdateTriggerInfoUI(triggerid, index);
+                    break;
+                default:
+                    m_curIndex = -1;
+                    m_curTriggerid = -1;
+                    m_panel.Visible = false;
+                    m_groupID.Visible = false;
                     break;
             }
         }
@@ -214,59 +232,6 @@ namespace Sceneplay.ui
             cfg.Count = count;
         }
 
-        private void m_labID_TextChanged(object sender, EventArgs e)
-        {
-            var param = (indexAndTriggerID)m_labID.Tag;
-            if (param == null)
-                return;
-            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
-            int id;
-            bool result = Int32.TryParse(m_labID.Text, out id);
-            if (!result)
-            {
-                MessageBox.Show("此处应该是数字");
-                m_labID.Text = cfg.ID.ToString();
-                return;
-            }
-            var vRet = FileManager.TriggerCfgMgr.ChangeTriggerID(param.Index, param.TriggerID, id);
-            if(vRet)
-            {
-                m_labID.Text = id.ToString();
-                if (param.Index >= 0)
-                {
-                    TreeNode newNode = null;
-                    foreach (var obj in m_RootNode.Nodes)
-                    {
-                        var node = (TreeNode)obj;
-                        if((int)node.Tag == id)
-                        {
-                            newNode = node;
-                            break;
-                        }
-                    }
-                    var changeNode = m_listTrigger.SelectedNode;
-                    CreateTriggerInfoList(param.TriggerID, changeNode.Parent);
-                    CreateTriggerInfoList(id, newNode);
-                }
-                else
-                {
-                    TreeNode newNode = null;
-                    foreach (var obj in m_RootNode.Nodes)
-                    {
-                        var node = (TreeNode)obj;
-                        var tag = (indexAndTriggerID)node.Tag;
-                        if(tag.TriggerID == id)
-                        {
-                            newNode = node;
-                            break;
-                        }
-                    }
-                    CreateTriggerInfoList(param.TriggerID, newNode);
-                    m_listTrigger.Nodes.Remove(m_listTrigger.SelectedNode);
-                }
-            }
-        }
-
         private void m_labID_Enter(object sender, EventArgs e)
         {
             m_curLab = "id";
@@ -333,6 +298,126 @@ namespace Sceneplay.ui
             e.DrawDefault = true;
         }
 
+        private void m_labID_Leave(object sender, EventArgs e)
+        {
+            var param = (indexAndTriggerID)m_labID.Tag;
+            if (param == null)
+                return;
+            var cfg = FileManager.TriggerCfgMgr.GetTriggerInfo(param.TriggerID, param.Index);
+            int id;
+            bool result = Int32.TryParse(m_labID.Text, out id);
+            if (!result)
+            {
+                MessageBox.Show("此处应该是数字");
+                m_labID.Text = cfg.ID.ToString();
+                return;
+            }
+            if (id == param.TriggerID)
+                return;
+            var vRet = FileManager.TriggerCfgMgr.ChangeTriggerID(param.Index, param.TriggerID, id);
+            if(vRet)
+            {
+                m_labID.Text = id.ToString();
+                m_curIndex = -1;
+                m_curTriggerid = id;
+                TreeNode newNode = null;
+                foreach (var obj in m_RootNode.Nodes)
+                {
+                    var node = (TreeNode)obj;
+                    if ((int)node.Tag == id)
+                    {
+                        newNode = node;
+                        break;
+                    }
+                }
+                if (newNode == null)
+                {
+                    newNode = new TreeNode(id.ToString());
+                    newNode.Tag = id;
+                    m_RootNode.Nodes.Add(newNode);
+                }
+                TreeNode changeNode;
+                if(param.Index >= 0)
+                    changeNode = m_listTrigger.SelectedNode.Parent;
+                else
+                    changeNode = m_listTrigger.SelectedNode;
+                CreateTriggerInfoList(param.TriggerID, changeNode);
+                m_listTrigger.SelectedNode = newNode;
+                CreateTriggerInfoList(id, newNode);
+            }
+        }
+
+        private void m_btnAdd_Click(object sender, EventArgs e)
+        {
+            var selectNode = m_listTrigger.SelectedNode;
+            if (selectNode == null)
+                return;
+            var len = selectNode.FullPath.Split('\\').Length;
+            int newTriggerID = 0;
+            switch(len)
+            {
+                case 1:
+                    break;
+                case 2:
+                    newTriggerID = (int)selectNode.Tag;
+                    break;
+                case 3:
+                    newTriggerID = (int)selectNode.Parent.Tag;
+                    break;
+            }
+            FileManager.TriggerCfgMgr.CreateNewTrigger(newTriggerID);
+            TreeNode newNode = null;
+            foreach (var obj in m_RootNode.Nodes)
+            {
+                var node = (TreeNode)obj;
+                if ((int)node.Tag == newTriggerID)
+                {
+                    newNode = node;
+                    break;
+                }
+            }
+            if (newNode == null)
+            {
+                newNode = new TreeNode(newTriggerID.ToString());
+                newNode.Tag = newTriggerID;
+                m_RootNode.Nodes.Add(newNode);
+            }
+            m_listTrigger.SelectedNode = newNode;
+            CreateTriggerInfoList(newTriggerID, newNode);
+        }
+
+        private void m_btnDelete_Click(object sender, EventArgs e)
+        {
+            var _selectNode = m_listTrigger.SelectedNode;
+            if (_selectNode == null)
+                return;
+            var _len = _selectNode.FullPath.Split('\\').Length;
+            int _delTriggerID;
+            int _delIndex = -1;
+            TreeNode _triggerNode;
+            switch(_len)
+            {
+                case 2:
+                    _delTriggerID = (int)_selectNode.Tag;
+                    _triggerNode = _selectNode;
+                    break;
+                case 3:
+                    var _info = (indexAndTriggerID)_selectNode.Tag;
+                    _delIndex = _info.Index;
+                    _delTriggerID = _info.TriggerID;
+                    _triggerNode = _selectNode.Parent;
+                    break;
+                default:
+                    return;
+            }
+            var ret = FileManager.TriggerCfgMgr.DeleteTrigger(_delTriggerID, _delIndex);
+            if(ret)
+            {
+                m_curTriggerid = _delTriggerID;
+                CreateTriggerInfoList(_delTriggerID, _triggerNode);
+            }
+        }
+
         public int GetChoseTriggerID()
         {
             var curNode = m_listTrigger.SelectedNode;
@@ -350,5 +435,6 @@ namespace Sceneplay.ui
             }
             return -1;
         }
+
     }
 }
