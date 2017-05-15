@@ -100,8 +100,8 @@ namespace Sceneplay.ui
             string _selectItem = (string)m_listStrID.SelectedItem;
             if (_selectItem == null)
                 return;
-            FileManager.StringCfg.Save();
-            Close();
+            if (FileManager.StringCfg.Save())
+                Close();
         }
 
         private void m_listStrID_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -109,8 +109,8 @@ namespace Sceneplay.ui
             string _selectItem = (string)m_listStrID.SelectedItem;
             if (_selectItem == null)
                 return;
-            FileManager.StringCfg.Save();
-            Close();
+            if(FileManager.StringCfg.Save())
+                Close();
         }
 
         private void m_labSearch_TextChanged(object sender, EventArgs e)

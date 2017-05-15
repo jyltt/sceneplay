@@ -283,8 +283,8 @@ namespace Sceneplay.ui
 
         private void m_btnSure_Click(object sender, EventArgs e)
         {
-            FileManager.TriggerCfgMgr.Save();
-            Close();
+            if(FileManager.TriggerCfgMgr.Save())
+                Close();
         }
 
         private void m_btnCancel_Click(object sender, EventArgs e)
