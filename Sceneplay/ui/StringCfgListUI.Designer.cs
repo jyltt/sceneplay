@@ -90,7 +90,7 @@
             this.m_labText.Multiline = true;
             this.m_labText.Name = "m_labText";
             this.m_labText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.m_labText.Size = new System.Drawing.Size(386, 457);
+            this.m_labText.Size = new System.Drawing.Size(275, 457);
             this.m_labText.TabIndex = 3;
             this.m_labText.TextChanged += new System.EventHandler(this.m_labText_TextChanged);
             // 
@@ -146,8 +146,8 @@
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.groupBox5);
             this.panel3.Controls.Add(this.m_labText);
+            this.panel3.Controls.Add(this.groupBox5);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(249, 0);
             this.panel3.Name = "panel3";
@@ -171,6 +171,7 @@
             this.m_labReference.Location = new System.Drawing.Point(3, 17);
             this.m_labReference.Multiline = true;
             this.m_labReference.Name = "m_labReference";
+            this.m_labReference.ReadOnly = true;
             this.m_labReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.m_labReference.Size = new System.Drawing.Size(105, 437);
             this.m_labReference.TabIndex = 0;

@@ -69,7 +69,8 @@ namespace Sceneplay.ui
                 id = "";
             }
             var w = new StringCfgListUI(file, id);
-            w.ShowDialog();
+            if(w.ShowDialog() != DialogResult.Yes)
+                return;
             var selectID = w.GetSelectItem();
             var selectFile = w.GetSelectFile();
             var str = "gs_" + selectFile + "." + selectID;

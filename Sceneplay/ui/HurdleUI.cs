@@ -39,6 +39,7 @@ namespace Sceneplay.ui
             if (FileManager.ConfigMgr.ExchangeHurdleID(m_curHurdleID, id))
             {
                 m_curHurdleID = id;
+                DataCenter.curHurdleId = id;
                 m_curNode.Text = newName;
             }
             else

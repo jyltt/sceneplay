@@ -68,6 +68,7 @@ namespace Sceneplay.ui
             else
             {
                 m_curSceenplayID = id;
+                DataCenter.curScreenplayId = id;
                 UpdateReferenceList();
             }
         }

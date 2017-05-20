@@ -76,7 +76,8 @@ namespace Sceneplay.ui
                 return;
             var func = (ActionTalk)screenplay.ActInfo;
             var w = new StringCfgListUI(func.File, func.ID);
-            w.ShowDialog();
+            if(w.ShowDialog() != DialogResult.Yes)
+                return;
             var selectID = w.GetSelectItem();
             if (selectID == null)
                 return;

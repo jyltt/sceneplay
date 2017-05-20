@@ -59,6 +59,7 @@ namespace Sceneplay.ui
             if (ret)
             {
                 m_listStrID.Items.Add(m_labAdd.Text);
+                m_listStrID.SelectedItem = m_labAdd.Text;
             }
             else
             {
@@ -101,7 +102,10 @@ namespace Sceneplay.ui
             if (_selectItem == null)
                 return;
             if (FileManager.StringCfg.Save())
+            {
+                DialogResult = DialogResult.Yes;
                 Close();
+            }
         }
 
         private void m_listStrID_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -110,7 +114,10 @@ namespace Sceneplay.ui
             if (_selectItem == null)
                 return;
             if(FileManager.StringCfg.Save())
+            {
+                DialogResult = DialogResult.Yes;
                 Close();
+            }
         }
 
         private void m_labSearch_TextChanged(object sender, EventArgs e)

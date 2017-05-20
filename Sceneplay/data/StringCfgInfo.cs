@@ -153,6 +153,8 @@ namespace Sceneplay
                     {
                         var funcInfo = (FuncInfo)info.ActInfo;
                         var funcCfg = FileManager.FuncCfgMgr.GetFuncCfg(funcInfo.Name);
+                        if (funcCfg == null)
+                            continue;
                         foreach(var param in funcCfg.GetParamList())
                         {
                             var paramCfg = funcCfg.GetParamInfo(param);

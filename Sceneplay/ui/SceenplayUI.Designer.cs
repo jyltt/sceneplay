@@ -32,6 +32,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.m_labRemarks = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.m_btnTrigger = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.m_labID = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -42,7 +43,6 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.m_labReference = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.m_btnTrigger = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -93,6 +93,17 @@
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "触发器";
+            // 
+            // m_btnTrigger
+            // 
+            this.m_btnTrigger.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.m_btnTrigger.Location = new System.Drawing.Point(3, 17);
+            this.m_btnTrigger.Name = "m_btnTrigger";
+            this.m_btnTrigger.Size = new System.Drawing.Size(111, 23);
+            this.m_btnTrigger.TabIndex = 0;
+            this.m_btnTrigger.Text = "button1";
+            this.m_btnTrigger.UseVisualStyleBackColor = true;
+            this.m_btnTrigger.Click += new System.EventHandler(this.m_btnTrigger_Click);
             // 
             // groupBox2
             // 
@@ -182,6 +193,7 @@
             this.m_labReference.Location = new System.Drawing.Point(3, 17);
             this.m_labReference.Multiline = true;
             this.m_labReference.Name = "m_labReference";
+            this.m_labReference.ReadOnly = true;
             this.m_labReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.m_labReference.Size = new System.Drawing.Size(105, 250);
             this.m_labReference.TabIndex = 0;
@@ -194,17 +206,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(105, 250);
             this.textBox1.TabIndex = 0;
-            // 
-            // m_btnTrigger
-            // 
-            this.m_btnTrigger.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_btnTrigger.Location = new System.Drawing.Point(3, 17);
-            this.m_btnTrigger.Name = "m_btnTrigger";
-            this.m_btnTrigger.Size = new System.Drawing.Size(111, 23);
-            this.m_btnTrigger.TabIndex = 0;
-            this.m_btnTrigger.Text = "button1";
-            this.m_btnTrigger.UseVisualStyleBackColor = true;
-            this.m_btnTrigger.Click += new System.EventHandler(this.m_btnTrigger_Click);
             // 
             // SceenplayUI
             // 

@@ -31,10 +31,10 @@ namespace Sceneplay.ui
             if (_funcInfo == null)
                 return;
             var func = _funcInfo.ActInfo as FuncInfo;
-            var funcInfo = FileManager.FuncCfgMgr.GetFuncCfg(func.Name);
-            foreach (var type in funcInfo.GetParamList())
+            var funcCfg = FileManager.FuncCfgMgr.GetFuncCfg(func.Name);
+            foreach (var type in funcCfg.GetParamList())
             {
-                var param = funcInfo.GetParamInfo(type);
+                var param = funcCfg.GetParamInfo(type);
                 BoxItem item = new BoxItem();
                 item.Text = type + param.DescribeSimple;
                 item.Value = type;

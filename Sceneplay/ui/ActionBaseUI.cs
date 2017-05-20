@@ -26,7 +26,11 @@ namespace Sceneplay.ui
             CreateFuncList();
             m_listFunc.SelectedIndex = FindIndexInFuncList(_funcInfo.ActInfo.Name);
             m_labRemarks.Text = _funcInfo.Describe.Replace("\\n", "\r\n");
-            m_labFuncRemarks.Text = FileManager.FuncCfgMgr.GetFuncCfg(_funcInfo.ActInfo.Name).Describe;
+            var _funcCfg = FileManager.FuncCfgMgr.GetFuncCfg(_funcInfo.ActInfo.Name);
+            if (_funcCfg == null)
+                MessageBox.Show(_funcInfo.ActInfo.Name + " 函数配置找不到了！！");
+            else
+                m_labFuncRemarks.Text = _funcCfg.Describe;
             UpdateReferenceList();
         }
 
@@ -46,10 +50,10 @@ namespace Sceneplay.ui
         {
             foreach (var dic in FileManager.FuncCfgMgr.FileList)
             {
-                var info = FileManager.FuncCfgMgr.GetFuncCfg(dic);
+                var cfg = FileManager.FuncCfgMgr.GetFuncCfg(dic);
                 BoxItem item = new BoxItem();
-                item.Text = info.Name + info.DescribeSimple;
-                item.Value = info.Name;
+                item.Text = cfg.Name + cfg.DescribeSimple;
+                item.Value = cfg.Name;
                 m_listFunc.Items.Add(item);
             }
         }

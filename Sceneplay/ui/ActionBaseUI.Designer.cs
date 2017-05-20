@@ -158,6 +158,7 @@
             this.m_labReference.Location = new System.Drawing.Point(3, 17);
             this.m_labReference.Multiline = true;
             this.m_labReference.Name = "m_labReference";
+            this.m_labReference.ReadOnly = true;
             this.m_labReference.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.m_labReference.Size = new System.Drawing.Size(105, 372);
             this.m_labReference.TabIndex = 0;
