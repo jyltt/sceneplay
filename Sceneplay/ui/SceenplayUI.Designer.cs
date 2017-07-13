@@ -33,6 +33,7 @@
             this.m_labRemarks = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.m_btnTrigger = new System.Windows.Forms.Button();
+            this.m_labTriggerId = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.m_labID = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -87,6 +88,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.m_btnTrigger);
+            this.groupBox3.Controls.Add(this.m_labTriggerId);
             this.groupBox3.Location = new System.Drawing.Point(125, 3);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(117, 43);
@@ -97,13 +99,22 @@
             // m_btnTrigger
             // 
             this.m_btnTrigger.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.m_btnTrigger.Location = new System.Drawing.Point(3, 17);
+            this.m_btnTrigger.Location = new System.Drawing.Point(82, 17);
             this.m_btnTrigger.Name = "m_btnTrigger";
-            this.m_btnTrigger.Size = new System.Drawing.Size(111, 23);
+            this.m_btnTrigger.Size = new System.Drawing.Size(32, 23);
             this.m_btnTrigger.TabIndex = 0;
-            this.m_btnTrigger.Text = "button1";
+            this.m_btnTrigger.Text = "...";
             this.m_btnTrigger.UseVisualStyleBackColor = true;
             this.m_btnTrigger.Click += new System.EventHandler(this.m_btnTrigger_Click);
+            // 
+            // m_labTriggerId
+            // 
+            this.m_labTriggerId.Dock = System.Windows.Forms.DockStyle.Left;
+            this.m_labTriggerId.Location = new System.Drawing.Point(3, 17);
+            this.m_labTriggerId.Name = "m_labTriggerId";
+            this.m_labTriggerId.Size = new System.Drawing.Size(79, 21);
+            this.m_labTriggerId.TabIndex = 1;
+            this.m_labTriggerId.Leave += new System.EventHandler(this.m_labTriggerId_Leave);
             // 
             // groupBox2
             // 
@@ -225,6 +236,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -253,5 +265,6 @@
         private System.Windows.Forms.TextBox m_labReference;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button m_btnTrigger;
+        private System.Windows.Forms.TextBox m_labTriggerId;
     }
 }
