@@ -33,18 +33,21 @@ namespace Sceneplay.ui
                 return;
             var func = (FuncInfo)screenplay.ActInfo;
             var param = func.GetParamValue(m_paramName);
-            var match = Regex.Match(param, @"gs_([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)");
             string file, id;
-            if (match.Groups.Count > 1)
-            {
-                file = match.Groups[1].ToString();
-                id = match.Groups[2].ToString();
-            }
-            else
+            do
             {
                 file = "screenplay";
                 id = "";
-            }
+                if (param == null)
+                    break;
+                var match = Regex.Match(param, @"gs_([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)");
+                if (match.Groups.Count > 1)
+                {
+                    file = match.Groups[1].ToString();
+                    id = match.Groups[2].ToString();
+                    break;
+                }
+            } while (false);
             m_btnChangeStr.Text = "gs_"+file+"."+id;
             m_labString.Text = FileManager.StringCfg.GetString(file, id);
         }
